@@ -11,7 +11,7 @@ function renderText(text) {
     );
 }
 
-function FeatureCard({item, iconSvg, imgData, variant = "grid", large = false}) {
+function FeatureCard({item, iconSvg, imgData, variant = "grid", large = false, compact = false}) {
   const isCard = variant === "bento";
   const wrapperCls = isCard
     ? `relative h-full rounded-2xl ring-1 ring-gray-200 dark:ring-gray-700 bg-white dark:bg-gray-800/50 ${large ? "p-8 lg:p-10" : "p-6"} hover:ring-primary-300 dark:hover:ring-primary-600 hover:shadow-lg transition-all duration-300 overflow-hidden`
@@ -20,7 +20,7 @@ function FeatureCard({item, iconSvg, imgData, variant = "grid", large = false}) 
   const iconWrapper = large ? "w-14 h-14 lg:w-16 lg:h-16" : "w-11 h-11 lg:w-12 lg:h-12";
   const iconSize = large ? "height:1.75rem;width:auto" : "height:1.4rem;width:auto";
 
-  const titleSize = large ? "text-2xl lg:text-3xl" : isCard ? "text-lg lg:text-xl" : "text-xl";
+  const titleSize = large ? "text-2xl lg:text-3xl" : isCard ? "text-lg lg:text-xl" : compact ? "text-base" : "text-xl";
   const descSize = large ? "text-base lg:text-lg" : "text-sm lg:text-base";
 
   return (
@@ -38,7 +38,7 @@ function FeatureCard({item, iconSvg, imgData, variant = "grid", large = false}) 
           dangerouslySetInnerHTML={{__html: renderText(item.name)}}
         />
       )}
-      {item.description && (
+      {item.description && !compact && (
         <p class={`${descSize} text-gray-600 dark:text-gray-400 leading-relaxed`} dangerouslySetInnerHTML={{__html: renderText(item.description)}} />
       )}
       {large && imgData?.src && (
@@ -50,11 +50,14 @@ function FeatureCard({item, iconSvg, imgData, variant = "grid", large = false}) 
   );
 }
 
-function GridLayout({items, iconMap, item_images}) {
+function GridLayout({items, iconMap, item_images, compact = false}) {
+  const gridCls = compact
+    ? "grid grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-8 max-w-4xl mx-auto"
+    : "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10 lg:gap-12";
   return (
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10 lg:gap-12">
+    <div class={gridCls}>
       {items.map((item, idx) => (
-        <FeatureCard key={idx} item={item} iconSvg={item.icon ? iconMap[item.icon] : null} imgData={item_images?.[String(idx)]} variant="grid" />
+        <FeatureCard key={idx} item={item} iconSvg={item.icon ? iconMap[item.icon] : null} imgData={item_images?.[String(idx)]} variant="grid" compact={compact} />
       ))}
     </div>
   );
@@ -109,7 +112,7 @@ export const FeaturesBlock = ({content = {}, design = {}, icon_svgs = {}, item_i
           (layout === "bento" ? (
             <BentoLayout items={items} iconMap={icon_svgs} item_images={item_images} />
           ) : (
-            <GridLayout items={items} iconMap={icon_svgs} item_images={item_images} />
+            <GridLayout items={items} iconMap={icon_svgs} item_images={item_images} compact={design.compact === true} />
           ))}
       </div>
     </div>
