@@ -28,7 +28,7 @@ Shahar's intention (2026-11-05): on every site, the footer's background differs 
 
 Follows it: baharal. Its sections alternate plain/alt (alt = `var(--hb-color-footer-bg)`), the footer is alt, so its last section is always plain (its `CLAUDE.md`).
 
-Doesn't follow it yet: eztechrepair and alm-builders. Their last block (`#contact`) uses `var(--hb-color-footer-bg)` as its background (the "alt section" tint). That worked while upstream didn't apply the footer tokens, because the footer showed the page background. Since `fix(theme): apply the footer color tokens`, the footer and `#contact` share one color (eztechrepair: `#fff4ec` light, `#0c0c1f` dark).
+Doesn't follow it yet: eztechrepair, alm-builders and atlas-kosher-tours. Their last block (`#contact`) uses `var(--hb-color-footer-bg)` as its background (the "alt section" tint). That worked while upstream didn't apply the footer tokens, because the footer showed the page background. Since `fix(theme): apply the footer color tokens`, the footer and `#contact` share one color (eztechrepair: `#fff4ec` light, `#0c0c1f` dark).
 
 ## Merging upstream
 
