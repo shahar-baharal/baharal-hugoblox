@@ -27,6 +27,7 @@
      target="_blank" rel="noopener"
      {{ end }}
   >
+    {{ with $menuItem.Params.icon }}{{ partial "functions/get_icon" (dict "name" . "attributes" `class="inline-block me-1 align-[-0.125em]" style="height: 1em"`) }}{{ end }}
     {{ $menuItem.Name }}
   </a>
   {{ end }}
