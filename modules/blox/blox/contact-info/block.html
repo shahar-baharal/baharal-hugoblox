@@ -52,9 +52,6 @@
 {{ if eq (printf "%T" $connect_text_raw) "string" }}
   {{ $connect_text = strings.TrimSpace $connect_text_raw }}
 {{ end }}
-{{ if not $connect_text }}
-  {{ $connect_text = "I'm always open to discussing new projects, opportunities, or just having a chat." }}
-{{ end }}
 
 {{ $address_lines := slice }}
 {{ $address_raw := index $content "address" }}
@@ -307,14 +304,16 @@
         
         {{/* Left: Email & CTA */}}
         <div class="space-y-6">
+          {{ with $connect_text }}
           <div>
             <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">
               {{ $connect_title_single }}
             </h3>
             <p class="text-gray-600 dark:text-gray-400">
-              {{ $connect_text }}
+              {{ . }}
             </p>
           </div>
+          {{ end }}
           
           {{ with $email }}
           {{/* Email with click-to-copy */}}
