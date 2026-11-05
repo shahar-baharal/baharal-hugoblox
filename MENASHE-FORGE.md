@@ -16,7 +16,7 @@ What changed: `git log upstream/main..main -- modules/blox`.
 
 | Param (`params.hugoblox.…`) | Effect |
 |---|---|
-| `hooks.<hook>` (list of partial names; `body_end` for `body-end`) | Renders those partials at that hook, so a module's partials can hook in. Upstream only reads the site's own `layouts/_partials/hooks/<hook>/` |
+| `hooks.<hook>` (list of partial names; `body_end` for `body-end`) | Renders those partials at that hook, so a module's partials can hook in. Upstream only reads the site's own `layouts/_partials/hooks/<hook>/`. The fork ships `set-header-height` (sets `--header-h` to the sticky header's height, for a hero that fills the screen below it) |
 | `smooth_scroll = true` | Smooth scrolling for in-page links (`motion-safe`) |
 | `header.cta.icon` (a `get_icon` name, e.g. `hero/phone`, `brands/whatsapp`) | The header CTA becomes one icon link on every screen size, `header.cta.text` as its accessible name; the mobile menu drops its CTA copy |
 | `header.cta.new_tab = true` | The header CTA opens in a new tab |
@@ -28,6 +28,8 @@ What changed: `git log upstream/main..main -- modules/blox`.
 | `design.media_frame: false` (hero) | The hero image drops its shadow and ring, e.g. for a transparent PNG |
 | `colors.on_primary` in a theme pack's `light`/`dark` table (a color) | Text color on primary-filled buttons (hero `solid`, `contact-info`), default white. For a light dark-mode primary, set the dark one to the dark background |
 | `data/contact.yaml` (`email`, `phone`, `whatsapp`) | `contact-info` falls back to it after the block's `content`, before the author profile: one source for every language |
+| `params.icon` on a `footer` menu entry (a `get_icon` name) | That icon before the entry's name |
+| `params.root_absolute: true` on a `footer` menu entry | Links to the site-root path, not the language's (e.g. `/admin/` from `/he/`), in a new tab |
 | `whatsapp` in `contact-info`'s `content` (or `data/contact.yaml`, or the author profile): digits after `wa.me/`, country code first, no `+` | A WhatsApp row after the phone, opening a chat in a new tab |
 
 ## Planned: a footer that stands apart from the last block

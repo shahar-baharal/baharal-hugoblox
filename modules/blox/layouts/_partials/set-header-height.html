@@ -1,0 +1,18 @@
+{{/*
+  Sets --header-h on :root to the sticky header's rendered height, for a hero
+  that fills the screen below it:
+    css_style: "min-height: calc(100dvh - var(--header-h, 0px));"
+  CSS can't measure a sibling's height. Opt in with
+  hugoblox.hooks.body_end = ["set-header-height"].
+*/}}
+<script>
+(function () {
+  var hdr = document.getElementById('site-header');
+  if (!hdr) return;
+  function sync() {
+    document.documentElement.style.setProperty('--header-h', hdr.offsetHeight + 'px');
+  }
+  sync();
+  window.addEventListener('resize', sync);
+})();
+</script>
