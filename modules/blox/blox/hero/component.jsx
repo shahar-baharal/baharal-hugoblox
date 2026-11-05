@@ -269,14 +269,22 @@ export const HeroBlock = ({content, design, _id, icon_svg, secondary_icon_svg, m
 
   const mediaEl = content.media ? <Media media={content.media} mediaImage={media_image} mediaImageDark={media_image_dark} frame={design?.media_frame !== false} /> : null;
 
+  // design.media_mobile: "small" swaps the stacked image below lg for a small decorative copy above the text
+  const mobileSmall = design?.media_mobile === "small" && media_image;
+
   // Split layout: two-column grid, optionally reversed
   if (layout.grid) {
     return (
       <div class="relative isolate px-6 lg:px-8">
         <div class={`mx-auto ${layout.container} ${sizeClasses}`}>
+          {mobileSmall && (
+            <div class="lg:hidden flex justify-center mb-6">
+              <img src={media_image.src} srcset={media_image.srcset} sizes="160px" alt="" aria-hidden="true" loading="eager" class="w-40 h-auto rounded-xl" />
+            </div>
+          )}
           <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             <div class={layout.reverse ? "lg:ltr:order-2 lg:rtl:order-1" : "lg:rtl:order-2"}>{contentStack}</div>
-            {mediaEl && <div class={layout.reverse ? "lg:ltr:order-1 lg:rtl:order-2" : "lg:rtl:order-1"}>{mediaEl}</div>}
+            {mediaEl && <div class={`${mobileSmall ? "hidden lg:block" : ""} ${layout.reverse ? "lg:ltr:order-1 lg:rtl:order-2" : "lg:rtl:order-1"}`}>{mediaEl}</div>}
           </div>
         </div>
       </div>

@@ -24,6 +24,7 @@ What changed: `git log upstream/main..main -- modules/blox`.
 
 | Block or data option | Effect |
 |---|---|
+| `design.media_mobile: small` (hero, split layouts) | Below `lg`, a small decorative copy of the image above the text replaces the full image stacked under it, so the call to action stays on the first screen |
 | `design.media_frame: false` (hero) | The hero image drops its shadow and ring, e.g. for a transparent PNG |
 | `colors.on_primary` in a theme pack's `light`/`dark` table (a color) | Text color on primary-filled buttons (hero `solid`, `contact-info`), default white. For a light dark-mode primary, set the dark one to the dark background |
 | `data/contact.yaml` (`email`, `phone`, `whatsapp`) | `contact-info` falls back to it after the block's `content`, before the author profile: one source for every language |
