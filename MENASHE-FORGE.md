@@ -53,4 +53,4 @@ Then bump a site to the new commit (`hugo mod get github.com/shahar-baharal/baha
 
 ## Upstream PRs
 
-None sent. Upstream hasn't merged a PR since 2026-03-30; sending fixes waits until it does.
+None, by choice (Shahar, 2026-11-05): the fork is kept mergeable as a way back to upstream, not as a source of upstream PRs. Upstream hadn't merged a PR since 2026-03-30.
