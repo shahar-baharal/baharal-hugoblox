@@ -3,7 +3,7 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": {{site.Params.hugoblox.identity.type | humanize | default "Organization"}},
+  "@type": {{site.Params.hugoblox.identity.type | default "Organization"}},
   "@id": {{site.BaseURL}},
   "name": {{$branding.organization}},
   "logo": {{ partial "functions/get_logo_url" . }},
