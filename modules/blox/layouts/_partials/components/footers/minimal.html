@@ -17,7 +17,11 @@
 {{ with $menu }}
 <nav class="flex flex-wrap justify-center gap-x-8 gap-y-2 py-4">
   {{ range $index, $menuItem := . }}
-  <a href="{{ $menuItem.URL | relLangURL }}"
+  {{ $href := $menuItem.URL }}
+  {{ if not (findRE `^https?://` $href) }}
+    {{ $href = $href | relLangURL }}
+  {{ end }}
+  <a href="{{ $href }}"
      class="text-base font-medium text-gray-500 hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-300"
      {{ if findRE `^http` $menuItem.URL }}
      target="_blank" rel="noopener"
