@@ -115,10 +115,19 @@
 {{ $profile := partial "functions/get_author_profile" $author }}
 {{ $authors := partialCached "functions/get_authors_data" $page site.Language.Lang }}
 {{ $author_data := index $authors (urlize $author) }}
+{{/* Optional data/contact.yaml: one email and phone for every language; content wins, the author profile is the last fallback */}}
+{{ $contact_data := hugo.Data.contact }}
+{{ if not (reflect.IsMap $contact_data) }}{{ $contact_data = dict }}{{ end }}
 {{ $email := "" }}
 {{ $email_raw := index $content "email" }}
 {{ if eq (printf "%T" $email_raw) "string" }}
   {{ $email = strings.TrimSpace $email_raw }}
+{{ end }}
+{{ if not $email }}
+  {{ $data_email_raw := index $contact_data "email" }}
+  {{ if eq (printf "%T" $data_email_raw) "string" }}
+    {{ $email = strings.TrimSpace $data_email_raw }}
+  {{ end }}
 {{ end }}
 {{ if and (not $email) $author_data (reflect.IsMap $author_data) }}
   {{ $author_email_raw := index $author_data "email" }}
@@ -131,6 +140,12 @@
 {{ $phone_raw := index $content "phone" }}
 {{ if eq (printf "%T" $phone_raw) "string" }}
   {{ $phone = strings.TrimSpace $phone_raw }}
+{{ end }}
+{{ if not $phone }}
+  {{ $data_phone_raw := index $contact_data "phone" }}
+  {{ if eq (printf "%T" $data_phone_raw) "string" }}
+    {{ $phone = strings.TrimSpace $data_phone_raw }}
+  {{ end }}
 {{ end }}
 {{ if and (not $phone) $author_data (reflect.IsMap $author_data) }}
   {{ $author_phone_raw := index $author_data "phone" }}

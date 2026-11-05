@@ -22,6 +22,10 @@ What changed: `git log upstream/main..main -- modules/blox`.
 | `header.cta.new_tab = true` | The header CTA opens in a new tab |
 | `header.logo_dark` (an asset path, e.g. `media/logo-dark.png`) | With a PNG logo: that image replaces it in dark mode |
 
+| Block or data option | Effect |
+|---|---|
+| `data/contact.yaml` (`email`, `phone`) | `contact-info` falls back to it after the block's `content`, before the author profile: one source for every language |
+
 ## Planned: a footer that stands apart from the last block
 
 Shahar's intention (2026-11-05): on every site, the footer's background differs from the last block's, so a visitor sees two parts, not one. Each site used to get this by hand. The plan is to make it the fork's default behavior; it isn't built yet.
