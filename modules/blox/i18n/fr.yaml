@@ -318,3 +318,6 @@
 
 - id: poweredby_button
   translation: 'Créer le vôtre →'
+
+- id: skip_to_main
+  translation: Aller au contenu principal

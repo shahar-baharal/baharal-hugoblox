@@ -645,3 +645,6 @@
 
 - id: helpful
   translation: helpful
+
+- id: skip_to_main
+  translation: Skip to main content

@@ -263,3 +263,6 @@
 
 - id: published_with
   translation: פורסם באמצעות {hugoblox} — בונה האתרים החינמי, בעל {repo_link}קוד פתוח{/repo_link}, שמעצים יוצרים.
+
+- id: skip_to_main
+  translation: דלג לתוכן הראשי
