@@ -24,6 +24,7 @@ What changed: `git log upstream/main..main -- modules/blox`.
 
 | Block or data option | Effect |
 |---|---|
+| `colors.on_primary` in a theme pack's `light`/`dark` table (a color) | Text color on primary-filled buttons (hero `solid`, `contact-info`), default white. For a light dark-mode primary, set the dark one to the dark background |
 | `data/contact.yaml` (`email`, `phone`, `whatsapp`) | `contact-info` falls back to it after the block's `content`, before the author profile: one source for every language |
 | `whatsapp` in `contact-info`'s `content` (or `data/contact.yaml`, or the author profile): digits after `wa.me/`, country code first, no `+` | A WhatsApp row after the phone, opening a chat in a new tab |
 

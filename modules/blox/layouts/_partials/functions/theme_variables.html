@@ -13,6 +13,9 @@
   {{ partial "functions/generate_color_scale" (dict "name" "gray" "color" $data.colors.neutral) }}
 {{ end }}
 
+{{/* Text on primary-filled buttons: white unless the pack sets colors.on_primary (e.g. dark text on a light dark-mode primary) */}}
+--hb-color-on-primary: {{ $data.colors.on_primary | default "#ffffff" }};
+
 {{/* 2. Semantic Surface Variables */}}
 --hb-color-background: {{ $data.surfaces.background | default "#ffffff" }};
 --hb-color-foreground: {{ $data.surfaces.foreground | default "#000000" }};

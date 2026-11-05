@@ -371,7 +371,7 @@
           
           {{/* Primary CTA Button */}}
           <a href="{{ (printf "mailto:%s" .) | safeURL }}" 
-             class="inline-flex items-center px-6 py-3 bg-primary-600 hover:bg-primary-500 text-white font-medium rounded-xl shadow-lg shadow-primary-500/25 hover:shadow-xl hover:shadow-primary-500/30 transition-all">
+             class="inline-flex items-center px-6 py-3 bg-primary-600 hover:bg-primary-500 text-[var(--hb-color-on-primary)] font-medium rounded-xl shadow-lg shadow-primary-500/25 hover:shadow-xl hover:shadow-primary-500/30 transition-all">
             {{ partial "functions/get_icon" (dict "name" "hero/paper-airplane" "attributes" "class=\"w-5 h-5 me-2 rtl:-scale-x-100\"") }}
             {{ i18n "block_contact_send_message" | default "Send a message" }}
           </a>
@@ -536,7 +536,7 @@
           {{ $cta_target = "target=\"_blank\" rel=\"noopener\"" }}
         {{ end }}
         <a href="{{ $cta_link | safeURL }}" {{ $cta_target | safeHTMLAttr }}
-           class="inline-flex items-center px-4 py-2 bg-primary-600 hover:bg-primary-500 text-white rounded-lg shadow-lg shadow-primary-500/25 hover:shadow-xl hover:shadow-primary-500/30 transition-all">
+           class="inline-flex items-center px-4 py-2 bg-primary-600 hover:bg-primary-500 text-[var(--hb-color-on-primary)] rounded-lg shadow-lg shadow-primary-500/25 hover:shadow-xl hover:shadow-primary-500/30 transition-all">
           {{ partial "functions/get_icon" (dict "name" "hero/user-plus" "attributes" "class=\"w-5 h-5 me-2\"") }}
           {{ $prospective_button_text }}
         </a>
@@ -585,7 +585,7 @@
                     class="w-full px-4 py-3 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500/50 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 transition-colors resize-none"></textarea>
         </div>
         <button type="submit"
-                class="w-full px-6 py-3 bg-primary-600 hover:bg-primary-500 text-white font-medium rounded-lg shadow-lg shadow-primary-500/25 hover:shadow-xl hover:shadow-primary-500/30 transition-all">
+                class="w-full px-6 py-3 bg-primary-600 hover:bg-primary-500 text-[var(--hb-color-on-primary)] font-medium rounded-lg shadow-lg shadow-primary-500/25 hover:shadow-xl hover:shadow-primary-500/30 transition-all">
           {{ i18n "block_contact_form_submit" | default "Send Message" }}
         </button>
       </form>
