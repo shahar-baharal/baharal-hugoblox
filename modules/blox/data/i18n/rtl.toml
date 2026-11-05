@@ -1,0 +1,3 @@
+# baseof.html sets dir="rtl" when site.Language.Locale is in this list.
+# Both short codes and locale-qualified forms are included.
+rtl = ["ar", "ar-SA", "fa", "fa-IR", "he", "he-IL", "ur", "ur-PK"]
