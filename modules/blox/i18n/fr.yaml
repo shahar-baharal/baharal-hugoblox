@@ -329,3 +329,23 @@
 
 - id: skip_to_main
   translation: Aller au contenu principal
+
+# Contact info block
+
+- id: block_contact_click_to_copy
+  translation: Cliquez pour copier
+
+- id: block_contact_copied
+  translation: Copié !
+
+- id: block_contact_send_message
+  translation: Envoyez-nous un message
+
+- id: block_contact_call_me
+  translation: Appelez-nous
+
+- id: block_contact_email_label
+  translation: E-mail
+
+- id: block_contact_phone_label
+  translation: Téléphone

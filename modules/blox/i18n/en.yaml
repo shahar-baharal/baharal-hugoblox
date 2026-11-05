@@ -315,6 +315,24 @@
 - id: block_contact_form_submit
   translation: Send Message
 
+- id: block_contact_click_to_copy
+  translation: Click to copy
+
+- id: block_contact_copied
+  translation: Copied to clipboard!
+
+- id: block_contact_send_message
+  translation: Send a message
+
+- id: block_contact_call_me
+  translation: Call me
+
+- id: block_contact_email_label
+  translation: Email
+
+- id: block_contact_phone_label
+  translation: Phone
+
 # Publication/Event details
 
 - id: abstract
