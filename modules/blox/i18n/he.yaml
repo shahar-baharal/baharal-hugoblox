@@ -2,6 +2,14 @@
 
 - id: toggle_navigation
   translation: ניווט
+- id: navigation
+  translation: ניווט
+- id: open_menu
+  translation: פתיחת תפריט
+- id: close_menu
+  translation: סגירת תפריט
+- id: theme_toggle
+  translation: מצב כהה / בהיר
 
 - id: table_of_contents
   translation: תוכן עניינים

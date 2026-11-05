@@ -2,6 +2,14 @@
 
 - id: toggle_navigation
   translation: Toggle navigation
+- id: navigation
+  translation: Navigation
+- id: open_menu
+  translation: Open menu
+- id: close_menu
+  translation: Close menu
+- id: theme_toggle
+  translation: Dark / light mode
 
 - id: table_of_contents
   translation: Table of Contents
