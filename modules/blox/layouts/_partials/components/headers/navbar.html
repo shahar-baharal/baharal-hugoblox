@@ -165,7 +165,8 @@
       {{ if $show_mode_toggle }}
       <div class="px-3 text-[var(--hb-color-header-fg)] hover:text-primary-500
             [&.active]:font-bold [&.active]:text-primary-500">
-        <button class="theme-toggle mt-1" accesskey="t" title="appearance">
+        {{- $toggle_label := i18n "theme_toggle" | default "Dark / light mode" -}}
+        <button class="theme-toggle flex items-center h-7" accesskey="t" title="{{ $toggle_label }}" aria-label="{{ $toggle_label }}">
           <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                stroke-linejoin="round" class="block dark:hidden">
