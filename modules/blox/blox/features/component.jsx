@@ -101,7 +101,7 @@ export const FeaturesBlock = ({content = {}, design = {}, icon_svgs = {}, item_i
                 dangerouslySetInnerHTML={{__html: renderText(title)}}
               />
             )}
-            {text && <p class="text-lg text-gray-600 dark:text-gray-400" dangerouslySetInnerHTML={{__html: renderText(text)}} />}
+            {text && <p class="text-lg text-gray-600 dark:text-gray-400 [&_a]:font-semibold [&_a]:underline [&_a]:underline-offset-4 [&_a]:text-primary-700 dark:[&_a]:text-primary-300" dangerouslySetInnerHTML={{__html: renderText(text)}} />}
           </div>
         )}
 
