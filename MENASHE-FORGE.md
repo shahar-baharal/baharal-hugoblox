@@ -24,7 +24,8 @@ What changed: `git log upstream/main..main -- modules/blox`.
 
 | Block or data option | Effect |
 |---|---|
-| `data/contact.yaml` (`email`, `phone`) | `contact-info` falls back to it after the block's `content`, before the author profile: one source for every language |
+| `data/contact.yaml` (`email`, `phone`, `whatsapp`) | `contact-info` falls back to it after the block's `content`, before the author profile: one source for every language |
+| `whatsapp` in `contact-info`'s `content` (or `data/contact.yaml`, or the author profile): digits after `wa.me/`, country code first, no `+` | A WhatsApp row after the phone, opening a chat in a new tab |
 
 ## Planned: a footer that stands apart from the last block
 

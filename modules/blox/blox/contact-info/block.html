@@ -115,7 +115,7 @@
 {{ $profile := partial "functions/get_author_profile" $author }}
 {{ $authors := partialCached "functions/get_authors_data" $page site.Language.Lang }}
 {{ $author_data := index $authors (urlize $author) }}
-{{/* Optional data/contact.yaml: one email and phone for every language; content wins, the author profile is the last fallback */}}
+{{/* Optional data/contact.yaml: one email, phone and whatsapp for every language; content wins, the author profile is the last fallback */}}
 {{ $contact_data := hugo.Data.contact }}
 {{ if not (reflect.IsMap $contact_data) }}{{ $contact_data = dict }}{{ end }}
 {{ $email := "" }}
@@ -152,6 +152,15 @@
   {{ if eq (printf "%T" $author_phone_raw) "string" }}
     {{ $phone = strings.TrimSpace $author_phone_raw }}
   {{ end }}
+{{ end }}
+
+{{ $whatsapp := "" }}
+{{ $whatsapp_raw := index $content "whatsapp" | default (index $contact_data "whatsapp") }}
+{{ if and (not $whatsapp_raw) $author_data (reflect.IsMap $author_data) }}
+  {{ $whatsapp_raw = index $author_data "whatsapp" }}
+{{ end }}
+{{ if eq (printf "%T" $whatsapp_raw) "string" }}
+  {{ $whatsapp = strings.TrimSpace $whatsapp_raw }}
 {{ end }}
 
 {{ $social_raw := index $content "social" }}
@@ -211,7 +220,7 @@
 {{ $prospective_button_url := "" }}
 {{ with index $prospective_button "url" }}{{ $prospective_button_url = strings.TrimSpace (printf "%v" .) }}{{ end }}
 
-{{ $has_connect_content := or $email $phone (gt (len $social) 0) $prospective_title $prospective_text $prospective_button_text $prospective_button_url }}
+{{ $has_connect_content := or $email $phone $whatsapp (gt (len $social) 0) $prospective_title $prospective_text $prospective_button_text $prospective_button_url }}
 
 {{/* Determine grid layout - single column centered if only one card */}}
 {{ $grid_class := "grid-cols-1 lg:grid-cols-2" }}
@@ -379,6 +388,18 @@
             </div>
           </a>
           {{ end }}
+
+          {{ with $whatsapp }}
+          <a href="{{ printf "https://wa.me/%s" . | safeURL }}" target="_blank" rel="noopener" class="flex items-center group">
+            <div class="w-12 h-12 flex items-center justify-center rounded-xl bg-primary-100 dark:bg-primary-500/10 border border-primary-200 dark:border-primary-500/20 group-hover:bg-primary-200 dark:group-hover:bg-primary-500/20 group-hover:border-primary-300 dark:group-hover:border-primary-500/40 transition-all me-3">
+              {{ partial "functions/get_icon" (dict "name" "brands/whatsapp" "attributes" "class=\"w-6 h-6 text-primary-600 dark:text-primary-400\"") }}
+            </div>
+            <div>
+              <p class="text-sm text-gray-500 dark:text-gray-400">{{ i18n "block_contact_whatsapp_label" | default "WhatsApp" }}</p>
+              <p class="text-lg font-medium text-gray-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">{{ i18n "block_contact_whatsapp_cta" | default "Send a message" }}</p>
+            </div>
+          </a>
+          {{ end }}
         </div>
         
         {{/* Right: Social Links */}}
@@ -447,6 +468,18 @@
             <div>
               <p class="text-sm text-gray-500 dark:text-gray-400">{{ i18n "block_contact_phone_label" | default "Phone" }}</p>
               <p class="text-gray-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">{{ . }}</p>
+            </div>
+          </a>
+          {{ end }}
+
+          {{ with $whatsapp }}
+          <a href="{{ printf "https://wa.me/%s" . | safeURL }}" target="_blank" rel="noopener" class="flex items-center group p-3 -mx-3 rounded-lg hover:bg-gray-100 dark:hover:bg-white/5 transition-colors">
+            <div class="w-10 h-10 flex items-center justify-center rounded-full bg-primary-100 dark:bg-primary-500/10 border border-primary-200 dark:border-primary-500/20 me-4">
+              {{ partial "functions/get_icon" (dict "name" "brands/whatsapp" "attributes" "class=\"w-5 h-5 text-primary-600 dark:text-primary-400\"") }}
+            </div>
+            <div>
+              <p class="text-sm text-gray-500 dark:text-gray-400">{{ i18n "block_contact_whatsapp_label" | default "WhatsApp" }}</p>
+              <p class="text-gray-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">{{ i18n "block_contact_whatsapp_cta" | default "Send a message" }}</p>
             </div>
           </a>
           {{ end }}

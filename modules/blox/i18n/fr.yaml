@@ -349,3 +349,9 @@
 
 - id: block_contact_phone_label
   translation: Téléphone
+
+- id: block_contact_whatsapp_label
+  translation: WhatsApp
+
+- id: block_contact_whatsapp_cta
+  translation: Envoyer un message

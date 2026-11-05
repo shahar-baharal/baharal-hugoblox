@@ -333,6 +333,12 @@
 - id: block_contact_phone_label
   translation: Phone
 
+- id: block_contact_whatsapp_label
+  translation: WhatsApp
+
+- id: block_contact_whatsapp_cta
+  translation: Send a message
+
 # Publication/Event details
 
 - id: abstract

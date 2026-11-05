@@ -294,3 +294,9 @@
 
 - id: block_contact_phone_label
   translation: טלפון
+
+- id: block_contact_whatsapp_label
+  translation: וואטסאפ
+
+- id: block_contact_whatsapp_cta
+  translation: שליחת הודעה
