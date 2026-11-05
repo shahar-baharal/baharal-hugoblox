@@ -33,7 +33,7 @@
       {{ else }}
         {{ with $item.Params.content_meta }}
           {{ if .trending }}
-            <div class="absolute top-3 right-3 z-10 inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-black/55 backdrop-blur-sm text-white shadow-sm">
+            <div class="absolute top-3 end-3 z-10 inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-black/55 backdrop-blur-sm text-white shadow-sm">
               <span>{{ i18n "trending" | default "Trending" }}</span>
               <span aria-hidden="true">🔥</span>
             </div>
@@ -134,7 +134,7 @@
         <a href="{{ $link }}" {{ $target | safeHTMLAttr }} class="hover:underline">
           {{ $item.Title }}
           {{ if $item.Params.external_link }}
-            {{ partial "functions/get_icon" (dict "name" "arrow-top-right-on-square" "attributes" "style=\"height: 1em;\" class=\"inline-flex h-4 w-4 ml-1 align-text-top\"") }}
+            {{ partial "functions/get_icon" (dict "name" "arrow-top-right-on-square" "attributes" "style=\"height: 1em;\" class=\"inline-flex h-4 w-4 ms-1 align-text-top\"") }}
           {{ end }}
         </a>
       </h3>
