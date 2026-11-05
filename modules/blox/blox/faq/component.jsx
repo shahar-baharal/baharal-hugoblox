@@ -1,4 +1,4 @@
-import {useState} from "preact/hooks";
+import {useId, useState} from "preact/hooks";
 import {Icon} from "../../shared/components/Icon.jsx";
 
 const PLUS_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M10 3a.75.75 0 01.75.75v5.5h5.5a.75.75 0 010 1.5h-5.5v5.5a.75.75 0 01-1.5 0v-5.5h-5.5a.75.75 0 010-1.5h5.5v-5.5A.75.75 0 0110 3z" clip-rule="evenodd"/></svg>`;
@@ -28,7 +28,7 @@ function renderRich(text) {
   return paras.join("");
 }
 
-function FaqItem({item, isOpen, onToggle}) {
+function FaqItem({item, isOpen, onToggle, panelId}) {
   const question = item.question ?? item.title ?? "";
   const answer = item.answer ?? item.text ?? "";
 
@@ -39,6 +39,7 @@ function FaqItem({item, isOpen, onToggle}) {
         class="w-full py-5 px-6 flex items-start justify-between gap-6 text-left hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors group focus:outline-none focus-visible:bg-gray-50 dark:focus-visible:bg-gray-800/50"
         onClick={onToggle}
         aria-expanded={isOpen}
+        aria-controls={panelId}
       >
         <span
           class="font-semibold text-gray-900 dark:text-white text-base sm:text-lg leading-snug"
@@ -55,7 +56,7 @@ function FaqItem({item, isOpen, onToggle}) {
       </button>
 
       {/* CSS grid trick: grid-rows transition from 0fr → 1fr animates from 0 height to natural height */}
-      <div class={`grid transition-all duration-300 ease-out ${isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}`}>
+      <div id={panelId} class={`grid transition-all duration-300 ease-out ${isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}`}>
         <div class="overflow-hidden">
           <div
             class="px-6 pb-6 text-gray-600 dark:text-gray-300 leading-relaxed text-sm sm:text-base"
@@ -70,6 +71,7 @@ function FaqItem({item, isOpen, onToggle}) {
 export const FaqBlock = ({content = {}, icon_svgs = {}, button_icon_svg}) => {
   const {title, subtitle, text, items = [], button = {}} = content;
   const [openIdx, setOpenIdx] = useState(null);
+  const uid = useId();
 
   const buttonIconSvg = button_icon_svg ?? (button.icon ? icon_svgs?.[button.icon] : null);
   const isExtBtn = button.url && (button.url.startsWith("http://") || button.url.startsWith("https://"));
@@ -96,7 +98,7 @@ export const FaqBlock = ({content = {}, icon_svgs = {}, button_icon_svg}) => {
         {items.length > 0 && (
           <div class="rounded-2xl ring-1 ring-gray-200 dark:ring-gray-700 bg-white dark:bg-gray-800 overflow-hidden shadow-sm">
             {items.map((item, i) => (
-              <FaqItem key={i} item={item} isOpen={openIdx === i} onToggle={() => setOpenIdx(openIdx === i ? null : i)} />
+              <FaqItem key={i} item={item} isOpen={openIdx === i} onToggle={() => setOpenIdx(openIdx === i ? null : i)} panelId={`${uid}-faq-${i}`} />
             ))}
           </div>
         )}
