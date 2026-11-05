@@ -36,7 +36,7 @@ function FaqItem({item, isOpen, onToggle, panelId}) {
     <div class="border-b border-gray-200 dark:border-gray-700 last:border-b-0">
       <button
         type="button"
-        class="w-full py-5 px-6 flex items-start justify-between gap-6 text-left hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors group focus:outline-none focus-visible:bg-gray-50 dark:focus-visible:bg-gray-800/50"
+        class="w-full py-5 px-6 flex items-start justify-between gap-6 text-start hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors group focus:outline-none focus-visible:bg-gray-50 dark:focus-visible:bg-gray-800/50"
         onClick={onToggle}
         aria-expanded={isOpen}
         aria-controls={panelId}
