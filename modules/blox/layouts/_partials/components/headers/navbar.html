@@ -5,6 +5,7 @@
 {{- $navbar_title := site.Params.hugoblox.header.title | default $branding.name -}}
 {{/* tel: and mailto: need safeURL: relLangURL's output is sanitized to #ZgotmplZ for those schemes. */}}
 {{- $cta_url := site.Params.hugoblox.header.cta.url | default "" -}}
+{{- $cta := site.Params.hugoblox.header.cta | default dict -}}
 {{- $cta_href := cond (or (hasPrefix $cta_url "tel:") (hasPrefix $cta_url "mailto:")) ($cta_url | safeURL) ($cta_url | relLangURL) -}}
 <header id="site-header" class="header">
   <nav class="navbar px-3 flex justify-start" aria-label="{{ i18n "navigation" | default "Navigation" }}">
@@ -42,7 +43,7 @@
     </div>
     <!-- Mobile menu -->
     {{/* Only when the mobile menu has something to show: a menu, or the CTA it repeats. */}}
-    {{ if or site.Menus.main site.Params.hugoblox.header.cta.enable }}
+    {{ if or site.Menus.main (and $cta.enable (not $cta.icon)) }}
     {{/* Keyboard access (WCAG 2.1.1): below lg the checkbox is visually hidden but focusable (Space toggles the menu), and its label shows the focus ring. "hidden" (display:none) took it out of the tab order. */}}
     <input id="nav-toggle" type="checkbox" class="peer sr-only lg:hidden" />
     <label
@@ -66,7 +67,7 @@
     {{ $align_menu := site.Params.hugoblox.header.align | default "center" }}
     <ul
       id="nav-menu"
-      class="navbar-nav order-3 hidden lg:flex w-full pb-6 lg:order-1 lg:w-auto lg:space-x-2 lg:pb-0 xl:space-x-8 justify-start
+      class="navbar-nav order-3 hidden lg:flex w-full {{ if not $cta.icon }}pb-6{{ end }} lg:order-1 lg:w-auto lg:space-x-2 lg:pb-0 xl:space-x-8 justify-start
       {{ if in (slice "l" "left") $align_menu }}lg:me-auto lg:ms-6{{ else if (in (slice "r" "right") $align_menu) }}lg:ms-auto lg:me-6{{end}}">
       {{ $currentPage := . }}
       {{ range site.Menus.main }}
@@ -140,7 +141,7 @@
       </li>
       {{ end }}
       {{ end }}
-      {{ if site.Params.hugoblox.header.cta.enable }}
+      {{ if and $cta.enable (not $cta.icon) }}
       <li class="mt-4 inline-block lg:hidden">
         <a
           class=""
@@ -227,14 +228,25 @@
 
       <!-- CTA button -->
       {{ if site.Params.hugoblox.header.cta.enable }}
+      {{ $new_tab := cond $cta.new_tab `target="_blank" rel="noopener"` "" | safeHTMLAttr }}
+      {{ with $cta.icon }}
+      {{/* Option header.cta.icon: one icon link on every screen size, the text as its accessible name. px-3 as on the search button. */}}
       <a
-        href="{{ $cta_href }}"
+        href="{{ $cta_href }}" {{ $new_tab }}
+        aria-label="{{ $cta.text }}" title="{{ $cta.text }}"
+        class="inline-flex items-center px-3 text-[var(--hb-color-header-fg)] hover:text-primary-500 transition">
+        {{ partial "functions/get_icon" (dict "name" . "attributes" "class=\"w-5 h-5\"") }}
+      </a>
+      {{ else }}
+      <a
+        href="{{ $cta_href }}" {{ $new_tab }}
         class="inline-block rounded border px-5 py-2 font-semibold transition
         md:ms-4 px-4 py-1.5 text-sm
         border-black  hover:bg-black dark:hover:bg-white dark:hover:text-black hover:text-white dark:border-white dark:text-white dark:hover:bg-white
         hidden lg:inline-block">
         {{ site.Params.hugoblox.header.cta.text }}
       </a>
+      {{ end }}
       {{ end }}
     </div>
   </nav>

@@ -17,6 +17,8 @@ What changed: `git log upstream/main..main -- modules/blox`.
 |---|---|
 | `hooks.<hook>` (list of partial names; `body_end` for `body-end`) | Renders those partials at that hook, so a module's partials can hook in. Upstream only reads the site's own `layouts/_partials/hooks/<hook>/` |
 | `smooth_scroll = true` | Smooth scrolling for in-page links (`motion-safe`) |
+| `header.cta.icon` (a `get_icon` name, e.g. `hero/phone`, `brands/whatsapp`) | The header CTA becomes one icon link on every screen size, `header.cta.text` as its accessible name; the mobile menu drops its CTA copy |
+| `header.cta.new_tab = true` | The header CTA opens in a new tab |
 
 ## Merging upstream
 
