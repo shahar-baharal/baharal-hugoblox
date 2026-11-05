@@ -50,7 +50,7 @@ input#nav-toggle:checked ~ #nav-menu {
 /* navbar items */
 
 .navbar-nav {
-  @apply text-center lg:text-left;
+  @apply text-center lg:text-start;
 }
 
 .nav-link {

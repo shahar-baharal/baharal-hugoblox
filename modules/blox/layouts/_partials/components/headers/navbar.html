@@ -56,7 +56,7 @@
     <ul
       id="nav-menu"
       class="navbar-nav order-3 hidden lg:flex w-full pb-6 lg:order-1 lg:w-auto lg:space-x-2 lg:pb-0 xl:space-x-8 justify-start
-      {{ if in (slice "l" "left") $align_menu }}mr-auto ml-6{{ else if (in (slice "r" "right") $align_menu) }}ml-auto mr-6{{end}}">
+      {{ if in (slice "l" "left") $align_menu }}me-auto ms-6{{ else if (in (slice "r" "right") $align_menu) }}ms-auto me-6{{end}}">
       {{ $currentPage := . }}
       {{ range site.Menus.main }}
       {{ $menuURL := .URL | absLangURL }}
@@ -140,7 +140,7 @@
       {{ end }}
     </ul>
 
-    <div class="order-1 ml-auto flex items-center md:order-2 lg:ml-0">
+    <div class="order-1 ms-auto flex items-center md:order-2 lg:ms-0">
 
       {{/* Show site search? */}}
       {{ $show_search := site.Params.hugoblox.header.search | default false }}
@@ -207,7 +207,7 @@
 
       {{ $show_translations := site.Params.hugoblox.header.language_switcher | default true }}
       {{ if .IsTranslated | and $show_translations }}
-      <div class="pl-1 mr-5 text-[var(--hb-color-header-fg)] hover:text-primary-500
+      <div class="ps-1 me-5 text-[var(--hb-color-header-fg)] hover:text-primary-500
             [&.active]:font-bold [&.active]:text-primary-500">
         {{- partial "components/language-chooser.html" (dict "page" .) -}}
       </div>
@@ -218,7 +218,7 @@
       <a
         href="{{ site.Params.hugoblox.header.cta.url | relLangURL }}"
         class="inline-block rounded border px-5 py-2 font-semibold transition
-        md:ml-4 px-4 py-1.5 text-sm
+        md:ms-4 px-4 py-1.5 text-sm
         border-black  hover:bg-black dark:hover:bg-white dark:hover:text-black hover:text-white dark:border-white dark:text-white dark:hover:bg-white
         hidden lg:inline-block">
         {{ site.Params.hugoblox.header.cta.text }}
