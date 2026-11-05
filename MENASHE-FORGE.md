@@ -21,11 +21,12 @@ What changed: `git log upstream/main..main -- modules/blox`.
 | `header.cta.icon` (a `get_icon` name, e.g. `hero/phone`, `brands/whatsapp`) | The header CTA becomes one icon link on every screen size, `header.cta.text` as its accessible name; the mobile menu drops its CTA copy |
 | `header.cta.new_tab = true` | The header CTA opens in a new tab |
 | `header.logo_dark` (an asset path, e.g. `media/logo-dark.png`) | With a PNG logo: that image replaces it in dark mode |
+
 ## Planned: a footer that stands apart from the last block
 
 Shahar's intention (2026-11-05): on every site, the footer's background differs from the last block's, so a visitor sees two parts, not one. Each site used to get this by hand. The plan is to make it the fork's default behavior; it isn't built yet.
 
-Doesn't follow it yet: eztechrepair. Its last block (`#contact`) uses `var(--hb-color-footer-bg)` as its background (its "alt section" tint). That worked while upstream didn't apply the footer tokens, because the footer showed the page background. Since `fix(theme): apply the footer color tokens`, the footer and `#contact` share one color (`#fff4ec` light, `#0c0c1f` dark).
+Doesn't follow it yet: eztechrepair and alm-builders. Their last block (`#contact`) uses `var(--hb-color-footer-bg)` as its background (the "alt section" tint). That worked while upstream didn't apply the footer tokens, because the footer showed the page background. Since `fix(theme): apply the footer color tokens`, the footer and `#contact` share one color (eztechrepair: `#fff4ec` light, `#0c0c1f` dark).
 
 ## Merging upstream
 
