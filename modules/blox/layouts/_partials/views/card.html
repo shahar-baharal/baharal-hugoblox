@@ -68,7 +68,6 @@
               "image" $original_image 
               "mode" "responsive"
               "sizes" (slice 400 600 800)
-              "formats" (slice "avif" "webp" "jpg")
           ) }}
           <a href="{{ $link }}" {{ $target | safeHTMLAttr }} class="block">
             <img class="w-full h-full transition-transform duration-500 ease-out group-hover:scale-105 {{ if $fill_image }}object-fill{{ else }}object-contain{{ end }}" 
