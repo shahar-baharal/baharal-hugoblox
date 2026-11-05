@@ -66,7 +66,7 @@ function ActionButton({action, defaultStyle, iconSvg}) {
           <Icon svg={iconSvg} attributes={{style: "height: 1em", class: "inline-block"}} />
         </span>
       )}
-      {showTextArrow && <span aria-hidden="true">→</span>}
+      {showTextArrow && <span aria-hidden="true" class="inline-block rtl:-scale-x-100">→</span>}
     </a>
   );
 }
@@ -151,7 +151,7 @@ const SIZE_CLASSES = {
   none: "",
 };
 
-const ALIGN_TEXT = {center: "text-center", left: "text-left"};
+const ALIGN_TEXT = {center: "text-center", left: "text-start"};
 const ALIGN_FLEX = {center: "justify-center", left: "justify-start"};
 const ALIGN_MX = {center: "mx-auto", left: ""};
 
@@ -275,8 +275,8 @@ export const HeroBlock = ({content, design, _id, icon_svg, secondary_icon_svg, m
       <div class="relative isolate px-6 lg:px-8">
         <div class={`mx-auto ${layout.container} ${sizeClasses}`}>
           <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            <div class={layout.reverse ? "lg:order-2" : ""}>{contentStack}</div>
-            {mediaEl && <div class={layout.reverse ? "lg:order-1" : ""}>{mediaEl}</div>}
+            <div class={layout.reverse ? "lg:ltr:order-2 lg:rtl:order-1" : "lg:rtl:order-2"}>{contentStack}</div>
+            {mediaEl && <div class={layout.reverse ? "lg:ltr:order-1 lg:rtl:order-2" : "lg:rtl:order-1"}>{mediaEl}</div>}
           </div>
         </div>
       </div>
