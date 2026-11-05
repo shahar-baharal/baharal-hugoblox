@@ -8,6 +8,7 @@ A fork of [HugoBlox/kit](https://github.com/HugoBlox/kit) used by the Menashe Fo
 2. One fix per commit: `fix(<area>): …` for a generic fix, `feat(<area>): …` for an opt-in option, with the reason in the body.
 3. Don't delete unused upstream features.
 4. Options are opt-in: defaults match upstream unless the change is a pure fix.
+5. One look for every site: spacing, padding and alignment come from the fork. A site that differs only in these is a leftover per-site patch: drop it when the site moves to the fork, don't turn it into an option. To change the look, change it here, for all sites.
 
 What changed: `git log upstream/main..main -- modules/blox`.
 
