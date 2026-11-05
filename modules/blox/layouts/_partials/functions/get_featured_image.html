@@ -15,10 +15,18 @@
   {{/* Otherwise fall back the image file specified in front matter */}}
   {{ $image_params := partial "functions/get_page_image_params.html" . }}
   {{ $filename := $image_params.filename | default "" }}
+  {{ if or (strings.HasPrefix $filename "http://") (strings.HasPrefix $filename "https://") }}
+    {{/* A remote URL */}}
+    {{ $remote := try (resources.GetRemote $filename) }}
+    {{ if and $remote (not $remote.Err) (reflect.IsResource $remote.Value) }}
+      {{ $resource = $remote.Value }}
+    {{ end }}
+  {{ else }}
   {{/* Search in page folder */}}
   {{ $resource = (.Resources.ByType "image").GetMatch $filename }}
   {{/* Otherwise in `assets/media/` folder */}}
   {{ if not (reflect.IsResource $resource) }} {{ $resource = resources.GetMatch (path.Join "media" $filename) }} {{ end }}
+  {{ end }}
 {{ end }}
 
 {{ return $resource }}
