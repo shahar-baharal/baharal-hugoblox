@@ -300,7 +300,7 @@
 
       {{ if $is_single_card }}
       {{/* Single card layout - horizontal on desktop */}}
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12" x-data="{ copied: false }">
+      <div class="grid grid-cols-1{{ if gt (len $filtered_social) 0 }} md:grid-cols-2{{ end }} gap-8 lg:gap-12" x-data="{ copied: false }">
         
         {{/* Left: Email & CTA */}}
         <div class="space-y-6">
