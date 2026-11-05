@@ -14,6 +14,13 @@
           {{ if $logo.is_svg }}
             {{- .Content | safeHTML -}}
           {{ else }}
+            {{/* 2x/3x variants for high-DPI screens: get_logo resizes the PNG to the 36px display height, which looks blurry upscaled. */}}
+            {{ $logo_2x := "" }}
+            {{ $logo_3x := "" }}
+            {{ with resources.Get "media/logo.png" }}
+              {{ $logo_2x = (.Resize "x72").RelPermalink }}
+              {{ $logo_3x = (.Resize "x108").RelPermalink }}
+            {{ end }}
             <img
               fetchpriority="high"
               decoding="async"
@@ -21,6 +28,7 @@
               width="{{ .Width }}"
               height="{{ .Height }}"
               src="{{ .RelPermalink }}"
+              srcset="{{ .RelPermalink }} 1x, {{ $logo_2x }} 2x, {{ $logo_3x }} 3x"
               alt="{{ $branding.name }}" />
           {{ end }}
         {{ end }}
