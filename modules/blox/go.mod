@@ -1,4 +1,4 @@
-module github.com/HugoBlox/kit/modules/blox
+module github.com/shahar-baharal/baharal-hugoblox/modules/blox
 
 go 1.19
 
