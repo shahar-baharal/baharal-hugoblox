@@ -3,6 +3,9 @@
 {{- $show_logo := site.Params.hugoblox.header.show_logo | default true -}}
 {{- $show_title := site.Params.hugoblox.header.show_title | default true -}}
 {{- $navbar_title := site.Params.hugoblox.header.title | default $branding.name -}}
+{{/* tel: and mailto: need safeURL: relLangURL's output is sanitized to #ZgotmplZ for those schemes. */}}
+{{- $cta_url := site.Params.hugoblox.header.cta.url | default "" -}}
+{{- $cta_href := cond (or (hasPrefix $cta_url "tel:") (hasPrefix $cta_url "mailto:")) ($cta_url | safeURL) ($cta_url | relLangURL) -}}
 <header id="site-header" class="header">
   <nav class="navbar px-3 flex justify-start" aria-label="{{ i18n "navigation" | default "Navigation" }}">
     <div class="order-0 h-full">
@@ -141,7 +144,7 @@
       <li class="mt-4 inline-block lg:hidden">
         <a
           class=""
-          href="{{ site.Params.hugoblox.header.cta.url | relLangURL }}">
+          href="{{ $cta_href }}">
           {{ site.Params.hugoblox.header.cta.text }}
         </a>
       </li>
@@ -225,7 +228,7 @@
       <!-- CTA button -->
       {{ if site.Params.hugoblox.header.cta.enable }}
       <a
-        href="{{ site.Params.hugoblox.header.cta.url | relLangURL }}"
+        href="{{ $cta_href }}"
         class="inline-block rounded border px-5 py-2 font-semibold transition
         md:ms-4 px-4 py-1.5 text-sm
         border-black  hover:bg-black dark:hover:bg-white dark:hover:text-black hover:text-white dark:border-white dark:text-white dark:hover:bg-white
