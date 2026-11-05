@@ -168,20 +168,22 @@ function HorizontalSteps({steps, markerStyle, numbering, connector, icon_svgs}) 
 
       {/* Desktop: horizontal layout with connecting line */}
       <div class="hidden sm:block">
-        {/* Markers row — absolute line behind, markers on top */}
-        {/* top-7/left-7/right-7 = half the w-14 h-14 (56px) marker, centres the line on the circles */}
+        {/* Markers row — each step draws the line up to its marker's edge, so a bare icon has no line through it */}
+        {/* top-7/1.75rem = half the w-14 h-14 (56px) marker, centres the line on the markers */}
         <div class="relative flex justify-around mb-6">
-          {connector !== "none" && (
-            <div
-              class={`absolute top-7 left-7 right-7 h-0.5 ${
-                isDashed ? "border-t-2 border-dashed border-gray-200 dark:border-gray-700" : "bg-gray-200 dark:bg-gray-700"
-              }`}
-            />
-          )}
           {steps.map((step, i) => {
             const iconSvg = step.icon ? (icon_svgs?.[step.icon] ?? null) : null;
+            const lineCls = `absolute top-7 h-0.5 ${
+              isDashed ? "border-t-2 border-dashed border-gray-200 dark:border-gray-700" : "bg-gray-200 dark:bg-gray-700"
+            }`;
             return (
-              <div key={i} class="step-item relative z-10 flex flex-col items-center">
+              <div key={i} class="step-item relative flex-1 flex flex-col items-center">
+                {connector !== "none" && (
+                  <>
+                    <div class={`${lineCls} ${i === 0 ? "start-7" : "start-0"} end-[calc(50%+1.75rem)]`} />
+                    <div class={`${lineCls} start-[calc(50%+1.75rem)] ${i === steps.length - 1 ? "end-7" : "end-0"}`} />
+                  </>
+                )}
                 <StepMarker idx={i} iconSvg={iconSvg} markerStyle={markerStyle} numbering={numbering} size="lg" />
               </div>
             );
