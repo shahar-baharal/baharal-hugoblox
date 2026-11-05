@@ -201,7 +201,7 @@ function Media({media, mediaImage, mediaImageDark}) {
         height={mediaImage.height}
         alt={media.alt || ""}
         loading="eager"
-        class={`w-full h-auto rounded-2xl shadow-2xl ring-1 ring-gray-900/10 dark:ring-white/10 ${hasDark ? "block dark:hidden" : ""}`}
+        class={`w-full h-auto lg:max-h-[calc(100dvh-var(--header-h,0px)-6rem)] lg:w-auto lg:max-w-full lg:mx-auto rounded-2xl shadow-2xl ring-1 ring-gray-900/10 dark:ring-white/10 ${hasDark ? "block dark:hidden" : ""}`}
       />
       {hasDark && (
         <img
@@ -212,7 +212,7 @@ function Media({media, mediaImage, mediaImageDark}) {
           height={mediaImageDark.height}
           alt={media.alt || ""}
           loading="eager"
-          class="hidden dark:block w-full h-auto rounded-2xl shadow-2xl ring-1 ring-white/10"
+          class="hidden dark:block w-full h-auto lg:max-h-[calc(100dvh-var(--header-h,0px)-6rem)] lg:w-auto lg:max-w-full lg:mx-auto rounded-2xl shadow-2xl ring-1 ring-white/10"
         />
       )}
     </div>
