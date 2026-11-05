@@ -17,5 +17,12 @@
     {{ end }}
   {{ end }}
 {{ end }}
+{{/* Partials listed in params.hugoblox.hooks.<hook> (e.g. body_end for "body-end"),
+     so a module's partials can hook in: os.ReadDir above only sees the site's folder. */}}
+{{ $listed := index (site.Params.hugoblox.hooks | default dict) (replace .hook "-" "_") }}
+{{ range $listed }}
+  {{ partial . $context }}
+  {{ $loaded = true }}
+{{ end }}
 {{/* The return statement below is for debug purposes only and prevents the above partial(s) being included in the page */}}
 {{/* return $loaded */}}
