@@ -20,6 +20,7 @@ What changed: `git log upstream/main..main -- modules/blox`.
 | `smooth_scroll = true` | Smooth scrolling for in-page links (`motion-safe`) |
 | `header.cta.icon` (a `get_icon` name, e.g. `hero/phone`, `brands/whatsapp`) | The header CTA becomes one icon link on every screen size, `header.cta.text` as its accessible name; the mobile menu drops its CTA copy |
 | `header.cta.new_tab = true` | The header CTA opens in a new tab |
+| `header.logo_dark` (an asset path, e.g. `media/logo-dark.png`) | With a PNG logo: that image replaces it in dark mode |
 
 ## Merging upstream
 

@@ -25,6 +25,10 @@
               {{ $logo_2x = (.Resize "x72").RelPermalink }}
               {{ $logo_3x = (.Resize "x108").RelPermalink }}
             {{ end }}
+            {{/* header.logo_dark: a second PNG shown in dark mode. The classes go on spans: navbar.css's `.navbar-brand img { display: inline-block }` beats `hidden` on the img. */}}
+            {{ $logo_dark := "" }}
+            {{ with site.Params.hugoblox.header.logo_dark }}{{ $logo_dark = resources.Get . }}{{ end }}
+            {{ with $logo_dark }}<span class="dark:hidden">{{ end }}
             <img
               fetchpriority="high"
               decoding="async"
@@ -34,6 +38,18 @@
               src="{{ .RelPermalink }}"
               srcset="{{ .RelPermalink }} 1x, {{ $logo_2x }} 2x, {{ $logo_3x }} 3x"
               alt="{{ $branding.name }}" />
+            {{ with $logo_dark }}</span>
+            {{ $dark := .Resize "x36" }}
+            <span class="hidden dark:inline">
+            <img
+              decoding="async"
+              width="{{ $dark.Width }}"
+              height="{{ $dark.Height }}"
+              src="{{ $dark.RelPermalink }}"
+              srcset="{{ $dark.RelPermalink }} 1x, {{ (.Resize "x72").RelPermalink }} 2x, {{ (.Resize "x108").RelPermalink }} 3x"
+              alt="{{ $branding.name }}" />
+            </span>
+            {{ end }}
           {{ end }}
         {{ end }}
         {{ end }}
