@@ -168,7 +168,7 @@ const LAYOUTS = {
 // Media: image (with optional dark variant) or video. Hero `media.src` is processed
 // through Hugo's responsive image pipeline upstream and arrives as `media_image` with
 // {src, srcset, width, height}. Videos pass straight through.
-function Media({media, mediaImage, mediaImageDark}) {
+function Media({media, mediaImage, mediaImageDark, frame = true}) {
   if (!media) return null;
   const type = media.type || "image";
 
@@ -201,7 +201,7 @@ function Media({media, mediaImage, mediaImageDark}) {
         height={mediaImage.height}
         alt={media.alt || ""}
         loading="eager"
-        class={`w-full h-auto lg:max-h-[calc(100dvh-var(--header-h,0px)-6rem)] lg:w-auto lg:max-w-full lg:mx-auto rounded-2xl shadow-2xl ring-1 ring-gray-900/10 dark:ring-white/10 ${hasDark ? "block dark:hidden" : ""}`}
+        class={`w-full h-auto lg:max-h-[calc(100dvh-var(--header-h,0px)-6rem)] lg:w-auto lg:max-w-full lg:mx-auto rounded-2xl ${frame ? "shadow-2xl ring-1 ring-gray-900/10 dark:ring-white/10" : ""} ${hasDark ? "block dark:hidden" : ""}`}
       />
       {hasDark && (
         <img
@@ -212,7 +212,7 @@ function Media({media, mediaImage, mediaImageDark}) {
           height={mediaImageDark.height}
           alt={media.alt || ""}
           loading="eager"
-          class="hidden dark:block w-full h-auto lg:max-h-[calc(100dvh-var(--header-h,0px)-6rem)] lg:w-auto lg:max-w-full lg:mx-auto rounded-2xl shadow-2xl ring-1 ring-white/10"
+          class={`hidden dark:block w-full h-auto lg:max-h-[calc(100dvh-var(--header-h,0px)-6rem)] lg:w-auto lg:max-w-full lg:mx-auto rounded-2xl ${frame ? "shadow-2xl ring-1 ring-white/10" : ""}`}
         />
       )}
     </div>
@@ -267,7 +267,7 @@ export const HeroBlock = ({content, design, _id, icon_svg, secondary_icon_svg, m
     </>
   );
 
-  const mediaEl = content.media ? <Media media={content.media} mediaImage={media_image} mediaImageDark={media_image_dark} /> : null;
+  const mediaEl = content.media ? <Media media={content.media} mediaImage={media_image} mediaImageDark={media_image_dark} frame={design?.media_frame !== false} /> : null;
 
   // Split layout: two-column grid, optionally reversed
   if (layout.grid) {
