@@ -69,7 +69,10 @@ security:
   exec:
     # Hugo's default list plus tailwindcss: newer Hugo checks the
     # Tailwind CLI against this list too (seen on 0.168: "tailwindcss is
-    # not whitelisted in policy security.exec.allow").
+    # not whitelisted in policy security.exec.allow"). Setting a list
+    # replaces Hugo's default instead of adding to it, so the defaults are
+    # repeated here: compare them with gohugo.io/configuration/security
+    # after a Hugo upgrade.
     allow: ['^(dart-)?sass$', '^go$', '^git$', '^node$', '^postcss$', '^tailwindcss$']
   funcs:
     getenv:
