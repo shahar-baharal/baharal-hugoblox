@@ -258,7 +258,8 @@
     
     {{/* Visit Us Card - Only show if has content */}}
     {{ if $has_visit_content }}
-    <div class="{{ $card_max_width }} bg-white dark:bg-white/[0.03] backdrop-blur-xl rounded-2xl border border-gray-200 dark:border-white/[0.08] p-8 hover:bg-gray-50 dark:hover:bg-white/[0.06] hover:border-primary-300 dark:hover:border-primary-500/30 transition-all duration-300">
+    {{/* Anchor for a link straight to this card, e.g. /#contact-visit */}}
+    <div id="{{ $block.id | default "section-contact-info" }}-visit" class="{{ $card_max_width }} scroll-mt-24 bg-white dark:bg-white/[0.03] backdrop-blur-xl rounded-2xl border border-gray-200 dark:border-white/[0.08] p-8 hover:bg-gray-50 dark:hover:bg-white/[0.06] hover:border-primary-300 dark:hover:border-primary-500/30 transition-all duration-300">
       <div class="flex items-center mb-6">
         <div class="flex-shrink-0 w-12 h-12 bg-primary-100 dark:bg-primary-500/10 rounded-full flex items-center justify-center border border-primary-200 dark:border-primary-500/20">
           {{ partial "functions/get_icon" (dict "name" "hero/map-pin" "attributes" "class=\"w-6 h-6 text-primary-600 dark:text-primary-400\"") }}

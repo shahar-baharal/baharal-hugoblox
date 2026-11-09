@@ -128,10 +128,11 @@ The block uses modern card-based design with:
 - Fully responsive grid layout
 - Dark mode optimized colors
 
-## Linking to the contact card
+## Linking to a card
 
-The card with the email, phone and WhatsApp has the id `<section id>-connect`,
-so a link can scroll straight to it: with `id: contact`, use `/#contact-connect`.
+Each card has an id, so a link can scroll straight to it. With `id: contact`:
+`/#contact-visit` (address and hours) and `/#contact-connect` (email, phone,
+WhatsApp). Without an `id`, the prefix is `section-contact-info`.
 
 ## Best Practices
 
