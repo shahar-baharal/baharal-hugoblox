@@ -66,6 +66,11 @@ minify:
 sitemap:
   changefreq: weekly
 security:
+  exec:
+    # Hugo's default list plus tailwindcss: newer Hugo checks the
+    # Tailwind CLI against this list too (seen on 0.168: "tailwindcss is
+    # not whitelisted in policy security.exec.allow").
+    allow: ['^(dart-)?sass$', '^go$', '^git$', '^node$', '^postcss$', '^tailwindcss$']
   funcs:
     getenv:
       # Allow HUGO_ and HUGO_BLOX_ vars
