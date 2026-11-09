@@ -49,7 +49,7 @@ git fetch --no-tags upstream && git merge upstream/main
 
 Never push upstream's `modules/blox/v*` tags here: their `go.mod` has upstream's module path, so `@latest`/`@main` would resolve to them and fail. They were deleted on 2026-11-05, and the clone's `upstream` remote is set to `--no-tags`.
 
-Then bump a site to the new commit (`hugo mod get github.com/shahar-baharal/baharal-hugoblox/modules/blox@main && hugo mod vendor`) and check its preview before the others.
+Then bump the sites: `menashe-forge/docs/themes/hugoblox/scripts/bump.sh` (one site first, by name, if the change is risky).
 
 ## Upstream PRs
 
