@@ -450,12 +450,12 @@
         <div class="space-y-3">
           {{ with $email }}
           <a href="{{ (printf "mailto:%s" .) | safeURL }}" class="flex items-center group p-3 -mx-3 rounded-lg hover:bg-gray-100 dark:hover:bg-white/5 transition-colors">
-            <div class="w-10 h-10 flex items-center justify-center rounded-full bg-primary-100 dark:bg-primary-500/10 border border-primary-200 dark:border-primary-500/20 me-4">
+            <div class="w-10 h-10 shrink-0 flex items-center justify-center rounded-full bg-primary-100 dark:bg-primary-500/10 border border-primary-200 dark:border-primary-500/20 me-4">
               {{ partial "functions/get_icon" (dict "name" "hero/envelope" "attributes" "class=\"w-5 h-5 text-primary-600 dark:text-primary-400\"") }}
             </div>
-            <div>
+            <div class="min-w-0">
               <p class="text-sm text-gray-500 dark:text-gray-400">{{ i18n "block_contact_email_label" | default "Email" }}</p>
-              <p class="text-gray-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">{{ . }}</p>
+              <p class="wrap-anywhere text-gray-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">{{ replace (htmlEscape .) "@" "@<wbr>" | safeHTML }}</p>
             </div>
           </a>
           {{ end }}
