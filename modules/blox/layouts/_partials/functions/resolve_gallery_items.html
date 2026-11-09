@@ -14,7 +14,7 @@
     2. Sidecar file next to the image (.yaml / .yml / .json)
          — tried as "<full-name>.yaml" then "<basename-without-ext>.yaml"
          — looked up in both site assets and the current page bundle
-    3. Embedded IPTC/EXIF via Hugo's .Exif.Tags
+    3. Embedded IPTC/EXIF via Hugo's .Meta
          — caption from Caption-Abstract / ImageDescription / XPSubject / Description
          — credit from By-line / Artist / Creator
     4. Humanised filename (alt only — captions stay empty when no metadata exists)
@@ -152,9 +152,10 @@
        Caption-Abstract + By-line + Copyright; this picks them up automatically. */}}
   {{ $exif_tags := dict }}
   {{ if $resource }}
-    {{ $exif_try := try $resource.Exif }}
-    {{ if and (not $exif_try.Err) $exif_try.Value }}
-      {{ $exif_tags = $exif_try.Value.Tags | default dict }}
+    {{/* .Meta (Hugo 0.155+, replaces the deprecated .Exif) keeps Exif and IPTC apart */}}
+    {{ $meta_try := try $resource.Meta }}
+    {{ if and (not $meta_try.Err) $meta_try.Value }}
+      {{ $exif_tags = merge ($meta_try.Value.Exif | default dict) ($meta_try.Value.IPTC | default dict) }}
     {{ end }}
   {{ end }}
 
