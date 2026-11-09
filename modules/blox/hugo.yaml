@@ -104,10 +104,16 @@ outputs:
     - LLM
 imaging:
   # High quality defaults for crisp avatar display
-  quality: 90
+  # (per-format keys: Hugo 0.163 deprecated imaging.quality and imaging.hint)
   resampleFilter: lanczos
   anchor: smart
-  hint: picture
+  jpeg:
+    quality: 90
+  webp:
+    quality: 90
+    hint: picture
+  avif:
+    quality: 90
 params:
   locale:
     date_format: "Jan 2, 2006"
