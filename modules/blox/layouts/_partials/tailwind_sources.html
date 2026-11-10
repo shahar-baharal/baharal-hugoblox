@@ -61,8 +61,8 @@ and Tailwind's real filesystem scanner.
     {{ $str := strings.TrimPrefix `"` (strings.TrimSuffix `"` $m) }}
     {{ range split $str " " }}
       {{ $t := strings.TrimSpace . }}
-      {{/* Filter out tokens with unsafe characters (braces, quotes, parens) */}}
-      {{ if and $t (not (findRE `[\{\}\(\)"';]` $t)) }}
+      {{/* Filter out tokens with unsafe characters (braces, quotes). Fork: parens are kept, for arbitrary values like text-[var(--x)] */}}
+      {{ if and $t (not (findRE `[\{\}"';]` $t)) }}
         {{ $extracted_classes = $extracted_classes | append $t }}
       {{ end }}
     {{ end }}
@@ -76,8 +76,8 @@ and Tailwind's real filesystem scanner.
     {{ $static := replaceRE `\$\{[^}]*\}` " " $str }}
     {{ range split $static " " }}
       {{ $t := strings.TrimSpace . }}
-      {{/* Filter out tokens with unsafe characters (braces, quotes, parens) */}}
-      {{ if and $t (not (findRE `[\{\}\(\)"';]` $t)) }}
+      {{/* Filter out tokens with unsafe characters (braces, quotes). Fork: parens are kept, for arbitrary values like text-[var(--x)] */}}
+      {{ if and $t (not (findRE `[\{\}"';]` $t)) }}
         {{ $extracted_classes = $extracted_classes | append $t }}
       {{ end }}
     {{ end }}
