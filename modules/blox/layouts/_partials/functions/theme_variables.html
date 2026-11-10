@@ -24,6 +24,19 @@
 --hb-color-header-bg: {{ $data.surfaces.header.background | default $data.surfaces.background | default "#ffffff" }};
 --hb-color-header-fg: {{ $data.surfaces.header.foreground | default $data.surfaces.foreground | default "#000000" }};
 
-{{/* Footer */}}
---hb-color-footer-bg: {{ $data.surfaces.footer.background | default $data.surfaces.background | default "#f3f4f6" }};
---hb-color-footer-fg: {{ $data.surfaces.footer.foreground | default $data.surfaces.foreground | default "#000000" }};
+{{/* Alternate section (fork): every second landing-page block (landing_page.html).
+     Default: the page background with a hint of the text color. */}}
+--hb-color-section-alt-bg: {{ $data.surfaces.section_alt.background | default "color-mix(in oklab, var(--hb-color-foreground) 5%, var(--hb-color-background))" }};
+--hb-color-section-alt-fg: {{ $data.surfaces.section_alt.foreground | default "var(--hb-color-foreground)" }};
+
+{{/* Footer (fork): by default a color neither block color can match, so the
+     footer never blends into the last block. Light mode: dark footer, page
+     background as its text. Dark mode: darker than the page. A pack's
+     surfaces.footer overrides it (text then defaults to the page text). */}}
+{{ with $data.surfaces.footer.background }}
+--hb-color-footer-bg: {{ . }};
+--hb-color-footer-fg: {{ $data.surfaces.footer.foreground | default "var(--hb-color-foreground)" }};
+{{ else }}
+--hb-color-footer-bg: {{ if $.is_dark }}color-mix(in oklab, var(--hb-color-background) 60%, black){{ else }}color-mix(in oklab, var(--hb-color-foreground) 90%, var(--hb-color-background)){{ end }};
+--hb-color-footer-fg: {{ $data.surfaces.footer.foreground | default (cond $.is_dark "var(--hb-color-foreground)" "var(--hb-color-background)") }};
+{{ end }}

@@ -5,9 +5,13 @@
 {{/* Use unified sections source */}}
 {{- $sections := partial "hbx/sections.html" . -}}
 
+{{/* Fork: every second rendered block gets the alternate surface (hbb-section-alt).
+     A block's own design.background paints over it. */}}
+{{ $rendered := 0 }}
 {{ range $index, $block := $sections }}
   {{/* Do not show sections intended only for the demo site. */}}
   {{ if or (not $block.demo) ($block.demo | and (eq (os.Getenv "HUGO_BLOX_DEMO") "true")) }}
-    {{ partial "functions/parse_block_v3" (dict "page" $ "block" $block) }}
+    {{ $rendered = add $rendered 1 }}
+    {{ partial "functions/parse_block_v3" (dict "page" $ "block" $block "alt" (eq (mod $rendered 2) 0)) }}
   {{ end }}
 {{ end }}

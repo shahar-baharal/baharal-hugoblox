@@ -6,6 +6,13 @@
     padding-bottom: var(--hb-spacing-section, 6rem);
   }
 
+  /* Fork: every second landing-page block (landing_page.html). A block's own
+     design.background sits on .home-section-bg inside it and paints over this. */
+  .hbb-section-alt {
+    background-color: var(--hb-color-section-alt-bg);
+    color: var(--hb-color-section-alt-fg);
+  }
+
   .section-subheading {
     font-size: 1.25rem;
     font-weight: var(--hb-font-weight-heading, 700);
