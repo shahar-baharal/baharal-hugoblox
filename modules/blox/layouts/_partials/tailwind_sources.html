@@ -46,9 +46,13 @@ and Tailwind's real filesystem scanner.
 */}}
 {{ $all_jsx := resources.Match "js/hbx/**/*.jsx" }}
 {{ $all_tsx := resources.Match "js/hbx/**/*.tsx" }}
+{{/* Fork: the theme's plain scripts (hb-notifier.js etc.) add classes at
+     runtime; the assets/js glob below only sees them when the theme
+     is vendored, so extract them the same way. */}}
+{{ $all_js := resources.Match "js/*.js" }}
 
 {{ $extracted_classes := slice }}
-{{ range $f := $all_jsx | append $all_tsx }}
+{{ range $f := $all_jsx | append $all_tsx | append $all_js }}
   {{ $code := $f.Content }}
 
   {{/* A) Extract content of all double-quoted strings */}}
