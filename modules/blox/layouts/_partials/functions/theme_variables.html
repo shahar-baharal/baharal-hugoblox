@@ -30,13 +30,13 @@
 --hb-color-section-alt-fg: {{ $data.surfaces.section_alt.foreground | default "var(--hb-color-foreground)" }};
 
 {{/* Footer (fork): by default a color neither block color can match, so the
-     footer never blends into the last block. Light mode: dark footer, page
-     background as its text. Dark mode: darker than the page. A pack's
+     footer never blends into the last block. Light mode: the brand's darkest
+     shade (primary-900), white text. Dark mode: darker than the page. A pack's
      surfaces.footer overrides it (text then defaults to the page text). */}}
 {{ with $data.surfaces.footer.background }}
 --hb-color-footer-bg: {{ . }};
 --hb-color-footer-fg: {{ $data.surfaces.footer.foreground | default "var(--hb-color-foreground)" }};
 {{ else }}
---hb-color-footer-bg: {{ if $.is_dark }}color-mix(in oklab, var(--hb-color-background) 60%, black){{ else }}color-mix(in oklab, var(--hb-color-foreground) 90%, var(--hb-color-background)){{ end }};
---hb-color-footer-fg: {{ $data.surfaces.footer.foreground | default (cond $.is_dark "var(--hb-color-foreground)" "var(--hb-color-background)") }};
+--hb-color-footer-bg: {{ if $.is_dark }}color-mix(in oklab, var(--hb-color-background) 60%, black){{ else }}rgb(var(--hb-primary-900-rgb)){{ end }};
+--hb-color-footer-fg: {{ $data.surfaces.footer.foreground | default (cond $.is_dark "var(--hb-color-foreground)" "#ffffff") }};
 {{ end }}
