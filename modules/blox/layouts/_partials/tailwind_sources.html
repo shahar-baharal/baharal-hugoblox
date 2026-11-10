@@ -86,7 +86,8 @@ and Tailwind's real filesystem scanner.
 
 {{ $extracted_classes = $extracted_classes | uniq }}
 {{ range $class := $extracted_classes }}
-@source inline("{{ $class }}");
+{{/* Fork: safeHTML, or + in calc() arbitrary values is HTML-escaped */}}
+@source inline("{{ $class | safeHTML }}");
 {{ end }}
 
 {{/* Generate the @source rules */}}
