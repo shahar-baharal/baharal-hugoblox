@@ -137,12 +137,15 @@
       {{ $name := .name }}
       {{ $is_variable := index $variable $role | default false }}
       {{/* Use full range for variable fonts, discrete weights for static */}}
+      {{/* Google rejects (HTTP 400) a range outside the font's own axis, so a
+           variable font asks for the pack's min..max, not 100..900; css2
+           separates discrete weights with ";" */}}
       {{ $weight_spec := "" }}
-      {{ if $is_variable }}
-        {{ $weight_spec = "100..900" }}
+      {{ $role_weights := sort (uniq (index $weights $role | default (slice 400))) }}
+      {{ if and $is_variable (gt (len $role_weights) 1) }}
+        {{ $weight_spec = printf "%v..%v" (index $role_weights 0) (index $role_weights (sub (len $role_weights) 1)) }}
       {{ else }}
-        {{ $role_weights := index $weights $role | default (slice 400) }}
-        {{ $weight_spec = delimit $role_weights "," }}
+        {{ $weight_spec = delimit $role_weights ";" }}
       {{ end }}
       {{/* Dedup key includes weight spec so the same font can appear as both static and variable if needed */}}
       {{ $dedup_key := printf "%s|%s" $name $weight_spec }}
