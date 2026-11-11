@@ -127,6 +127,12 @@ Returns: Map with processed images and srcset string
         {{- $fallback_image = $processed -}}
       {{- end -}}
     {{- end -}}
+    {{/* Source narrower than every breakpoint: keep its own width */}}
+    {{- if not $fallback_image -}}
+      {{- $fallback_image = $image.Process (cond (gt (int $quality) 0) (printf "webp q%d" $quality) "webp") -}}
+      {{- $processed_images = $processed_images | append $fallback_image -}}
+      {{- $srcset_parts = $srcset_parts | append (printf "%s %dw" $fallback_image.RelPermalink $fallback_image.Width) -}}
+    {{- end -}}
   {{- end -}}
   {{ end }}
 {{- else -}}
