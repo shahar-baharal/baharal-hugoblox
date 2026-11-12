@@ -275,7 +275,7 @@ export const HeroBlock = ({content, design, _id, icon_svg, secondary_icon_svg, m
   // Split layout: two-column grid, optionally reversed
   if (layout.grid) {
     return (
-      <div class="relative isolate px-6 lg:px-8">
+      <div class="relative isolate">
         <div class={`mx-auto ${layout.container} ${sizeClasses}`}>
           {mobileSmall && (
             <div class="lg:hidden flex justify-center mb-6">
@@ -294,7 +294,7 @@ export const HeroBlock = ({content, design, _id, icon_svg, secondary_icon_svg, m
   // Stacked layout: text top (constrained), media full-width below
   if (layout.stacked) {
     return (
-      <div class="relative isolate px-6 lg:px-8">
+      <div class="relative isolate">
         <div class={`mx-auto ${layout.container} ${sizeClasses}`}>
           <div class="mx-auto max-w-3xl">{contentStack}</div>
           {mediaEl && <div class="mt-16">{mediaEl}</div>}
@@ -305,7 +305,7 @@ export const HeroBlock = ({content, design, _id, icon_svg, secondary_icon_svg, m
 
   // Centered (default)
   return (
-    <div class="relative isolate px-6 lg:px-8">
+    <div class="relative isolate">
       <div class={`mx-auto ${layout.container} ${sizeClasses}`}>{contentStack}</div>
     </div>
   );

@@ -93,7 +93,7 @@ export const FeaturesBlock = ({content = {}, design = {}, icon_svgs = {}, item_i
   const layout = design.layout || "grid";
 
   return (
-    <div class="py-16 sm:py-24 px-4 sm:px-6 lg:px-8">
+    <div class="py-16 sm:py-24">
       <div class="max-w-7xl mx-auto">
         {(title || text || subtitle) && (
           <div class="text-center max-w-3xl mx-auto mb-12 lg:mb-16">

@@ -101,7 +101,7 @@ export const TestimonialsBlock = ({content, _design, _id, item_images}) => {
         : "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6";
 
   return (
-    <div class="max-w-screen-xl px-4 py-8 mx-auto lg:py-16 lg:px-6">
+    <div class="max-w-screen-xl py-8 mx-auto lg:py-16">
       {(title || text) && (
         <div class="max-w-screen-md mb-12 lg:mb-16 mx-auto text-center">
           {title && (

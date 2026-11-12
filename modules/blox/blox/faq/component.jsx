@@ -77,7 +77,7 @@ export const FaqBlock = ({content = {}, icon_svgs = {}, button_icon_svg}) => {
   const isExtBtn = button.url && (button.url.startsWith("http://") || button.url.startsWith("https://"));
 
   return (
-    <div class="py-16 sm:py-24 px-4 sm:px-6 lg:px-8">
+    <div class="py-16 sm:py-24">
       <div class="max-w-3xl mx-auto">
         {(title || subtitle) && (
           <div class="text-center mb-10 lg:mb-14">

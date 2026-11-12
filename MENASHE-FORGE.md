@@ -25,6 +25,7 @@ What changed since the fork: `git log 68cbf335..main -- modules/blox`.
 | Block or data option | Effect |
 |---|---|
 | `design.media_mobile: small` (hero, split layouts) | Below `lg`, a small decorative copy of the image above the text replaces the full image stacked under it, so the call to action stays on the first screen |
+| `design.full_bleed: true` (any block) | The block runs to the screen edges: the section drops its side gap (`--hb-gutter`). Its background always does; this is for content. `design.spacing.padding` with a side value also replaces the gap |
 | `design.compact: true` (features, `grid` layout) | Icons and names only, no descriptions, two columns on phones and three from `lg`: a short list on the homepage while a subpage shows the same items in full |
 | `design.media_frame: false` (hero) | The hero image drops its shadow and ring, e.g. for a transparent PNG |
 | `surfaces.section_alt` (`background`, `foreground`) in a theme pack's `light`/`dark` table | Background of every second landing-page block (class `hbb-section-alt`, counted from the first block shown); a block's own `design.background` paints over it. Default: the page background with 5% of the text color. The footer's default is a third color neither block color can match (light: the brand's darkest shade, `primary-900`, with white text; dark: the page background toward black); `surfaces.footer` overrides it |

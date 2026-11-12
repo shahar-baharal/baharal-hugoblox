@@ -361,7 +361,7 @@ function CarouselView({items, design, openLightbox, gapClass, aspectClass, sizes
     <div class="relative">
       <div
         ref={scrollRef}
-        class={`hbx-gallery-carousel flex overflow-x-auto snap-x snap-mandatory scroll-pl-4 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 pb-2 ${gapClass}`}
+        class={`hbx-gallery-carousel flex overflow-x-auto snap-x snap-mandatory hbb-bleed scroll-pl-[var(--hb-gutter)] px-[var(--hb-gutter)] pb-2 ${gapClass}`}
       >
         {items.map((item, i) => (
           <CarouselTile
@@ -445,7 +445,7 @@ function SlideshowView({items, design, openLightbox, aspectClass, sizes}) {
 
   return (
     <div
-      class="relative"
+      class="relative hbb-bleed"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
       onTouchStart={onTouchStart}
@@ -781,7 +781,7 @@ export const GalleryBlock = ({content = {}, design = {}, items = []}) => {
   }
 
   return (
-    <div class="py-12 sm:py-16 px-4 sm:px-6 lg:px-8">
+    <div class="py-12 sm:py-16">
       <div class="max-w-7xl mx-auto">
         {(content.title || content.subtitle) && (
           <div class="text-center max-w-3xl mx-auto mb-10">

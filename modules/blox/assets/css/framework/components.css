@@ -1,9 +1,36 @@
 /* Hugo Blox Framework Custom Classes */
 @layer components {
   /* Section styles for Hugo Blox blocks */
+  /* The section owns the space around its block: top, bottom and sides. A block
+     styles only its inside (MENASHE-FORGE.md, rule 5).
+     --hb-gutter is in px, not rem: a reader's larger default font size should
+     grow the text, not the side gap that takes width from it. Breakpoints are in
+     rem (Tailwind's sm and lg) so they follow that font size. */
+  :root {
+    --hb-gutter: 16px;
+  }
+  @media (min-width: 40rem) {
+    :root { --hb-gutter: 24px; }
+  }
+  @media (min-width: 64rem) {
+    :root { --hb-gutter: 32px; }
+  }
+
   .hbb-section {
     padding-top: var(--hb-spacing-section, 6rem);
     padding-bottom: var(--hb-spacing-section, 6rem);
+    padding-inline: var(--hb-gutter);
+  }
+
+  /* design.full_bleed: true — the whole block runs to the screen edges. */
+  .hbb-section.hbb-full-bleed {
+    --hb-gutter: 0px;
+  }
+
+  /* One strip inside a block (a marquee, a carousel) runs to the screen edges
+     on phones and tablets, across the section's gutter. */
+  .hbb-bleed {
+    margin-inline: calc(-1 * var(--hb-gutter));
   }
 
   /* Fork: every second landing-page block (landing_page.html). A block's own

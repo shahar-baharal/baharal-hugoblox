@@ -173,7 +173,7 @@
   {{ $fallback_icon = $fallback_raw }}
 {{ end }}
 
-<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16" x-data="{ activeFilter: {{ $default_tag | jsonify }} }">
+<div class="mx-auto max-w-7xl py-16" x-data="{ activeFilter: {{ $default_tag | jsonify }} }">
   
   {{/* Header */}}
   <div class="text-center mb-12">

@@ -8,7 +8,7 @@
 {{ $content := $block.content }}
 {{ if not (reflect.IsMap $content) }}{{ $content = dict }}{{ end }}
 
-<div class="flex items-center flex-col mx-auto w-full justify-center mt-4 px-8 pb-5">
+<div class="flex items-center flex-col mx-auto w-full justify-center mt-4 pb-5">
 
 {{ $buttons_raw := index $content "buttons" }}
 {{ $buttons := slice }}

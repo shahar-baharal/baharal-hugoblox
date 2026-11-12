@@ -35,7 +35,7 @@ function CtaItem({item, idx, imageData, featureIconSvg}) {
 
   return (
     <div
-      class={`flex flex-col gap-10 items-center py-10 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6 ${
+      class={`flex flex-col gap-10 items-center py-10 mx-auto max-w-screen-xl sm:py-16 ${
         imageData ? "md:flex-row md:gap-16" : ""
       } ${isReversed && imageData ? "md:flex-row-reverse" : ""}`}
     >

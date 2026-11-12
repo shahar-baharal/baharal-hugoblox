@@ -368,7 +368,7 @@ export const StepsBlock = ({content = {}, design = {}, icon_svgs = {}, item_imag
   const maxW = layout === "horizontal" ? "max-w-5xl" : layout === "timeline" ? "max-w-4xl" : "max-w-2xl";
 
   return (
-    <div class="py-12 sm:py-16 px-4 sm:px-6 lg:px-8" ref={containerRef}>
+    <div class="py-12 sm:py-16" ref={containerRef}>
       <style>{STEP_ANIMATION_CSS}</style>
 
       <div class={`mx-auto ${maxW}`}>

@@ -311,6 +311,7 @@
 {{ $hash_id := $block.id | default (printf "section-%s" (replace $block_type "." "-")) }}
 {{ $css_classes := $block.design.css_class | default "" }}
 {{ if $.alt }}{{ $css_classes = printf "hbb-section-alt %s" $css_classes }}{{ end }}
+{{ if $block.design.full_bleed }}{{ $css_classes = printf "hbb-full-bleed %s" $css_classes }}{{ end }}
 {{ $widget_class := printf "blox-%s" (strings.ReplacePairs $block_type "." "-" "_" "-") }}
 
 {{/* Extract background-specific CSS classes */}}

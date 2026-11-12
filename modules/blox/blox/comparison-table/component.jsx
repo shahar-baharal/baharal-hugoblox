@@ -277,7 +277,7 @@ export const ComparisonTableBlock = ({content = {}, design = {}, icon_svgs = {}}
   const rowStriping = design.row_striping === true;
 
   return (
-    <div class="py-16 sm:py-24 px-4 sm:px-6 lg:px-8">
+    <div class="py-16 sm:py-24">
       <div class="max-w-6xl mx-auto">
         {(title || subtitle || text) && (
           <div class="text-center max-w-3xl mx-auto mb-10 lg:mb-14">

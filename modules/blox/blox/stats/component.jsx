@@ -228,7 +228,7 @@ export const StatsBlock = ({content, design, _id, icon_svgs}) => {
 
   return (
     <div class="py-8 sm:py-12 lg:py-16" ref={containerRef}>
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-7xl mx-auto">
         {/* Section Header */}
         {(title || text) && (
           <div class="text-center mb-12 lg:mb-16">

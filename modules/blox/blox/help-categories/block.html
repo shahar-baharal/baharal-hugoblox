@@ -31,7 +31,7 @@
 {{- with index $view_all "link" }}{{ $view_all_link = strings.TrimSpace (printf "%v" .) }}{{ end -}}
 
 <section id="{{ $wcIdentifier }}" class="relative" style="padding: {{ delimit $pad " " }};">
-  <div class="mx-auto max-w-7xl px-6 lg:px-8">
+  <div class="mx-auto max-w-7xl">
     
     {{/* Section header */}}
     {{ if or $title $subtitle }}
