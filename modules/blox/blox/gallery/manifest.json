@@ -1,6 +1,7 @@
 {
   "id": "gallery",
   "name": "Gallery",
+  "i18n": ["block_gallery_open_image", "block_gallery_image", "block_gallery_scroll_previous", "block_gallery_scroll_next", "block_gallery_previous_slide", "block_gallery_next_slide", "block_gallery_go_to_slide", "block_gallery_lightbox", "block_gallery_close", "block_gallery_previous_image", "block_gallery_next_image"],
   "version": "1.0.0",
   "license": "MIT",
   "category": "media",

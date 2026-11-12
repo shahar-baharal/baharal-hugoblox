@@ -680,3 +680,65 @@
 
 - id: skip_to_main
   translation: Skip to main content
+
+- id: no_entries
+  translation: "No entries yet."
+
+# Preact blocks (listed in each block's manifest.json "i18n")
+
+- id: block_gallery_open_image
+  translation: "Open image: {name}"
+
+- id: block_gallery_image
+  translation: "Image"
+
+- id: block_gallery_scroll_previous
+  translation: "Scroll previous"
+
+- id: block_gallery_scroll_next
+  translation: "Scroll next"
+
+- id: block_gallery_previous_slide
+  translation: "Previous slide"
+
+- id: block_gallery_next_slide
+  translation: "Next slide"
+
+- id: block_gallery_go_to_slide
+  translation: "Go to slide {n}"
+
+- id: block_gallery_lightbox
+  translation: "Image lightbox"
+
+- id: block_gallery_close
+  translation: "Close"
+
+- id: block_gallery_previous_image
+  translation: "Previous image"
+
+- id: block_gallery_next_image
+  translation: "Next image"
+
+- id: block_pricing_free
+  translation: "Free"
+
+- id: block_pricing_toggle_billing
+  translation: "Toggle billing period"
+
+- id: block_map
+  translation: "Map"
+
+- id: block_map_get_directions
+  translation: "Get directions"
+
+- id: block_map_marker
+  translation: "Map marker"
+
+- id: block_map_zoom_in
+  translation: "Zoom in"
+
+- id: block_map_zoom_out
+  translation: "Zoom out"
+
+- id: block_map_toggle_attribution
+  translation: "Toggle attribution"

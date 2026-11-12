@@ -1,5 +1,6 @@
 import {useEffect, useRef} from "preact/hooks";
 import {renderInline} from "../../shared/text.js";
+import {Strings, useT} from "../../shared/i18n.js";
 
 /*
  * Map block — open-source interactive maps for HugoBlox.
@@ -56,6 +57,7 @@ function directionsUrl(location, override) {
 
 function MapCanvas({location, zoom, markers, provider, style, interactive, attribution, design}) {
   const ref = useRef(null);
+  const tr = useT();
 
   useEffect(() => {
     if (!ref.current) return;
@@ -100,6 +102,13 @@ function MapCanvas({location, zoom, markers, provider, style, interactive, attri
         attributionControl: attribution === false ? false : {compact: true},
         interactive: interactive !== false,
         cooperativeGestures: design?.cooperative_gestures === true,
+        locale: {
+          "Map.Title": tr("block_map"),
+          "NavigationControl.ZoomIn": tr("block_map_zoom_in"),
+          "NavigationControl.ZoomOut": tr("block_map_zoom_out"),
+          "AttributionControl.ToggleAttribution": tr("block_map_toggle_attribution"),
+          "Marker.Title": tr("block_map_marker"),
+        },
       });
 
       if (interactive !== false) {
@@ -149,10 +158,11 @@ function MapCanvas({location, zoom, markers, provider, style, interactive, attri
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location?.lat, location?.lng, zoom, JSON.stringify(markers), style, interactive, attribution]);
 
-  return <div ref={ref} class="w-full h-full bg-gray-100 dark:bg-gray-800" aria-label="Map" role="img" />;
+  return <div ref={ref} class="w-full h-full bg-gray-100 dark:bg-gray-800" aria-label={tr("block_map")} role="img" />;
 }
 
 function AddressCard({content, location, ctaUrl, dark}) {
+  const tr = useT();
   const {title, subtitle, cta = {}} = content;
   const addressLines = (location?.address || "")
     .split("\n")
@@ -223,7 +233,7 @@ function AddressCard({content, location, ctaUrl, dark}) {
           rel="noopener noreferrer"
           class="inline-flex items-center justify-center gap-2 self-start rounded-xl bg-gradient-to-r from-primary-600 to-secondary-600 px-5 py-3 text-sm font-semibold text-white shadow-sm hover:from-primary-700 hover:to-secondary-700 hover:shadow-md transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900"
         >
-          {(content.cta && content.cta.directions && content.cta.directions.text) || "Get directions"}
+          {(content.cta && content.cta.directions && content.cta.directions.text) || tr("block_map_get_directions")}
           <svg class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
             <path
               fill-rule="evenodd"
@@ -237,7 +247,13 @@ function AddressCard({content, location, ctaUrl, dark}) {
   );
 }
 
-export const MapBlock = ({content = {}, design = {}, provider}) => {
+export const MapBlock = (props) => (
+  <Strings.Provider value={props.t || {}}>
+    <MapBlockInner {...props} />
+  </Strings.Provider>
+);
+
+function MapBlockInner({content = {}, design = {}, provider}) {
   const {location = {}, zoom, markers, cta = {}} = content;
   const layout = design.layout || "side-by-side";
   const heightCls = heightClass(design.height);
@@ -302,4 +318,4 @@ export const MapBlock = ({content = {}, design = {}, provider}) => {
       </div>
     </div>
   );
-};
+}

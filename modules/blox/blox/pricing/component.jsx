@@ -2,12 +2,14 @@ import {useState} from "preact/hooks";
 import {Icon} from "../../shared/components/Icon.jsx";
 import {renderInline} from "../../shared/text.js";
 import {isExternal} from "../../shared/links.js";
+import {Strings, useT} from "../../shared/i18n.js";
 
 const CHECK_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd"/></svg>`;
 const X_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z"/></svg>`;
 
 
 function BillingToggle({billing, setBilling, toggle}) {
+  const tr = useT();
   const isYearly = billing === "yearly";
   return (
     <div class="flex items-center justify-center gap-4 mb-10">
@@ -23,7 +25,7 @@ function BillingToggle({billing, setBilling, toggle}) {
         onClick={() => setBilling(isYearly ? "monthly" : "yearly")}
         class={`relative inline-flex h-7 w-12 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900 ${isYearly ? "bg-primary-600" : "bg-gray-300 dark:bg-gray-600"}`}
       >
-        <span class="sr-only">Toggle billing period</span>
+        <span class="sr-only">{tr("block_pricing_toggle_billing")}</span>
         <span
           class={`pointer-events-none inline-block h-6 w-6 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out ${isYearly ? "translate-x-5 rtl:-translate-x-5" : "translate-x-0"}`}
         />
@@ -43,6 +45,7 @@ function BillingToggle({billing, setBilling, toggle}) {
 }
 
 function PriceDisplay({price = {}, price_suffix, price_note, price_note_monthly, price_note_yearly, billing}) {
+  const tr = useT();
   const raw = billing === "yearly" && price.yearly != null ? price.yearly : price.monthly;
   const currency = price.currency ?? "$";
   const isContact = raw === "" || raw == null;
@@ -63,7 +66,7 @@ function PriceDisplay({price = {}, price_suffix, price_note, price_note_monthly,
       <div class="mb-6">
         {/* text-4xl matches the visual weight of `$XX` prices (where $ is text-2xl
             and the digit is text-5xl) without "Free" dominating the row. */}
-        <p class="text-4xl font-bold tracking-tight text-gray-900 dark:text-white">Free</p>
+        <p class="text-4xl font-bold tracking-tight text-gray-900 dark:text-white">{tr("block_pricing_free")}</p>
         {note && <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">{note}</p>}
       </div>
     );
@@ -225,7 +228,7 @@ function PricingTier({tier, billing, icon_svgs}) {
   );
 }
 
-export const PricingBlock = ({content = {}, icon_svgs = {}}) => {
+export const PricingBlock = ({content = {}, icon_svgs = {}, t = {}}) => {
   const {title, subtitle, billing_toggle = {}, tiers = []} = content;
 
   const hasYearlyPrices = tiers.some((t) => t.price?.yearly != null && t.price.yearly !== t.price.monthly);
@@ -237,6 +240,7 @@ export const PricingBlock = ({content = {}, icon_svgs = {}}) => {
     tiers.length === 1 ? "max-w-sm mx-auto" : tiers.length === 2 ? "max-w-4xl mx-auto grid-cols-1 sm:grid-cols-2" : "grid-cols-1 md:grid-cols-3";
 
   return (
+    <Strings.Provider value={t}>
     <div class="py-16 sm:py-24">
       <div class="max-w-7xl mx-auto">
         {(title || subtitle) && (
@@ -261,5 +265,6 @@ export const PricingBlock = ({content = {}, icon_svgs = {}}) => {
         </div>
       </div>
     </div>
+    </Strings.Provider>
   );
 };

@@ -168,6 +168,7 @@ module:
         - "**/*.ts"
         - "**/*.jsx"
         - "**/*.tsx"
+        - "**/manifest.json" # its "i18n" key list, read by preact-wrapper.html
 
     # BLOX C) Block-specific CSS
     - source: blox

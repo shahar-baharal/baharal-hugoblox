@@ -1,6 +1,7 @@
 {
   "id": "pricing",
   "name": "Pricing",
+  "i18n": ["block_pricing_free", "block_pricing_toggle_billing"],
   "version": "1.0.0",
   "license": "MIT",
   "category": "conversion",

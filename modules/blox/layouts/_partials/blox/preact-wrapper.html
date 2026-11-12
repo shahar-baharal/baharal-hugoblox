@@ -220,6 +220,16 @@
 {{ end }}
 
 {{/* Convert props to JSON for client-side rendering */}}
+{{/* Interface text: the block's manifest.json lists its i18n keys; pass them
+     translated as `t`. A site overrides any key in its own i18n/<lang>.yaml. */}}
+{{ with resources.Get (printf "js/hbx/blocks/%s/manifest.json" $block_type) }}
+  {{ with (. | transform.Unmarshal).i18n }}
+    {{ $t := dict }}
+    {{ range . }}{{ $t = merge $t (dict . (i18n .)) }}{{ end }}
+    {{ $props = merge $props (dict "t" $t) }}
+  {{ end }}
+{{ end }}
+
 {{ $propsJSON := $props | jsonify }}
 
 {{/* Render a container that Preact will populate */}}

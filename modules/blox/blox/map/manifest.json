@@ -1,6 +1,7 @@
 {
   "id": "map",
   "name": "Map",
+  "i18n": ["block_map", "block_map_get_directions", "block_map_marker", "block_map_zoom_in", "block_map_zoom_out", "block_map_toggle_attribution"],
   "version": "1.0.0",
   "license": "MIT",
   "category": "location",

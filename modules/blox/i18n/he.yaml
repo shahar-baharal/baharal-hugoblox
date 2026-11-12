@@ -300,3 +300,202 @@
 
 - id: block_contact_whatsapp_cta
   translation: שליחת הודעה
+
+# Theme keys that had no Hebrew (baharal-hugoblox)
+
+- id: about_me
+  translation: "סיכום מקצועי"
+
+- id: ai_insight
+  translation: "תובנת AI"
+
+- id: awards
+  translation: "פרסים"
+
+- id: block_contact_connect_title
+  translation: "יצירת קשר"
+
+- id: block_contact_follow_me
+  translation: "אפשר למצוא אותי ב"
+
+- id: block_contact_form_email
+  translation: "אימייל"
+
+- id: block_contact_form_message
+  translation: "הודעה"
+
+- id: block_contact_form_name
+  translation: "שם"
+
+- id: block_contact_form_subject
+  translation: "נושא"
+
+- id: block_contact_form_submit
+  translation: "שליחת הודעה"
+
+- id: block_contact_form_title
+  translation: "שלחו לנו הודעה"
+
+- id: block_contact_office_hours
+  translation: "שעות פתיחה"
+
+- id: block_contact_prospective_title
+  translation: "מצטרפים חדשים"
+
+- id: block_contact_title
+  translation: "צרו קשר"
+
+- id: block_contact_view_on_map
+  translation: "הצגה במפה"
+
+- id: block_contact_visit_title
+  translation: "בואו לבקר"
+
+- id: details
+  translation: "פרטים"
+
+- id: developer
+  translation: "מפתח"
+
+- id: difficulty
+  translation: "רמת קושי"
+
+- id: docs
+  translation: "תיעוד"
+
+- id: enter_fullscreen
+  translation: "מסך מלא"
+
+- id: exit_fullscreen
+  translation: "יציאה ממסך מלא"
+
+- id: experience
+  translation: "ניסיון"
+
+- id: faq
+  translation: "שאלות נפוצות"
+
+- id: featured
+  translation: "מומלץ"
+
+- id: feedback_widget_question
+  translation: "האם העמוד הזה עזר לך?"
+
+- id: funding
+  translation: "מימון"
+
+- id: license
+  translation: "רישיון"
+
+- id: no_entries
+  translation: "אין עדיין פריטים."
+
+- id: open_access
+  translation: "גישה פתוחה"
+
+- id: peer_reviewed
+  translation: "עבר ביקורת עמיתים"
+
+- id: portfolio_link_code
+  translation: "קוד"
+
+- id: portfolio_link_default
+  translation: "קישור"
+
+- id: portfolio_link_demo
+  translation: "הדגמה"
+
+- id: portfolio_link_live
+  translation: "באוויר"
+
+- id: portfolio_view_all
+  translation: "כל הפרויקטים"
+
+- id: prerequisites
+  translation: "דרישות קדם"
+
+- id: present_fullscreen
+  translation: "הצגה (מסך מלא)"
+
+- id: present_slides
+  translation: "הצגה"
+
+- id: questions
+  translation: "שאלות"
+
+- id: read_more
+  translation: "להמשך קריאה"
+
+- id: scroll_to_content
+  translation: "גלילה לתוכן"
+
+- id: slides_not_found
+  translation: "השקפים לא נמצאו"
+
+- id: speaker_notes_hint
+  translation: "להערות הדובר"
+
+- id: status
+  translation: "סטטוס"
+
+- id: trending
+  translation: "פופולרי עכשיו"
+
+# Preact blocks (listed in each block's manifest.json "i18n")
+
+- id: block_gallery_open_image
+  translation: "פתיחת התמונה: {name}"
+
+- id: block_gallery_image
+  translation: "תמונה"
+
+- id: block_gallery_scroll_previous
+  translation: "גלילה אחורה"
+
+- id: block_gallery_scroll_next
+  translation: "גלילה קדימה"
+
+- id: block_gallery_previous_slide
+  translation: "השקופית הקודמת"
+
+- id: block_gallery_next_slide
+  translation: "השקופית הבאה"
+
+- id: block_gallery_go_to_slide
+  translation: "מעבר לשקופית {n}"
+
+- id: block_gallery_lightbox
+  translation: "תצוגת תמונה"
+
+- id: block_gallery_close
+  translation: "סגירה"
+
+- id: block_gallery_previous_image
+  translation: "התמונה הקודמת"
+
+- id: block_gallery_next_image
+  translation: "התמונה הבאה"
+
+- id: block_pricing_free
+  translation: "חינם"
+
+- id: block_pricing_toggle_billing
+  translation: "החלפת תקופת חיוב"
+
+- id: block_map
+  translation: "מפה"
+
+- id: block_map_get_directions
+  translation: "הוראות הגעה"
+
+- id: block_map_marker
+  translation: "סימון במפה"
+
+- id: block_map_zoom_in
+  translation: "הגדלה"
+
+- id: block_map_zoom_out
+  translation: "הקטנה"
+
+- id: block_map_toggle_attribution
+  translation: "הצגת קרדיטים"
