@@ -113,7 +113,7 @@ function AnnouncementPill({announcement, alignKey = "center"}) {
     <div class={`hidden sm:mb-8 sm:flex ${justify}`}>
       <div class="relative flex items-center gap-2 rounded-full ps-1 pe-4 py-1 text-sm leading-6 text-gray-600 dark:text-gray-300 ring-1 ring-gray-900/10 dark:ring-gray-300/30 hover:ring-gray-900/20 dark:hover:ring-gray-300/50 transition-all">
         {badge?.text && <span class={`rounded-full px-2.5 py-0.5 text-xs font-semibold ${badgeCls}`}>{badge.text}</span>}
-        {!badge?.text && <span class="pl-2" />}
+        {!badge?.text && <span class="ps-2" />}
         <span dangerouslySetInnerHTML={{__html: renderInline(announcement.text)}} />
         {announcement.link?.text && (
           <a

@@ -99,7 +99,7 @@ function GridTile({item, onClick, aspectClass, captionPosition, hoverZoom, sizes
           onLoad={() => setLoaded(true)}
         />
         {showOverlay && (
-          <span class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-4 pt-12 text-left">
+          <span class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-4 pt-12 text-start">
             <span class="block text-sm font-semibold text-white" dangerouslySetInnerHTML={{__html: item.title || item.caption}} />
             {item.title && item.caption && (
               <span class="block text-xs text-gray-200 mt-1" dangerouslySetInnerHTML={{__html: item.caption}} />
@@ -167,7 +167,7 @@ function MasonryTile({item, onClick, captionPosition, hoverZoom, sizes, lightbox
           onLoad={() => setLoaded(true)}
         />
         {showOverlay && (
-          <span class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-4 pt-12 text-left">
+          <span class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-4 pt-12 text-start">
             <span class="block text-sm font-semibold text-white" dangerouslySetInnerHTML={{__html: item.title || item.caption}} />
             {item.title && item.caption && (
               <span class="block text-xs text-gray-200 mt-1" dangerouslySetInnerHTML={{__html: item.caption}} />
@@ -237,7 +237,7 @@ function JustifiedTile({item, rowHeight, onClick, captionPosition, hoverZoom, si
           onLoad={() => setLoaded(true)}
         />
         {showOverlay && (
-          <span class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-4 pt-12 text-left">
+          <span class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-4 pt-12 text-start">
             <span class="block text-sm font-semibold text-white" dangerouslySetInnerHTML={{__html: item.title || item.caption}} />
             {item.title && item.caption && (
               <span class="block text-xs text-gray-200 mt-1" dangerouslySetInnerHTML={{__html: item.caption}} />
@@ -312,7 +312,7 @@ function CarouselTile({item, basisClass, onClick, aspectClass, captionPosition, 
           onLoad={() => setLoaded(true)}
         />
         {showOverlay && (
-          <span class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-4 pt-12 text-left">
+          <span class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-4 pt-12 text-start">
             <span class="block text-sm font-semibold text-white" dangerouslySetInnerHTML={{__html: item.title || item.caption}} />
             {item.title && item.caption && (
               <span class="block text-xs text-gray-200 mt-1" dangerouslySetInnerHTML={{__html: item.caption}} />

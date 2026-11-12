@@ -60,7 +60,7 @@
       <div class="mt-4 mb-16">
       <div class="text-gray-500 dark:text-gray-300 text-sm flex items-center flex-wrap gap-y-2">
         {{- if $display_date | and (.Params.show_date | default true) -}}
-        <span class="mr-1">{{- (time $display_date) | time.Format (site.Params.hugoblox.locale.date_format | default ":date_long") -}}</span>
+        <span class="me-1">{{- (time $display_date) | time.Format (site.Params.hugoblox.locale.date_format | default ":date_long") -}}</span>
         {{- if .Params.authors }}<span class="mx-1">·</span>{{ end -}}
         {{- end -}}
 
@@ -72,7 +72,7 @@
         {{ range $i, $slug := .Params.authors }}
           {{ $profile := partial "functions/get_author_profile" $slug }}
           {{ $avatar := $profile.avatar }}
-          {{ if and $i (not $avatar) }}<span class="mr-1">,</span>{{ end }}
+          {{ if and $i (not $avatar) }}<span class="me-1">,</span>{{ end }}
           <div class="group inline-flex items-center text-current gap-x-1.5 mx-1">
             {{ with $avatar }}
               {{ $avatar_32 := .Process "Fill 32x32 Center webp" }}
@@ -88,7 +88,7 @@
           {{/* Add author note tooltip if available */}}
           {{- if isset $.Params "author_notes" -}}
             {{- with (index $.Params.author_notes $i) -}}
-              <span class="relative inline-block ml-1" x-data="{ tooltip: false }">
+              <span class="relative inline-block ms-1" x-data="{ tooltip: false }">
                 <button
                   @mouseenter="tooltip = true"
                   @mouseleave="tooltip = false"
@@ -115,7 +115,7 @@
                   x-cloak
                 >
                   {{.}}
-                  <div class="absolute top-full left-1/2 transform -translate-x-1/2 -mt-1 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900 dark:border-t-gray-700"></div>
+                  <div class="absolute top-full left-1/2 transform -translate-x-1/2 -mt-1 w-0 h-0 border-x-4 border-t-4 border-transparent border-t-gray-900 dark:border-t-gray-700"></div>
                 </div>
               </span>
             {{- end -}}

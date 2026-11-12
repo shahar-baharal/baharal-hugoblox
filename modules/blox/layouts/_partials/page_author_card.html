@@ -16,7 +16,7 @@
   {{ if $avatar }}
     {{ if not (reflect.IsImageResourceProcessable $avatar) }}
     <img
-      class="mr-4 h-24 w-24 {{if ne $avatar_shape "square"}}rounded-full{{end}}"
+      class="me-4 h-24 w-24 {{if ne $avatar_shape "square"}}rounded-full{{end}}"
       src="{{ $avatar.RelPermalink }}"
       width="96"
       height="96"
@@ -32,7 +32,7 @@
         "sizes" (slice 96 192 288 384)
     ) }}
     <img
-      class="mr-4 h-24 w-24 {{if ne $avatar_shape "square"}}rounded-full{{end}}"
+      class="me-4 h-24 w-24 {{if ne $avatar_shape "square"}}rounded-full{{end}}"
       srcset="{{ $responsive.srcset }}"
       sizes="96px"
       src="{{ $responsive.fallback.RelPermalink }}"
@@ -54,7 +54,7 @@
         {{if $profile_url}}</a>{{end}}
       </span>
       {{- with $profile.pronouns -}}
-        <span class="text-sm font-normal text-gray-600 dark:text-gray-400 ml-1 inline-block">({{ . }})</span>
+        <span class="text-sm font-normal text-gray-600 dark:text-gray-400 ms-1 inline-block">({{ . }})</span>
       {{- end -}}
     </div>
 

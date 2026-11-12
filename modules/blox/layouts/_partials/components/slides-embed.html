@@ -91,7 +91,7 @@
     {{/* Fullscreen toggle button - inside container for fullscreen visibility */}}
     <button
       @click="toggleFullscreen()"
-      class="absolute top-4 right-4 p-3 bg-white/95 dark:bg-gray-800/95 hover:bg-white dark:hover:bg-gray-800 text-gray-700 dark:text-gray-200 rounded-lg shadow-xl border border-gray-200 dark:border-gray-700 transition-all duration-200 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-primary-500 backdrop-blur-sm"
+      class="absolute top-4 end-4 p-3 bg-white/95 dark:bg-gray-800/95 hover:bg-white dark:hover:bg-gray-800 text-gray-700 dark:text-gray-200 rounded-lg shadow-xl border border-gray-200 dark:border-gray-700 transition-all duration-200 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-primary-500 backdrop-blur-sm"
       :aria-label="isFullscreen ? {{ $exit_fullscreen_label | jsonify }} : {{ $enter_fullscreen_label | jsonify }}"
       type="button"
       style="z-index: 9999;"

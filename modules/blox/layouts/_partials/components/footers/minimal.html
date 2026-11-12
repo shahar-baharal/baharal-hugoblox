@@ -2,7 +2,7 @@
 {{ if .IsTranslated | and $show_translations }}
 <div class="mx-auto flex gap-3 py-2 px-4">
   <div class="font-bold">
-    {{- partial "functions/get_icon" (dict "name" "globe-alt" "attributes" `class="inline-block pr-1" style="height: 1em"`) -}}
+    {{- partial "functions/get_icon" (dict "name" "globe-alt" "attributes" `class="inline-block pe-1" style="height: 1em"`) -}}
     {{ i18n "languages" }}:
   </div>
   <div class="font-bold">{{ index hugo.Data.languages .Lang }}</div>

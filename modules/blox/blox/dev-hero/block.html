@@ -151,8 +151,8 @@
   {{/* Background Effects - only visible in dark mode */}}
   <div class="absolute inset-0 pointer-events-none dark:block hidden">
     {{/* Gradient orbs */}}
-    <div class="absolute top-1/4 -left-20 w-96 h-96 bg-primary-500/20 rounded-full blur-3xl animate-pulse"></div>
-    <div class="absolute bottom-1/4 -right-20 w-80 h-80 bg-secondary-500/20 rounded-full blur-3xl animate-pulse" style="animation-delay: 1s;"></div>
+    <div class="absolute top-1/4 -left-20 w-96 h-96 bg-primary-500/20 rounded-full blur-3xl animate-pulse"></div>{{/* rtl-lint: ok: decorative blob */}}
+    <div class="absolute bottom-1/4 -right-20 w-80 h-80 bg-secondary-500/20 rounded-full blur-3xl animate-pulse" style="animation-delay: 1s;"></div>{{/* rtl-lint: ok: decorative blob */}}
     <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[40rem] h-[40rem] bg-primary-600/5 rounded-full blur-3xl"></div>
     
     {{/* Grid pattern */}}
@@ -161,8 +161,8 @@
   
   {{/* Light mode subtle background */}}
   <div class="absolute inset-0 pointer-events-none dark:hidden">
-    <div class="absolute top-1/4 -left-20 w-96 h-96 bg-primary-100 rounded-full blur-3xl"></div>
-    <div class="absolute bottom-1/4 -right-20 w-80 h-80 bg-secondary-100 rounded-full blur-3xl"></div>
+    <div class="absolute top-1/4 -left-20 w-96 h-96 bg-primary-100 rounded-full blur-3xl"></div>{{/* rtl-lint: ok: decorative blob */}}
+    <div class="absolute bottom-1/4 -right-20 w-80 h-80 bg-secondary-100 rounded-full blur-3xl"></div>{{/* rtl-lint: ok: decorative blob */}}
   </div>
 
   <div class="relative z-10 mx-auto max-w-5xl py-20 {{ if eq $style "centered" }}text-center{{ end }}">
@@ -181,7 +181,7 @@
           {{/* Status emoji badge */}}
           {{ if $show_status }}
             {{ with $status_icon }}
-            <span class="absolute bottom-2 right-2 w-12 h-12 flex items-center justify-center text-2xl bg-white dark:bg-gray-900 rounded-full border-2 border-gray-200 dark:border-white/10 shadow-lg">
+            <span class="absolute bottom-2 end-2 w-12 h-12 flex items-center justify-center text-2xl bg-white dark:bg-gray-900 rounded-full border-2 border-gray-200 dark:border-white/10 shadow-lg">
               {{ . | emojify }}
             </span>
             {{ end }}
@@ -193,7 +193,7 @@
       {{ end }}
 
       {{/* Content */}}
-      <div class="text-center md:text-left">
+      <div class="text-center md:text-start">
         {{/* Greeting */}}
         {{ with $greeting }}
         <p class="text-primary-600 dark:text-primary-400 font-mono text-sm mb-4 flex items-center {{ if eq $style "centered" }}justify-center{{ end }} gap-2">
@@ -321,7 +321,7 @@
         {{/* Status emoji badge */}}
         {{ if $show_status }}
           {{ with $status_icon }}
-          <span class="absolute bottom-0 right-0 w-10 h-10 flex items-center justify-center text-xl bg-white dark:bg-gray-900 rounded-full border-2 border-gray-200 dark:border-white/10 shadow-lg">
+          <span class="absolute bottom-0 end-0 w-10 h-10 flex items-center justify-center text-xl bg-white dark:bg-gray-900 rounded-full border-2 border-gray-200 dark:border-white/10 shadow-lg">
             {{ . | emojify }}
           </span>
           {{ end }}

@@ -27,7 +27,7 @@
 }
 
 .hb-sidebar-list {
-  @apply relative flex flex-col gap-1 before:absolute before:inset-y-1 before:w-px before:bg-gray-200 before:content-[""] ltr:ml-3 ltr:pl-3 ltr:before:left-0 rtl:mr-3 rtl:pr-3 rtl:before:right-0;
+  @apply relative flex flex-col gap-1 before:absolute before:inset-y-1 before:w-px before:bg-gray-200 before:content-[""] ms-3 ps-3 before:start-0;
 }
 
 .hb-sidebar-list::before {
@@ -78,7 +78,7 @@
 }
 
 .hb-sidebar-mobile-toc {
-  @apply flex flex-col gap-1 relative before:absolute before:inset-y-1 before:w-px before:bg-gray-200 before:content-[""] ltr:pl-3 ltr:before:left-0 rtl:pr-3 rtl:before:right-0 ltr:ml-3 rtl:mr-3;
+  @apply flex flex-col gap-1 relative before:absolute before:inset-y-1 before:w-px before:bg-gray-200 before:content-[""] ps-3 before:start-0 ms-3;
 }
 
 .hb-sidebar-mobile-toc::before {

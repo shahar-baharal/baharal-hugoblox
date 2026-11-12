@@ -7,7 +7,7 @@
 }
 
 .copy-button {
-  @apply invisible absolute right-0 top-0 z-10 w-20 py-1 cursor-pointer font-mono text-sm whitespace-nowrap rounded-bl-md rounded-tr-md bg-neutral-200 text-neutral-700 opacity-90 dark:bg-neutral-600 dark:text-neutral-200;
+  @apply invisible absolute end-0 top-0 z-10 w-20 py-1 cursor-pointer font-mono text-sm whitespace-nowrap rounded-es-md rounded-se-md bg-neutral-200 text-neutral-700 opacity-90 dark:bg-neutral-600 dark:text-neutral-200;
 }
 
 /* Copy Button */

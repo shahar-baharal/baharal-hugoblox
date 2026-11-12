@@ -109,7 +109,7 @@ function VerticalSteps({steps, markerStyle, numbering, connector, icon_svgs, ite
               {!isLast && connector !== "none" && (
                 <div
                   class={`flex-1 w-0.5 my-2 ${
-                    isDashed ? "border-l-2 border-dashed border-gray-200 dark:border-gray-700" : "bg-gray-200 dark:bg-gray-700"
+                    isDashed ? "border-s-2 border-dashed border-gray-200 dark:border-gray-700" : "bg-gray-200 dark:bg-gray-700"
                   }`}
                   style="min-height: 1.25rem"
                 />

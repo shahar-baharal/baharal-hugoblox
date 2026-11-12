@@ -283,7 +283,7 @@
           
           {{/* Status Badge */}}
           {{ with $status }}
-          <div class="absolute top-4 right-4 z-10">
+          <div class="absolute top-4 end-4 z-10">
             <span class="px-3 py-1 bg-white/90 dark:bg-gray-900/90 backdrop-blur text-xs font-semibold rounded-full
               {{ if eq . "active" }}text-green-600 dark:text-green-400
               {{ else if eq . "emerging" }}text-yellow-600 dark:text-yellow-400
@@ -312,7 +312,7 @@
                 {{ end }}
                 <a href="{{ $item_link | safeURL }}" {{ $item_target | safeHTMLAttr }} class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
                   {{ $name }}
-                  {{ partial "functions/get_icon" (dict "name" "hero/arrow-top-right-on-square" "attributes" "class=\"inline-block w-4 h-4 ml-1\"") }}
+                  {{ partial "functions/get_icon" (dict "name" "hero/arrow-top-right-on-square" "attributes" "class=\"inline-block w-4 h-4 ms-1\"") }}
                 </a>
                 {{ else }}
                   {{ $name }}
@@ -362,7 +362,7 @@
               <a href="{{ $item_cta_link | safeURL }}" {{ $item_cta_target | safeHTMLAttr }}
                  class="inline-flex items-center w-full justify-center px-4 py-2 bg-primary-50 dark:bg-primary-900/20 text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300 font-medium text-sm rounded-lg hover:bg-primary-100 dark:hover:bg-primary-900/30 transition-all duration-300">
                 {{ $item_cta_text }}
-                {{ partial "functions/get_icon" (dict "name" "hero/arrow-right" "attributes" "class=\"ml-1 w-4 h-4\"") }}
+                {{ partial "functions/get_icon" (dict "name" "hero/arrow-right" "attributes" "class=\"ms-1 w-4 h-4\"") }}
               </a>
               {{ end }}
             </div>
@@ -444,7 +444,7 @@
          class="inline-flex items-center px-6 py-3 bg-primary-600 hover:bg-primary-700 text-white font-medium rounded-lg shadow hover:shadow-lg transition-all duration-300">
         {{ $cta_text }}
         {{ with $cta_icon }}
-        {{ partial "functions/get_icon" (dict "name" . "attributes" "class=\"ml-2 w-5 h-5\"") }}
+        {{ partial "functions/get_icon" (dict "name" . "attributes" "class=\"ms-2 w-5 h-5\"") }}
         {{ end }}
       </a>
     </div>

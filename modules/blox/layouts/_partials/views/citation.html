@@ -19,7 +19,7 @@
   <a href="{{ $item.RelPermalink }}" class="underline">{{ $item.Title }}</a>.
   {{ with $pub.display_short }}{{- . | markdownify -}}.{{ end }}
   {{ with $top_award }}
-    <span class="ml-1">{{ partial "components/award_badge.html" (dict "award" . "page" $item "variant" "inline") }}</span>
+    <span class="ms-1">{{ partial "components/award_badge.html" (dict "award" . "page" $item "variant" "inline") }}</span>
   {{ end }}
 
   {{ if $has_attachments }}
@@ -38,7 +38,7 @@
   {{ with $pub.display_short }}{{- . | markdownify -}},{{ end }}
   {{- $year -}}.
   {{ with $top_award }}
-    <span class="ml-1">{{ partial "components/award_badge.html" (dict "award" . "page" $item "variant" "inline") }}</span>
+    <span class="ms-1">{{ partial "components/award_badge.html" (dict "award" . "page" $item "variant" "inline") }}</span>
   {{ end }}
 
   {{ if $has_attachments }}

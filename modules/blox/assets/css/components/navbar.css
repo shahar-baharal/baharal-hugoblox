@@ -68,7 +68,7 @@ input#nav-toggle:checked ~ #nav-menu {
 }
 
 .nav-dropdown {
-  @apply mr-0;
+  @apply me-0;
 }
 
 .nav-dropdown > svg {

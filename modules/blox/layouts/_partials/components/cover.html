@@ -172,7 +172,7 @@
     
     {{/* Caption */}}
     {{ with $cover_config.caption }}
-      <div class="absolute bottom-4 left-4 right-4 text-sm text-white/90 bg-black/50 backdrop-blur-sm px-3 py-2 rounded-lg z-20">
+      <div class="absolute bottom-4 inset-x-4 text-sm text-white/90 bg-black/50 backdrop-blur-sm px-3 py-2 rounded-lg z-20">
         {{ . | markdownify }}
       </div>
     {{ end }}
@@ -184,7 +184,7 @@
     {{ $icon_size_class := index $icon_size_map $icon_size | default "w-16 h-16" }}
     {{ $icon_padding := cond (eq $icon_size "small") "p-1.5" (cond (eq $icon_size "medium") "p-2" "p-3") }}
     
-    <div class="absolute left-6 md:left-12 {{ $icon_size_class }}" style="bottom: -32px; z-index: 30;">
+    <div class="absolute start-6 md:start-12 {{ $icon_size_class }}" style="bottom: -32px; z-index: 30;">
       <div class="article-cover-icon {{ $icon_padding }} rounded-xl shadow-lg backdrop-blur-md
                   {{ if eq $icon_style "glass" }}bg-white/90 dark:bg-gray-800/80 border border-white/30 dark:border-gray-700/30
                   {{ else if eq $icon_style "rounded" }}bg-white dark:bg-gray-800 rounded-full

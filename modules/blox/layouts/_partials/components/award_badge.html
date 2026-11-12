@@ -129,12 +129,12 @@
     {{- end -}}
   {{- else if eq $variant "card-corner" -}}
     {{- if $url -}}
-    <a href="{{ $url }}" target="_blank" rel="noopener" class="absolute top-3 right-3 z-10 inline-flex items-center gap-1 px-2 py-1 rounded-full text-[11px] font-semibold shadow-sm backdrop-blur-sm ring-1 {{ $bg }} {{ $text }} {{ $ring }}" title="{{ $tooltip }}">
+    <a href="{{ $url }}" target="_blank" rel="noopener" class="absolute top-3 end-3 z-10 inline-flex items-center gap-1 px-2 py-1 rounded-full text-[11px] font-semibold shadow-sm backdrop-blur-sm ring-1 {{ $bg }} {{ $text }} {{ $ring }}" title="{{ $tooltip }}">
       <span class="w-3 h-3 flex-shrink-0">{{ $svg | safeHTML }}</span>
       <span class="truncate max-w-[140px]">{{ $name }}</span>
     </a>
     {{- else -}}
-    <span class="absolute top-3 right-3 z-10 inline-flex items-center gap-1 px-2 py-1 rounded-full text-[11px] font-semibold shadow-sm backdrop-blur-sm ring-1 {{ $bg }} {{ $text }} {{ $ring }}" title="{{ $tooltip }}">
+    <span class="absolute top-3 end-3 z-10 inline-flex items-center gap-1 px-2 py-1 rounded-full text-[11px] font-semibold shadow-sm backdrop-blur-sm ring-1 {{ $bg }} {{ $text }} {{ $ring }}" title="{{ $tooltip }}">
       <span class="w-3 h-3 flex-shrink-0">{{ $svg | safeHTML }}</span>
       <span class="truncate max-w-[140px]">{{ $name }}</span>
     </span>

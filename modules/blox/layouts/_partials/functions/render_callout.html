@@ -134,10 +134,10 @@
   {{ $borderClass = $config.borderClass }}
 {{ end }}
 
-<div class="callout flex px-4 py-3 mb-6 rounded-md border-l-4 {{ $class }} {{ $borderClass }}" 
+<div class="callout flex px-4 py-3 mb-6 rounded-md border-s-4 {{ $class }} {{ $borderClass }}" 
      data-callout="{{ $type }}" 
      data-callout-metadata="">
-  <span class="callout-icon pr-3 pt-1 {{ $textClass }}">
+  <span class="callout-icon pe-3 pt-1 {{ $textClass }}">
     {{ partial "functions/get_icon" (dict "name" $icon "attributes" "height=\"24\"") }}
   </span>
   <div class="callout-content dark:text-neutral-300">

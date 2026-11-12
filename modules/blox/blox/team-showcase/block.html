@@ -51,10 +51,10 @@
 {{ $text := "" }}
 {{ with index $content "text" }}{{ $text = printf "%v" . | emojify | $page.RenderString }}{{ end }}
 {{ $headerContainerClass := cond (eq $align "left")
-  "max-w-3xl mb-12 text-left"
+  "max-w-3xl mb-12 text-start"
   "text-center max-w-3xl mx-auto mb-12"
 }}
-{{ $ctaAlignClass := cond (eq $align "left") "text-left" "text-center" }}
+{{ $ctaAlignClass := cond (eq $align "left") "text-start" "text-center" }}
 
 {{ $columnsClasses := dict
   "2" "grid grid-cols-1 gap-8 sm:grid-cols-2"
@@ -588,7 +588,7 @@
         <a href="{{ $cta_link | safeURL }}" {{ $target | safeHTMLAttr }} class="inline-flex items-center px-6 py-3 bg-primary-600 hover:bg-primary-700 text-white font-medium rounded-lg shadow-lg hover:shadow-xl transition-all duration-300">
           {{ $cta_text }}
           {{ if $cta_icon }}
-            {{ partial "functions/get_icon" (dict "name" $cta_icon "attributes" "class=\"ml-2 w-5 h-5\"") }}
+            {{ partial "functions/get_icon" (dict "name" $cta_icon "attributes" "class=\"ms-2 w-5 h-5\"") }}
           {{ end }}
         </a>
       </div>

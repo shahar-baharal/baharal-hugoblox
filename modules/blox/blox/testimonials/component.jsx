@@ -39,7 +39,7 @@ function TestimonialFeatured({item, avatarUrl}) {
     <div class="relative max-w-3xl mx-auto bg-white dark:bg-gray-800 rounded-3xl p-10 sm:p-14 shadow-xl ring-1 ring-gray-100 dark:ring-gray-700 overflow-hidden">
       {/* Decorative large quote mark */}
       <div
-        class="absolute top-6 left-8 text-9xl font-serif font-bold text-primary-100 dark:text-primary-900/30 leading-none select-none pointer-events-none"
+        class="absolute top-6 start-8 text-9xl font-serif font-bold text-primary-100 dark:text-primary-900/30 leading-none select-none pointer-events-none"
         aria-hidden="true"
       >
         {"“"}

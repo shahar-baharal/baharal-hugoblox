@@ -39,7 +39,7 @@
       <!-- Main links -->
       {{- $currentPage := . }}
       <ul
-        class="list-style-none flex flex-col pl-0 lg:mt-1 lg:flex-row items-center"
+        class="list-style-none flex flex-col ps-0 lg:mt-1 lg:flex-row items-center"
         data-te-navbar-nav-ref>
         {{- range site.Menus.main }}
         {{- $menu_item_url := (cond (strings.HasSuffix .URL "/") .URL (printf "%s/" .URL) ) | absLangURL }}
@@ -48,7 +48,7 @@
         {{- $activeClass := cond $active "active" "" -}}
         <!-- Home link [&.active]:text-bold [&.active]:text-black/90 dark:[&.active]:text-neutral-300-->
         <li
-          class="my-4 pl-2 lg:my-0 lg:pl-2 lg:pr-1"
+          class="my-4 ps-2 lg:my-0 lg:ps-2 lg:pe-1"
           data-te-nav-item-ref>
           <a
             class="lg:px-2 text-[var(--hb-color-header-fg)] hover:text-primary-500
@@ -61,7 +61,7 @@
         </li>
         {{ end }}
         {{ if $show_search }}
-        <li class="my-4 pl-2 lg:my-0 lg:pl-2 lg:pr-1">
+        <li class="my-4 ps-2 lg:my-0 lg:ps-2 lg:pe-1">
           <a
             class="lg:px-2 text-[var(--hb-color-header-fg)] hover:text-primary-500
             [&.active]:font-bold [&.active]:text-primary-500"

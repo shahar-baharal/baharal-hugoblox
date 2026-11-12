@@ -93,7 +93,7 @@
   {{/* Animated elements based on style */}}
   {{ if eq $mesh_style "orbs" }}
     {{ $orb_count := $gradient_mesh.orb_count | default 2 }}
-    {{ $orb_positions := $gradient_mesh.positions | default (slice "top-0 left-1/4" "bottom-0 right-1/4") }}
+    {{ $orb_positions := $gradient_mesh.positions | default (slice "top-0 left-1/4" "bottom-0 right-1/4") }}{{/* rtl-lint: ok: decorative orbs */}}
     {{ $orb_sizes := $gradient_mesh.sizes | default (slice "w-96 h-96" "w-96 h-96") }}
     
     {{ range $index, $position := first $orb_count $orb_positions }}
@@ -133,7 +133,7 @@
       
       {{/* Apply animation if not none */}}
       {{ $animate_class := cond (ne $mesh_animation "") (printf "animate-%s" $mesh_animation) "" }}
-      {{ $wave := printf "<div class=\"absolute left-0 right-0 %s bg-%s filter %s %s\" style=\"top: %d%%; transform: skewY(-2deg);\"%s></div>" $height $color $blur_class $animate_class $top_pos $anim_delay }}
+      {{ $wave := printf "<div class=\"absolute inset-x-0 %s bg-%s filter %s %s\" style=\"top: %d%%; transform: skewY(-2deg);\"%s></div>" $height $color $blur_class $animate_class $top_pos $anim_delay }}
       {{ $mesh_html = printf "%s%s" $mesh_html $wave }}
     {{ end }}
     
