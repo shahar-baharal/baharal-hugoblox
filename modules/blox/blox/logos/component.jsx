@@ -77,7 +77,7 @@ function LogoItem({item, idx, logoStyle, logoSize, icon_svgs, item_images, padY 
 
   const isExt = item.url && (item.url.startsWith("http://") || item.url.startsWith("https://"));
   // Fixed-width slot: every logo occupies the same footprint → consistent visual weight
-  const cls = `flex items-center justify-center flex-shrink-0 ${slotW} ${padY}`;
+  const cls = `flex items-center justify-center flex-shrink-0 ${slotW} max-w-full ${padY}`;
 
   return item.url ? (
     <a href={item.url} class={cls} aria-label={item.name || undefined} {...(isExt ? {target: "_blank", rel: "noopener noreferrer"} : {})}>
