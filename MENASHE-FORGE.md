@@ -1,16 +1,16 @@
 # baharal-hugoblox
 
-A fork of [HugoBlox/kit](https://github.com/HugoBlox/kit) used by the Menashe Forge sites. Only `modules/blox` is changed; its module path is `github.com/shahar-baharal/baharal-hugoblox/modules/blox`. Why it exists and how to go back to upstream: `menashe-forge/docs/business/decisions.md` → "HugoBlox: fork it".
+The Menashe Forge sites' own theme, started as a fork of [HugoBlox/kit](https://github.com/HugoBlox/kit) at `68cbf335` (2026-05-27). Only `modules/blox` is used; its module path is `github.com/shahar-baharal/baharal-hugoblox/modules/blox`. Since 2026-11-12 it no longer follows upstream: no merges, no upstream remote. Why: `menashe-forge/docs/business/decisions.md` → "HugoBlox: fork it".
 
-## Rules (they keep the fork mergeable with upstream)
+## Rules
 
-1. A patched copy, not a new theme: no restyling, refactors, renames or reformatting of upstream files.
-2. One fix per commit: `fix(<area>): …` for a generic fix, `feat(<area>): …` for an opt-in option, with the reason in the body.
-3. Don't delete unused upstream features.
-4. Options are opt-in: defaults match upstream unless the change is a pure fix.
-5. One look for every site: spacing, padding and alignment come from the fork. A site that differs only in these is a leftover per-site patch: drop it when the site moves to the fork, don't turn it into an option. To change the look, change it here, for all sites.
+1. Our own code: refactor, rename or delete whatever makes the theme easier to maintain. Upstream's layout is no constraint.
+2. One change per commit: `fix(<area>): …`, `feat(<area>): …` (an option) or `refactor(<area>): …`, with the reason in the body.
+3. Options are opt-in: a new option leaves every site's current look unchanged until it sets it.
+4. One look for every site: spacing, padding and alignment come from the theme. A site that differs only in these is a leftover per-site patch: drop it, don't turn it into an option. To change the look, change it here, for all sites.
+5. Layout belongs to the section, not the block: the section wrapper (`layouts/_partials/functions/parse_block_v3.html`, `.hbb-section`) owns the space around a block, top, bottom and sides (`--hb-gutter`). A block styles only its inside: no outer side padding or margin. To run to the screen edges, a block's strip uses `hbb-bleed`, or a section sets `design.full_bleed: true`.
 
-What changed: `git log upstream/main..main -- modules/blox`.
+What changed since the fork: `git log 68cbf335..main -- modules/blox`.
 
 ## Options added
 
@@ -42,16 +42,8 @@ Follows it: baharal. Its sections alternate plain/alt (alt = `var(--hb-color-foo
 
 Doesn't follow it yet: eztechrepair, alm-builders and atlas-kosher-tours. Their last block (`#contact`) uses `var(--hb-color-footer-bg)` as its background (the "alt section" tint). That worked while upstream didn't apply the footer tokens, because the footer showed the page background. Since `fix(theme): apply the footer color tokens`, the footer and `#contact` share one color (eztechrepair: `#fff4ec` light, `#0c0c1f` dark).
 
-## Merging upstream
+## Shipping a change
 
-```sh
-git fetch --no-tags upstream && git merge upstream/main
-```
+Push to `main`, then bump the sites: `menashe-forge/workflows/scripts/bump.sh` (one site first, by name, if the change is risky).
 
-Never push upstream's `modules/blox/v*` tags here: their `go.mod` has upstream's module path, so `@latest`/`@main` would resolve to them and fail. They were deleted on 2026-11-05, and the clone's `upstream` remote is set to `--no-tags`.
-
-Then bump the sites: `menashe-forge/workflows/scripts/bump.sh` (one site first, by name, if the change is risky).
-
-## Upstream PRs
-
-None, by choice (Shahar, 2026-11-05): the fork is kept mergeable as a way back to upstream, not as a source of upstream PRs. Upstream hadn't merged a PR since 2026-03-30.
+Never create `modules/blox/v*` tags: `@latest`/`@main` would resolve to them. Upstream's were deleted on 2026-11-05.
