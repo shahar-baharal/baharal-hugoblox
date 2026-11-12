@@ -123,7 +123,7 @@ function LogoMarquee({items, logoStyle, logoSize, icon_svgs, item_images, speed}
         mask-image fades edges without depending on the section background colour —
         works on any bg (white, gray-50, dark, gradient, etc.)
       */}
-      <div class="hbb-bleed overflow-hidden" style="mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent)">
+      <div class="hbb-bleed overflow-hidden" dir="ltr" style="mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent)">
         <div class="hbx-logos-track flex w-max items-center" style={`--hbx-marquee-dur:${speed ?? 30}s`}>
           {doubled.map((item, i) => (
             <LogoItem

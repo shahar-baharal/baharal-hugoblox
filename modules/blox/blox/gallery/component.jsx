@@ -1,6 +1,7 @@
 import {useState, useEffect, useRef, useCallback} from "preact/hooks";
 import {createPortal} from "preact/compat";
 import {renderInline} from "../../shared/text.js";
+import {inlineX} from "../../shared/direction.js";
 
 /*
  * Gallery block — grid / masonry / justified / carousel / slideshow + Preact
@@ -344,16 +345,23 @@ function CarouselView({items, design, openLightbox, gapClass, aspectClass, sizes
   const scrollByItem = useCallback((dir) => {
     const el = scrollRef.current;
     if (!el) return;
-    const tile = el.querySelector(".hbx-gallery-carousel-item");
-    const step = tile ? tile.clientWidth + 16 : el.clientWidth * 0.8;
-    el.scrollBy({left: dir * step, behavior: "smooth"});
+    // Scroll the tile after (or before) the first visible one to the start
+    // edge: DOM order is reading order, so this needs no direction check.
+    const tiles = [...el.querySelectorAll(".hbx-gallery-carousel-item")];
+    const box = el.getBoundingClientRect();
+    const visible = tiles.findIndex((t) => {
+      const r = t.getBoundingClientRect();
+      return Math.min(r.right, box.right) - Math.max(r.left, box.left) > r.width / 2;
+    });
+    const target = tiles[Math.max(0, Math.min(tiles.length - 1, Math.max(0, visible) + dir))];
+    target?.scrollIntoView({inline: "start", block: "nearest", behavior: "smooth"});
   }, []);
 
   return (
     <div class="relative">
       <div
         ref={scrollRef}
-        class={`hbx-gallery-carousel flex overflow-x-auto snap-x snap-mandatory hbb-bleed scroll-pl-[var(--hb-gutter)] px-[var(--hb-gutter)] pb-2 ${gapClass}`}
+        class={`hbx-gallery-carousel flex overflow-x-auto snap-x snap-mandatory hbb-bleed scroll-ps-[var(--hb-gutter)] px-[var(--hb-gutter)] pb-2 ${gapClass}`}
       >
         {items.map((item, i) => (
           <CarouselTile
@@ -374,20 +382,20 @@ function CarouselView({items, design, openLightbox, gapClass, aspectClass, sizes
           <button
             type="button"
             onClick={() => scrollByItem(-1)}
-            class="hidden md:flex absolute left-2 top-1/2 -translate-y-1/2 z-10 h-12 w-12 items-center justify-center rounded-full bg-white/90 dark:bg-gray-800/90 text-gray-900 dark:text-white shadow-lg hover:bg-white dark:hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-primary-500 transition-colors"
+            class="hidden md:flex absolute start-2 top-1/2 -translate-y-1/2 z-10 h-12 w-12 items-center justify-center rounded-full bg-white/90 dark:bg-gray-800/90 text-gray-900 dark:text-white shadow-lg hover:bg-white dark:hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-primary-500 transition-colors"
             aria-label="Scroll previous"
           >
-            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <svg class="h-5 w-5 rtl:-scale-x-100" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
             </svg>
           </button>
           <button
             type="button"
             onClick={() => scrollByItem(1)}
-            class="hidden md:flex absolute right-2 top-1/2 -translate-y-1/2 z-10 h-12 w-12 items-center justify-center rounded-full bg-white/90 dark:bg-gray-800/90 text-gray-900 dark:text-white shadow-lg hover:bg-white dark:hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-primary-500 transition-colors"
+            class="hidden md:flex absolute end-2 top-1/2 -translate-y-1/2 z-10 h-12 w-12 items-center justify-center rounded-full bg-white/90 dark:bg-gray-800/90 text-gray-900 dark:text-white shadow-lg hover:bg-white dark:hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-primary-500 transition-colors"
             aria-label="Scroll next"
           >
-            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <svg class="h-5 w-5 rtl:-scale-x-100" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
             </svg>
           </button>
@@ -426,7 +434,7 @@ function SlideshowView({items, design, openLightbox, aspectClass, sizes}) {
     const dy = t.clientY - touchStart.current.y;
     const dt = Date.now() - touchStart.current.t;
     if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) && dt < 600) {
-      if (dx < 0) next();
+      if (inlineX(e.currentTarget, dx) < 0) next();
       else prev();
     }
   }
@@ -491,20 +499,20 @@ function SlideshowView({items, design, openLightbox, aspectClass, sizes}) {
             <button
               type="button"
               onClick={prev}
-              class="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-10 flex h-12 w-12 items-center justify-center rounded-full bg-white/90 dark:bg-gray-800/90 text-gray-900 dark:text-white shadow-lg hover:bg-white dark:hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-primary-500 transition-colors"
+              class="absolute start-2 sm:start-4 top-1/2 -translate-y-1/2 z-10 flex h-12 w-12 items-center justify-center rounded-full bg-white/90 dark:bg-gray-800/90 text-gray-900 dark:text-white shadow-lg hover:bg-white dark:hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-primary-500 transition-colors"
               aria-label="Previous slide"
             >
-              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <svg class="h-5 w-5 rtl:-scale-x-100" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
               </svg>
             </button>
             <button
               type="button"
               onClick={next}
-              class="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-10 flex h-12 w-12 items-center justify-center rounded-full bg-white/90 dark:bg-gray-800/90 text-gray-900 dark:text-white shadow-lg hover:bg-white dark:hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-primary-500 transition-colors"
+              class="absolute end-2 sm:end-4 top-1/2 -translate-y-1/2 z-10 flex h-12 w-12 items-center justify-center rounded-full bg-white/90 dark:bg-gray-800/90 text-gray-900 dark:text-white shadow-lg hover:bg-white dark:hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-primary-500 transition-colors"
               aria-label="Next slide"
             >
-              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <svg class="h-5 w-5 rtl:-scale-x-100" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
               </svg>
             </button>
@@ -556,8 +564,10 @@ function Lightbox({items, index, onClose, onPrev, onNext}) {
   useEffect(() => {
     function onKey(e) {
       if (e.key === "Escape") onClose();
-      else if (e.key === "ArrowLeft") onPrev();
-      else if (e.key === "ArrowRight") onNext();
+      else if (e.key === "ArrowLeft" || e.key === "ArrowRight") {
+        if (inlineX(document.documentElement, e.key === "ArrowRight" ? 1 : -1) > 0) onNext();
+        else onPrev();
+      }
     }
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
@@ -573,7 +583,7 @@ function Lightbox({items, index, onClose, onPrev, onNext}) {
     const dy = t.clientY - touchStart.current.y;
     const dt = Date.now() - touchStart.current.t;
     if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) && dt < 600) {
-      if (dx < 0) onNext();
+      if (inlineX(e.currentTarget, dx) < 0) onNext();
       else onPrev();
     }
   }
@@ -596,7 +606,7 @@ function Lightbox({items, index, onClose, onPrev, onNext}) {
           e.stopPropagation();
           onClose();
         }}
-        class="absolute top-4 right-4 z-10 flex h-12 w-12 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-white/50 transition-colors"
+        class="absolute top-4 end-4 z-10 flex h-12 w-12 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-white/50 transition-colors"
         aria-label="Close"
       >
         <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
@@ -612,10 +622,10 @@ function Lightbox({items, index, onClose, onPrev, onNext}) {
               e.stopPropagation();
               onPrev();
             }}
-            class="absolute left-4 top-1/2 -translate-y-1/2 z-10 hidden sm:flex h-12 w-12 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-white/50 transition-colors"
+            class="absolute start-4 top-1/2 -translate-y-1/2 z-10 hidden sm:flex h-12 w-12 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-white/50 transition-colors"
             aria-label="Previous image"
           >
-            <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <svg class="h-6 w-6 rtl:-scale-x-100" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
             </svg>
           </button>
@@ -625,10 +635,10 @@ function Lightbox({items, index, onClose, onPrev, onNext}) {
               e.stopPropagation();
               onNext();
             }}
-            class="absolute right-4 top-1/2 -translate-y-1/2 z-10 hidden sm:flex h-12 w-12 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-white/50 transition-colors"
+            class="absolute end-4 top-1/2 -translate-y-1/2 z-10 hidden sm:flex h-12 w-12 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-white/50 transition-colors"
             aria-label="Next image"
           >
-            <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <svg class="h-6 w-6 rtl:-scale-x-100" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
             </svg>
           </button>
@@ -667,7 +677,7 @@ function Lightbox({items, index, onClose, onPrev, onNext}) {
           </figcaption>
         )}
         {items.length > 1 && (
-          <div class="absolute -top-10 left-0 text-xs text-gray-300 font-mono">
+          <div class="absolute -top-10 start-0 text-xs text-gray-300 font-mono">
             {index + 1} / {items.length}
           </div>
         )}

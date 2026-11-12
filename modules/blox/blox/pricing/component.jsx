@@ -25,7 +25,7 @@ function BillingToggle({billing, setBilling, toggle}) {
       >
         <span class="sr-only">Toggle billing period</span>
         <span
-          class={`pointer-events-none inline-block h-6 w-6 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out ${isYearly ? "translate-x-5" : "translate-x-0"}`}
+          class={`pointer-events-none inline-block h-6 w-6 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out ${isYearly ? "translate-x-5 rtl:-translate-x-5" : "translate-x-0"}`}
         />
       </button>
       <span
@@ -74,7 +74,7 @@ function PriceDisplay({price = {}, price_suffix, price_note, price_note_monthly,
       <div class="flex items-baseline gap-x-1">
         {currency && <span class="text-2xl font-semibold text-gray-900 dark:text-white">{currency}</span>}
         <span class="text-5xl font-bold tracking-tight text-gray-900 dark:text-white">{raw}</span>
-        {price_suffix && <span class="text-base text-gray-500 dark:text-gray-400 ml-1">{price_suffix}</span>}
+        {price_suffix && <span class="text-base text-gray-500 dark:text-gray-400 ms-1">{price_suffix}</span>}
       </div>
       {note && <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">{note}</p>}
     </div>
@@ -94,7 +94,7 @@ function FeatureRow({feature}) {
       />
       <span class={`text-sm leading-6 ${included ? "text-gray-700 dark:text-gray-300" : "text-gray-400 dark:text-gray-500"}`}>
         {text}
-        {note && <span class="ml-1 text-xs text-gray-400 dark:text-gray-500">({note})</span>}
+        {note && <span class="ms-1 text-xs text-gray-400 dark:text-gray-500">({note})</span>}
       </span>
     </li>
   );

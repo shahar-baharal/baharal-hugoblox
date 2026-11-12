@@ -82,13 +82,13 @@ function DesktopTable({competitors, rows, cta, icon_svgs, rowStriping = false}) 
         {highlightIdx >= 0 && (
           <div
             class="absolute pointer-events-none rounded-2xl bg-primary-50/60 dark:bg-primary-900/20"
-            style={`top: -1.25rem; bottom: 0; left: calc(${colLeftPct}% - 4px); width: calc(${colWidthPct}% + 8px);`}
+            style={`top: -1.25rem; bottom: 0; inset-inline-start: calc(${colLeftPct}% - 4px); width: calc(${colWidthPct}% + 8px);`}
           />
         )}
 
         {/* Recommended badge — sits on the highlight ring's top edge as a tab */}
         {highlighted?.badge && (
-          <div class="absolute z-10" style={`top: -1.25rem; left: calc(${colLeftPct + colWidthPct / 2}%); transform: translate(-50%, -50%);`}>
+          <div class="absolute z-10 flex justify-center" style={`top: -1.25rem; inset-inline-start: ${colLeftPct}%; width: ${colWidthPct}%; transform: translateY(-50%);`}>
             <span class="inline-block px-3 py-1 text-xs font-semibold rounded-full bg-primary-600 text-white shadow-md whitespace-nowrap">
               {highlighted.badge}
             </span>
@@ -98,7 +98,7 @@ function DesktopTable({competitors, rows, cta, icon_svgs, rowStriping = false}) 
         <table class="relative w-full">
           <thead>
             <tr>
-              <th class="text-left px-6 py-5 align-bottom" style={`width:${labelColPct}%`} />
+              <th class="text-start px-6 py-5 align-bottom" style={`width:${labelColPct}%`} />
               {competitors.map((c, i) => {
                 const isYou = c.highlight;
                 return (
@@ -192,7 +192,7 @@ function DesktopTable({competitors, rows, cta, icon_svgs, rowStriping = false}) 
         {highlightIdx >= 0 && (
           <div
             class="absolute pointer-events-none ring-2 ring-primary-500 dark:ring-primary-400 rounded-2xl"
-            style={`top: -1.25rem; bottom: 0; left: calc(${colLeftPct}% - 4px); width: calc(${colWidthPct}% + 8px);`}
+            style={`top: -1.25rem; bottom: 0; inset-inline-start: calc(${colLeftPct}% - 4px); width: calc(${colWidthPct}% + 8px);`}
           />
         )}
       </div>

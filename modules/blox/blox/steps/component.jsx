@@ -230,7 +230,7 @@ function TimelineSteps({steps, markerStyle, numbering, icon_svgs, item_images}) 
           return (
             <li key={i} class={`step-item flex items-start gap-4 md:gap-0 ${isLeft ? "md:flex-row" : "md:flex-row-reverse"}`}>
               {/* Content card */}
-              <div class={`flex-1 md:max-w-[calc(50%-2rem)] ${isLeft ? "md:pr-8" : "md:pl-8"}`}>
+              <div class={`flex-1 md:max-w-[calc(50%-2rem)] ${isLeft ? "md:pe-8" : "md:ps-8"}`}>
                 <div class="bg-white dark:bg-gray-800/80 rounded-2xl border border-gray-200 dark:border-gray-700 p-5 shadow-sm hover:shadow-md transition-shadow duration-300">
                   {(step.badge || step.date) && (
                     <div class="flex items-center gap-2 mb-3">
