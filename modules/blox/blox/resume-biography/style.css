@@ -26,15 +26,15 @@
   }
 
   .network-icon li {
-    margin-right: 10px;
+    margin-inline-end: 10px;
 
     @media (max-width: 640px) {
-      margin-right: 12px;
+      margin-inline-end: 12px;
     }
   }
 
   .network-icon li:last-of-type {
-    margin-right: 0;
+    margin-inline-end: 0;
   }
 
   .network-icon li:hover {

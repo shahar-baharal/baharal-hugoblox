@@ -9,6 +9,7 @@ The Menashe Forge sites' own theme, started as a fork of [HugoBlox/kit](https://
 3. Options are opt-in: a new option leaves every site's current look unchanged until it sets it.
 4. One look for every site: spacing, padding and alignment come from the theme. A site that differs only in these is a leftover per-site patch: drop it, don't turn it into an option. To change the look, change it here, for all sites.
 5. Layout belongs to the section, not the block: the section wrapper (`layouts/_partials/functions/parse_block_v3.html`, `.hbb-section`) owns the space around a block, top, bottom and sides (`--hb-gutter`). A block styles only its inside: no outer side padding or margin. To run to the screen edges, a block's strip uses `hbb-bleed`, or a section sets `design.full_bleed: true`.
+6. One code path for both reading directions: horizontal layout uses start/end, never left/right (Tailwind `ps-`, `ms-`, `start-`, `text-start`, `border-s`; CSS `padding-inline-start`, `inset-inline-end`). No `dir === "rtl"` checks where the browser can do it (e.g. `scrollIntoView`). Arrow and chevron icons mirror via `get_icon_svg`. Phone numbers and other left-to-right text get `dir="ltr"`. A deliberate exception carries `rtl-lint: ok` and why. `menashe-forge/docs/themes/hugoblox/scripts/rtl-lint.sh <fork-dir>` checks it.
 
 What changed since the fork: `git log 68cbf335..main -- modules/blox`.
 

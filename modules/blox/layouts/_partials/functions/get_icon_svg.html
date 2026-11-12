@@ -80,4 +80,10 @@
   {{- end -}}
 {{- end -}}
 
+{{- /* Arrows and chevrons point forward or back: mirror them in a right-to-left
+     language. get_icon merges this class with a caller's own. */ -}}
+{{- if findRE `^(arrow-(left|right|long-left|long-right|small-left|small-right)|chevron-(left|right|double-left|double-right))$` $name -}}
+  {{- $icon = replaceRE `^\s*<svg` `<svg class="rtl:-scale-x-100"` $icon 1 -}}
+{{- end -}}
+
 {{- return $icon -}}

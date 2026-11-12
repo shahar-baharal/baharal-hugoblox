@@ -49,7 +49,7 @@
   .home-section-bg {
     position: absolute;
     top: 0;
-    left: 0;
+    inset-inline-start: 0;
     height: 100%;
     width: 100%;
     z-index: -1;
@@ -82,7 +82,7 @@
   .bg-video {
     position: absolute;
     top: 0;
-    left: 0;
+    inset-inline-start: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -98,8 +98,7 @@
   /* Container styles */
   .universal-wrapper {
     margin: 0 auto;
-    padding-right: 1rem;
-    padding-left: 1rem;
+    padding-inline: 1rem;
     width: 100%;
   }
 

@@ -7,7 +7,7 @@
 .typewriter-cursor {
   display: inline-block;
   width: 3px;
-  margin-left: 2px;
+  margin-inline-start: 2px;
   background-color: currentColor;
   animation: blink 1s step-end infinite;
 }

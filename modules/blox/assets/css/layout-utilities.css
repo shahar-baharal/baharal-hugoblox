@@ -55,8 +55,7 @@
 }
 
 .hb-px {
-  padding-left: var(--hb-spacing-base, 1rem);
-  padding-right: var(--hb-spacing-base, 1rem);
+  padding-inline: var(--hb-spacing-base, 1rem);
 }
 
 .hb-py {
@@ -70,8 +69,7 @@
 }
 
 .hb-mx {
-  margin-left: var(--hb-spacing-base, 1rem);
-  margin-right: var(--hb-spacing-base, 1rem);
+  margin-inline: var(--hb-spacing-base, 1rem);
 }
 
 .hb-my {

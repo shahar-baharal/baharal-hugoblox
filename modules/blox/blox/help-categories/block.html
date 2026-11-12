@@ -123,7 +123,7 @@
             {{ $display_count }} {{ cond (eq $display_count 1) (T "article" | default "article") (T "articles" | default "articles") }}
           </span>
           {{ end }}
-          <span class="text-primary-600 dark:text-primary-400 group-hover:translate-x-1 transition-transform">
+          <span class="text-primary-600 dark:text-primary-400 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 transition-transform">
             {{ T "browse" | default "Browse" }} →
           </span>
         </div>

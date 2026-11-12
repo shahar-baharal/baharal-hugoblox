@@ -4,16 +4,14 @@ div.mermaid {
   margin-bottom: 1rem;
 
   svg {
-    margin-left: auto;
-    margin-right: auto;
+    margin-inline: auto;
   }
 }
 
 /* Plotly chart */
 div.chart {
   max-width: 100%;
-  margin-left: auto;
-  margin-right: auto;
+  margin-inline: auto;
   margin-bottom: 1rem;
 
   /* Add horizontal scroll on mobile since Plotly */

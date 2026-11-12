@@ -102,7 +102,7 @@ export const CtaCardBlock = ({content, design, _id, button_icon_svg}) => {
           >
             <span>{buttonText}</span>
             {button_icon_svg && (
-              <span class="transition-transform duration-300 group-hover:translate-x-1">
+              <span class="transition-transform duration-300 group-hover:translate-x-1 rtl:group-hover:-translate-x-1">
                 <Icon svg={button_icon_svg} attributes={{style: "height: 1.25em", class: "inline-block"}} />
               </span>
             )}

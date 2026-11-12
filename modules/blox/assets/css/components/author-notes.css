@@ -43,6 +43,6 @@
     content: attr(data-tooltip);
     vertical-align: super;
     font-size: 0.75em;
-    margin-left: 0.25em;
+    margin-inline-start: 0.25em;
   }
 }

@@ -69,8 +69,8 @@ document.addEventListener("alpine:init", () => {
     const transforms = {
       up: `translateY(${distance})`,
       down: `translateY(-${distance})`,
-      left: `translateX(${distance})`,
-      right: `translateX(-${distance})`,
+      left: `translateX(${distance})`, // rtl-lint: ok: the author names a physical side (data-animate modifier)
+      right: `translateX(-${distance})`, // rtl-lint: ok
     };
     el.style.transform = transforms[direction];
 

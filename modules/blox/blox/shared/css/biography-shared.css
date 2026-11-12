@@ -3,8 +3,7 @@
 .avatar-wrapper {
   position: relative;
   /* width and height controlled by template params */
-  margin-left: auto;
-  margin-right: auto;
+  margin-inline: auto;
 }
 
 .avatar-emoji {
@@ -14,7 +13,7 @@
   line-height: 40px;
   border-radius: 100%;
   bottom: 0;
-  right: 0;
+  inset-inline-end: 0;
   text-align: center;
   font-size: 20px;
   background-color: #fff;

@@ -53,6 +53,8 @@
 
 {{ if .attributes }}
   {{ $icon = replaceRE "<svg" (printf "<svg %s" .attributes) $icon }}
+  {{/* Two class attributes (the caller's, get_icon_svg's mirror): merge them */}}
+  {{ $icon = replaceRE `(<svg[^>]*?class=")([^"]*)("[^>]*?) class="(rtl:-scale-x-100)"` "${1}${2} ${4}${3}" $icon 1 }}
 {{ end }}
 
 {{- return ($icon | safeHTML) -}}
