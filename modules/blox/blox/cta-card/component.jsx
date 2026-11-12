@@ -32,7 +32,7 @@ export const CtaCardBlock = ({content, design, _id, button_icon_svg}) => {
     textColorMode = card.text_color.toLowerCase();
   }
 
-  const defaultBgClass = "bg-gradient-to-br from-primary-500/90 via-primary-600/95 to-primary-700/90";
+  const defaultBgClass = "bg-primary-700 dark:bg-primary-900";
   const finalCardClass = cardClass || defaultBgClass;
 
   if (textColorMode === "auto") {
