@@ -5,16 +5,9 @@
  */
 
 import {Icon} from "../../shared/components/Icon.jsx";
+import {renderInline} from "../../shared/text.js";
+import {isExternal} from "../../shared/links.js";
 
-// Simple markdown renderer
-function renderText(text) {
-  if (!text) return "";
-  return String(text)
-    .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
-    .replace(/\*(.*?)\*/g, "<em>$1</em>")
-    .replace(/`(.*?)`/g, "<code>$1</code>")
-    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
-}
 
 export const CtaCardBlock = ({content, design, _id, button_icon_svg}) => {
   const card = design?.card || {};
@@ -73,18 +66,7 @@ export const CtaCardBlock = ({content, design, _id, button_icon_svg}) => {
   const buttonUrl = button.url?.trim();
   const showButton = !!(buttonText && buttonUrl);
 
-  let isExternal = false;
-  let isNewTab = button.new_tab === true;
-  if (buttonUrl) {
-    try {
-      const url = new URL(buttonUrl, window.location.origin);
-      isExternal = url.origin !== window.location.origin;
-    } catch {
-      isExternal = /^https?:\/\//.test(buttonUrl);
-    }
-    if (buttonUrl.endsWith(".pdf")) isNewTab = true;
-    if (isExternal) isNewTab = true;
-  }
+  const isNewTab = button.new_tab === true || !!buttonUrl?.endsWith(".pdf") || isExternal(buttonUrl);
 
   const style = `--glassmorphism-opacity: ${overlayOpacity}; ${cardStyle}`;
 
@@ -97,7 +79,7 @@ export const CtaCardBlock = ({content, design, _id, button_icon_svg}) => {
       {content.title && (
         <h2
           class={`${titleClasses} text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight leading-tight`}
-          dangerouslySetInnerHTML={{__html: renderText(content.title)}}
+          dangerouslySetInnerHTML={{__html: renderInline(content.title)}}
         />
       )}
 
@@ -105,7 +87,7 @@ export const CtaCardBlock = ({content, design, _id, button_icon_svg}) => {
       {content.text && (
         <div
           class={`${bodyClasses} mt-6 text-lg sm:text-xl lg:text-2xl max-w-3xl leading-relaxed font-light`}
-          dangerouslySetInnerHTML={{__html: renderText(content.text)}}
+          dangerouslySetInnerHTML={{__html: renderInline(content.text)}}
         />
       )}
 

@@ -1,4 +1,5 @@
 import {useEffect, useRef} from "preact/hooks";
+import {renderInline} from "../../shared/text.js";
 
 /*
  * Map block — open-source interactive maps for HugoBlox.
@@ -38,15 +39,6 @@ function heightClass(h) {
   return HEIGHT_CLASS[h] || HEIGHT_CLASS.md;
 }
 
-function renderInline(text) {
-  if (!text) return "";
-  return String(text)
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
-    .replace(/\*(.*?)\*/g, "<em>$1</em>");
-}
 
 function escapeHtml(text) {
   return String(text ?? "")

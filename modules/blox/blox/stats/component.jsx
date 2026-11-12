@@ -8,15 +8,8 @@
 
 import {useEffect, useRef} from "preact/hooks";
 import {Icon} from "../../shared/components/Icon.jsx";
+import {renderInline} from "../../shared/text.js";
 
-// Simple markdown renderer (shared with Hero)
-function renderText(text) {
-  if (!text) return "";
-  return text
-    .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
-    .replace(/\*(.*?)\*/g, "<em>$1</em>")
-    .replace(/`(.*?)`/g, "<code>$1</code>");
-}
 
 // Extract numeric target from a statistic string like "10,000+" → 10000
 function parseTarget(statistic) {
@@ -144,14 +137,14 @@ function StatCard({item, iconSvg, numbersGradient}) {
           <h3
             class={`text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black ${numberCls} transition-colors duration-300 counter`}
             data-target={parseTarget(item.statistic)}
-            dangerouslySetInnerHTML={{__html: renderText(item.statistic)}}
+            dangerouslySetInnerHTML={{__html: renderInline(item.statistic)}}
           />
         </div>
 
         {/* Description */}
         <p
           class="text-sm sm:text-base font-medium text-gray-600 dark:text-gray-300 leading-relaxed group-hover:text-gray-700 dark:group-hover:text-gray-200 transition-colors duration-300"
-          dangerouslySetInnerHTML={{__html: renderText(item.description)}}
+          dangerouslySetInnerHTML={{__html: renderInline(item.description)}}
         />
 
         {/* Sub-metric */}
@@ -175,12 +168,12 @@ function StatCompact({item, iconSvg, numbersGradient}) {
       <h3
         class={`text-3xl sm:text-4xl lg:text-5xl font-bold ${numberCls} mb-2 counter`}
         data-target={parseTarget(item.statistic)}
-        dangerouslySetInnerHTML={{__html: renderText(item.statistic)}}
+        dangerouslySetInnerHTML={{__html: renderInline(item.statistic)}}
       />
 
       <p
         class="text-sm font-medium text-gray-600 dark:text-gray-300 leading-relaxed"
-        dangerouslySetInnerHTML={{__html: renderText(item.description)}}
+        dangerouslySetInnerHTML={{__html: renderInline(item.description)}}
       />
     </div>
   );
@@ -200,10 +193,10 @@ function StatMinimal({item, iconSvg, numbersGradient}) {
       <h3
         class={`text-3xl sm:text-4xl lg:text-5xl font-bold ${numberCls} mb-2 counter`}
         data-target={parseTarget(item.statistic)}
-        dangerouslySetInnerHTML={{__html: renderText(item.statistic)}}
+        dangerouslySetInnerHTML={{__html: renderInline(item.statistic)}}
       />
 
-      <p class="text-sm font-medium text-gray-600 dark:text-gray-300" dangerouslySetInnerHTML={{__html: renderText(item.description)}} />
+      <p class="text-sm font-medium text-gray-600 dark:text-gray-300" dangerouslySetInnerHTML={{__html: renderInline(item.description)}} />
     </div>
   );
 }
@@ -235,10 +228,10 @@ export const StatsBlock = ({content, design, _id, icon_svgs}) => {
             {title && (
               <h2
                 class="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white tracking-tight mb-4"
-                dangerouslySetInnerHTML={{__html: renderText(title)}}
+                dangerouslySetInnerHTML={{__html: renderInline(title)}}
               />
             )}
-            {text && <p class="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto" dangerouslySetInnerHTML={{__html: renderText(text)}} />}
+            {text && <p class="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto" dangerouslySetInnerHTML={{__html: renderInline(text)}} />}
           </div>
         )}
 

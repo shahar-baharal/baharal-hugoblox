@@ -1,15 +1,6 @@
 import {Icon} from "../../shared/components/Icon.jsx";
+import {renderInline} from "../../shared/text.js";
 
-function renderText(text) {
-  if (!text) return "";
-  return String(text)
-    .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
-    .replace(/\*(.*?)\*/g, "<em>$1</em>")
-    .replace(
-      /`(.*?)`/g,
-      '<code class="px-1.5 py-0.5 rounded font-mono text-sm bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200">$1</code>',
-    );
-}
 
 function FeatureCard({item, iconSvg, imgData, variant = "grid", large = false, compact = false}) {
   const isCard = variant === "bento";
@@ -35,11 +26,11 @@ function FeatureCard({item, iconSvg, imgData, variant = "grid", large = false, c
       {item.name && (
         <h3
           class={`mb-2 ${titleSize} font-bold text-gray-900 dark:text-white tracking-tight`}
-          dangerouslySetInnerHTML={{__html: renderText(item.name)}}
+          dangerouslySetInnerHTML={{__html: renderInline(item.name)}}
         />
       )}
       {item.description && !compact && (
-        <p class={`${descSize} text-gray-600 dark:text-gray-400 leading-relaxed`} dangerouslySetInnerHTML={{__html: renderText(item.description)}} />
+        <p class={`${descSize} text-gray-600 dark:text-gray-400 leading-relaxed`} dangerouslySetInnerHTML={{__html: renderInline(item.description)}} />
       )}
       {large && imgData?.src && (
         <div class="mt-6 -mx-2 lg:-mx-4">
@@ -101,10 +92,10 @@ export const FeaturesBlock = ({content = {}, design = {}, icon_svgs = {}, item_i
             {title && (
               <h2
                 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white tracking-tight mb-4"
-                dangerouslySetInnerHTML={{__html: renderText(title)}}
+                dangerouslySetInnerHTML={{__html: renderInline(title)}}
               />
             )}
-            {text && <p class="text-lg text-gray-600 dark:text-gray-400 [&_a]:font-semibold [&_a]:underline [&_a]:underline-offset-4 [&_a]:text-primary-700 dark:[&_a]:text-primary-300" dangerouslySetInnerHTML={{__html: renderText(text)}} />}
+            {text && <p class="text-lg text-gray-600 dark:text-gray-400 [&_a]:font-semibold [&_a]:underline [&_a]:underline-offset-4 [&_a]:text-primary-700 dark:[&_a]:text-primary-300" dangerouslySetInnerHTML={{__html: renderInline(text)}} />}
           </div>
         )}
 

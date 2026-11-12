@@ -1,5 +1,6 @@
 import {useState, useEffect, useRef, useCallback} from "preact/hooks";
 import {createPortal} from "preact/compat";
+import {renderInline} from "../../shared/text.js";
 
 /*
  * Gallery block — grid / masonry / justified / carousel / slideshow + Preact
@@ -59,15 +60,6 @@ const CAROUSEL_BASIS = {
 const SIZES_DEFAULT_GRID = "(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 100vw";
 const SIZES_DEFAULT_MASONRY = "(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 100vw";
 
-function renderInline(text) {
-  if (!text) return "";
-  return String(text)
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
-    .replace(/\*(.*?)\*/g, "<em>$1</em>");
-}
 
 function GridTile({item, onClick, aspectClass, captionPosition, hoverZoom, sizes, lightbox}) {
   const [loaded, setLoaded] = useState(false);

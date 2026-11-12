@@ -1,17 +1,8 @@
 import {useEffect, useRef} from "preact/hooks";
 import {Icon} from "../../shared/components/Icon.jsx";
+import {renderInline} from "../../shared/text.js";
+import {isExternal} from "../../shared/links.js";
 
-function renderText(text) {
-  if (!text) return "";
-  return String(text)
-    .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
-    .replace(/\*(.*?)\*/g, "<em>$1</em>")
-    .replace(
-      /`(.*?)`/g,
-      (_, code) =>
-        `<code class="px-1.5 py-0.5 rounded font-mono text-sm bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200">${code}</code>`,
-    );
-}
 
 function toRoman(n) {
   const vals = [1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1];
@@ -68,7 +59,7 @@ function StepMarker({idx, iconSvg, markerStyle, numbering, size = "sm"}) {
 }
 
 function StepBody({step, imgData}) {
-  const isExtCta = step.cta?.url && (step.cta.url.startsWith("http://") || step.cta.url.startsWith("https://"));
+  const isExtCta = isExternal(step.cta?.url);
 
   return (
     <>
@@ -83,9 +74,9 @@ function StepBody({step, imgData}) {
         </div>
       )}
       {step.title && (
-        <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2" dangerouslySetInnerHTML={{__html: renderText(step.title)}} />
+        <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2" dangerouslySetInnerHTML={{__html: renderInline(step.title)}} />
       )}
-      {step.text && <p class="text-gray-500 dark:text-gray-400 leading-relaxed" dangerouslySetInnerHTML={{__html: renderText(step.text)}} />}
+      {step.text && <p class="text-gray-500 dark:text-gray-400 leading-relaxed" dangerouslySetInnerHTML={{__html: renderInline(step.text)}} />}
       {imgData && <img src={imgData.src} alt={step.title || ""} class="mt-4 rounded-xl shadow-sm w-full object-cover max-h-60" />}
       {step.cta?.text && step.cta?.url && (
         <a
@@ -149,9 +140,9 @@ function HorizontalSteps({steps, markerStyle, numbering, connector, icon_svgs}) 
               <StepMarker idx={i} iconSvg={iconSvg} markerStyle={markerStyle} numbering={numbering} />
               <div class="pt-0.5 flex-1 min-w-0">
                 {step.title && (
-                  <h3 class="font-semibold text-gray-900 dark:text-white mb-1" dangerouslySetInnerHTML={{__html: renderText(step.title)}} />
+                  <h3 class="font-semibold text-gray-900 dark:text-white mb-1" dangerouslySetInnerHTML={{__html: renderInline(step.title)}} />
                 )}
-                {step.text && <p class="text-sm text-gray-500 dark:text-gray-400" dangerouslySetInnerHTML={{__html: renderText(step.text)}} />}
+                {step.text && <p class="text-sm text-gray-500 dark:text-gray-400" dangerouslySetInnerHTML={{__html: renderInline(step.text)}} />}
                 {step.cta?.text && step.cta?.url && (
                   <a
                     href={step.cta.url}
@@ -200,10 +191,10 @@ function HorizontalSteps({steps, markerStyle, numbering, connector, icon_svgs}) 
                 </span>
               )}
               {step.title && (
-                <h3 class="text-base font-bold text-gray-900 dark:text-white mb-1.5" dangerouslySetInnerHTML={{__html: renderText(step.title)}} />
+                <h3 class="text-base font-bold text-gray-900 dark:text-white mb-1.5" dangerouslySetInnerHTML={{__html: renderInline(step.title)}} />
               )}
               {step.text && (
-                <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed" dangerouslySetInnerHTML={{__html: renderText(step.text)}} />
+                <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed" dangerouslySetInnerHTML={{__html: renderInline(step.text)}} />
               )}
               {step.cta?.text && step.cta?.url && (
                 <a
@@ -234,7 +225,7 @@ function TimelineSteps({steps, markerStyle, numbering, icon_svgs, item_images}) 
           const isLeft = i % 2 === 0;
           const iconSvg = step.icon ? (icon_svgs?.[step.icon] ?? null) : null;
           const imgData = item_images?.[String(i)] ?? null;
-          const isExtCta = step.cta?.url && (step.cta.url.startsWith("http://") || step.cta.url.startsWith("https://"));
+          const isExtCta = isExternal(step.cta?.url);
 
           return (
             <li key={i} class={`step-item flex items-start gap-4 md:gap-0 ${isLeft ? "md:flex-row" : "md:flex-row-reverse"}`}>
@@ -256,11 +247,11 @@ function TimelineSteps({steps, markerStyle, numbering, icon_svgs, item_images}) 
                   {step.title && (
                     <h3
                       class="text-base font-semibold text-gray-900 dark:text-white mb-2"
-                      dangerouslySetInnerHTML={{__html: renderText(step.title)}}
+                      dangerouslySetInnerHTML={{__html: renderInline(step.title)}}
                     />
                   )}
                   {step.text && (
-                    <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed" dangerouslySetInnerHTML={{__html: renderText(step.text)}} />
+                    <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed" dangerouslySetInnerHTML={{__html: renderInline(step.text)}} />
                   )}
                   {imgData && <img src={imgData.src} alt={step.title || ""} class="mt-3 rounded-lg w-full object-cover max-h-48" />}
                   {step.cta?.text && step.cta?.url && (
@@ -378,13 +369,13 @@ export const StepsBlock = ({content = {}, design = {}, icon_svgs = {}, item_imag
             {title && (
               <h2
                 class="text-3xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-4xl mb-3"
-                dangerouslySetInnerHTML={{__html: renderText(title)}}
+                dangerouslySetInnerHTML={{__html: renderInline(title)}}
               />
             )}
             {text && (
               <p
                 class={`text-lg text-gray-500 dark:text-gray-400 ${isCentered ? "mx-auto max-w-2xl" : "max-w-2xl"}`}
-                dangerouslySetInnerHTML={{__html: renderText(text)}}
+                dangerouslySetInnerHTML={{__html: renderInline(text)}}
               />
             )}
           </div>

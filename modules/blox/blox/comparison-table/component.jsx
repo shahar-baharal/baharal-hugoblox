@@ -1,20 +1,11 @@
 import {Icon} from "../../shared/components/Icon.jsx";
+import {renderInline} from "../../shared/text.js";
+import {isExternal} from "../../shared/links.js";
 
 const CHECK_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd"/></svg>`;
 const X_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z"/></svg>`;
 const MINUS_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M3.75 10a.75.75 0 01.75-.75h11a.75.75 0 010 1.5h-11a.75.75 0 01-.75-.75z" clip-rule="evenodd"/></svg>`;
 
-function renderText(text) {
-  if (!text) return "";
-  return String(text)
-    .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
-    .replace(/\*(.*?)\*/g, "<em>$1</em>")
-    .replace(
-      /`(.*?)`/g,
-      (_, code) =>
-        `<code class="px-1.5 py-0.5 rounded font-mono text-sm bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200">${code}</code>`,
-    );
-}
 
 // Resolve a cell value into one of: {kind: "check"} | {kind: "cross"} | {kind: "partial", note} | {kind: "text", value, emphasis}
 function resolveCell(raw) {
@@ -75,7 +66,7 @@ function CellContent({cell, isHighlighted}) {
 function DesktopTable({competitors, rows, cta, icon_svgs, rowStriping = false}) {
   const highlightIdx = competitors.findIndex((c) => c.highlight);
   const ctaIconSvg = cta?.icon ? (icon_svgs?.[cta.icon] ?? null) : null;
-  const isExtCta = cta?.url && (cta.url.startsWith("http://") || cta.url.startsWith("https://"));
+  const isExtCta = isExternal(cta?.url);
   const highlighted = highlightIdx >= 0 ? competitors[highlightIdx] : null;
   // Column widths: feature label column gets 1.5× a competitor column for readable row labels
   const colWidthPct = 100 / (competitors.length + 1.5);
@@ -214,7 +205,7 @@ function MobileCards({competitors, rows, cta, icon_svgs}) {
   const ordered = highlightIdx >= 0 ? [competitors[highlightIdx], ...competitors.filter((_, i) => i !== highlightIdx)] : competitors;
 
   const ctaIconSvg = cta?.icon ? (icon_svgs?.[cta.icon] ?? null) : null;
-  const isExtCta = cta?.url && (cta.url.startsWith("http://") || cta.url.startsWith("https://"));
+  const isExtCta = isExternal(cta?.url);
 
   return (
     <div class="md:hidden space-y-4">
@@ -285,10 +276,10 @@ export const ComparisonTableBlock = ({content = {}, design = {}, icon_svgs = {}}
             {title && (
               <h2
                 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white tracking-tight mb-4"
-                dangerouslySetInnerHTML={{__html: renderText(title)}}
+                dangerouslySetInnerHTML={{__html: renderInline(title)}}
               />
             )}
-            {text && <p class="text-lg text-gray-600 dark:text-gray-400" dangerouslySetInnerHTML={{__html: renderText(text)}} />}
+            {text && <p class="text-lg text-gray-600 dark:text-gray-400" dangerouslySetInnerHTML={{__html: renderInline(text)}} />}
           </div>
         )}
 

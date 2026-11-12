@@ -5,15 +5,9 @@
  */
 
 import {Icon} from "../../shared/components/Icon.jsx";
+import {renderInline} from "../../shared/text.js";
+import {isExternal} from "../../shared/links.js";
 
-function renderText(text) {
-  if (!text) return "";
-  return String(text)
-    .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
-    .replace(/\*(.*?)\*/g, "<em>$1</em>")
-    .replace(/`(.*?)`/g, "<code>$1</code>")
-    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
-}
 
 const ARROW_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>`;
 
@@ -21,15 +15,7 @@ function CtaItem({item, idx, imageData, featureIconSvg}) {
   const isReversed = idx % 2 === 1;
 
   const buttonUrl = item.button?.url || "";
-  let isExternal = false;
-  if (buttonUrl) {
-    try {
-      const url = new URL(buttonUrl, window.location.origin);
-      isExternal = url.origin !== window.location.origin;
-    } catch {
-      isExternal = /^https?:\/\//.test(buttonUrl);
-    }
-  }
+  const external = isExternal(buttonUrl);
 
   const features = Array.isArray(item.features) ? item.features : typeof item.features === "string" ? [item.features] : [];
 
@@ -65,11 +51,11 @@ function CtaItem({item, idx, imageData, featureIconSvg}) {
         {item.title && (
           <h2
             class="mb-4 text-3xl sm:text-4xl font-bold tracking-tight text-gray-900 dark:text-white"
-            dangerouslySetInnerHTML={{__html: renderText(item.title)}}
+            dangerouslySetInnerHTML={{__html: renderInline(item.title)}}
           />
         )}
         {item.text && (
-          <p class="mb-8 text-lg text-gray-500 dark:text-gray-400 leading-relaxed" dangerouslySetInnerHTML={{__html: renderText(item.text)}} />
+          <p class="mb-8 text-lg text-gray-500 dark:text-gray-400 leading-relaxed" dangerouslySetInnerHTML={{__html: renderInline(item.text)}} />
         )}
 
         {features.length > 0 && (
@@ -91,7 +77,7 @@ function CtaItem({item, idx, imageData, featureIconSvg}) {
                     </svg>
                   )}
                 </span>
-                <span class="text-gray-700 dark:text-gray-300" dangerouslySetInnerHTML={{__html: renderText(String(feature))}} />
+                <span class="text-gray-700 dark:text-gray-300" dangerouslySetInnerHTML={{__html: renderInline(String(feature))}} />
               </li>
             ))}
           </ul>
@@ -100,8 +86,8 @@ function CtaItem({item, idx, imageData, featureIconSvg}) {
         {item.button?.text && item.button?.url && (
           <a
             href={buttonUrl}
-            target={isExternal ? "_blank" : undefined}
-            rel={isExternal ? "noopener" : undefined}
+            target={external ? "_blank" : undefined}
+            rel={external ? "noopener" : undefined}
             class="inline-flex items-center gap-2 rounded-full bg-primary-600 text-white px-6 py-3 text-sm font-semibold hover:bg-primary-700 transition-all duration-200 shadow-sm hover:shadow-md"
           >
             {item.button.text}

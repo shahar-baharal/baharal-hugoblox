@@ -1,4 +1,6 @@
 import {Icon} from "../../shared/components/Icon.jsx";
+import {renderInline} from "../../shared/text.js";
+import {isExternal} from "../../shared/links.js";
 
 const MARQUEE_CSS = `
 @keyframes hbx-logos-marquee {
@@ -26,12 +28,6 @@ const FILTER = {
   color: "transition-all duration-300",
 };
 
-function renderText(text) {
-  if (!text) return "";
-  return String(text)
-    .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
-    .replace(/\*(.*?)\*/g, "<em>$1</em>");
-}
 
 function LogoItem({item, idx, logoStyle, logoSize, icon_svgs, item_images, padY = "py-3"}) {
   const iconSvg = item.icon ? (icon_svgs?.[item.icon] ?? null) : null;
@@ -75,7 +71,7 @@ function LogoItem({item, idx, logoStyle, logoSize, icon_svgs, item_images, padY 
     return null;
   }
 
-  const isExt = item.url && (item.url.startsWith("http://") || item.url.startsWith("https://"));
+  const isExt = isExternal(item.url);
   // Fixed-width slot: every logo occupies the same footprint → consistent visual weight
   const cls = `flex items-center justify-center flex-shrink-0 ${slotW} max-w-full ${padY}`;
 
@@ -155,7 +151,7 @@ export const LogosBlock = ({content = {}, design = {}, icon_svgs = {}, item_imag
   const logoSize = design.logo_size || "md";
   const speed = design.marquee_speed ?? 30;
 
-  const isExtCta = cta?.url && (cta.url.startsWith("http://") || cta.url.startsWith("https://"));
+  const isExtCta = isExternal(cta?.url);
 
   return (
     <div class="py-12 sm:py-16">
@@ -165,10 +161,10 @@ export const LogosBlock = ({content = {}, design = {}, icon_svgs = {}, item_imag
             {title && (
               <p
                 class="text-xs font-semibold uppercase tracking-widest text-gray-400 dark:text-gray-500 mb-1.5"
-                dangerouslySetInnerHTML={{__html: renderText(title)}}
+                dangerouslySetInnerHTML={{__html: renderInline(title)}}
               />
             )}
-            {subtitle && <p class="text-sm text-gray-400 dark:text-gray-500" dangerouslySetInnerHTML={{__html: renderText(subtitle)}} />}
+            {subtitle && <p class="text-sm text-gray-400 dark:text-gray-500" dangerouslySetInnerHTML={{__html: renderInline(subtitle)}} />}
           </div>
         )}
 

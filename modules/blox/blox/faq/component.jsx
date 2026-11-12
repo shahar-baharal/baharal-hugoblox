@@ -1,22 +1,10 @@
 import {useId, useState} from "preact/hooks";
 import {Icon} from "../../shared/components/Icon.jsx";
+import {renderInline} from "../../shared/text.js";
+import {isExternal} from "../../shared/links.js";
 
 const PLUS_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M10 3a.75.75 0 01.75.75v5.5h5.5a.75.75 0 010 1.5h-5.5v5.5a.75.75 0 01-1.5 0v-5.5h-5.5a.75.75 0 010-1.5h5.5v-5.5A.75.75 0 0110 3z" clip-rule="evenodd"/></svg>`;
 
-function renderInline(text) {
-  if (!text) return "";
-  return String(text)
-    .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
-    .replace(/\*(.*?)\*/g, "<em>$1</em>")
-    .replace(
-      /`(.*?)`/g,
-      '<code class="px-1.5 py-0.5 rounded font-mono text-sm bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200">$1</code>',
-    )
-    .replace(
-      /\[([^\]]+)\]\(([^)]+)\)/g,
-      '<a href="$2" class="text-primary-600 dark:text-primary-400 underline underline-offset-2 hover:text-primary-700 dark:hover:text-primary-300">$1</a>',
-    );
-}
 
 function renderRich(text) {
   if (!text) return "";
@@ -74,7 +62,7 @@ export const FaqBlock = ({content = {}, icon_svgs = {}, button_icon_svg}) => {
   const uid = useId();
 
   const buttonIconSvg = button_icon_svg ?? (button.icon ? icon_svgs?.[button.icon] : null);
-  const isExtBtn = button.url && (button.url.startsWith("http://") || button.url.startsWith("https://"));
+  const isExtBtn = isExternal(button.url);
 
   return (
     <div class="py-16 sm:py-24">

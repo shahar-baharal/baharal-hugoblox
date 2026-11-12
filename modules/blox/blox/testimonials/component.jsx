@@ -1,3 +1,4 @@
+import {renderInline} from "../../shared/text.js";
 /**
  * Testimonials Block Component - Single source of truth
  * Quote cards with avatar, name, and role.
@@ -5,13 +6,6 @@
  * Avatars are pre-processed by Hugo's image pipeline (passed as item_images prop)
  */
 
-function renderText(text) {
-  if (!text) return "";
-  return String(text)
-    .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
-    .replace(/\*(.*?)\*/g, "<em>$1</em>")
-    .replace(/`(.*?)`/g, "<code>$1</code>");
-}
 
 function Avatar({item, avatarUrl, size = "lg"}) {
   const sizeClass = size === "lg" ? "w-14 h-14" : "w-10 h-10";
@@ -54,7 +48,7 @@ function TestimonialFeatured({item, avatarUrl}) {
       <blockquote class="relative">
         <p
           class="text-xl sm:text-2xl font-medium text-gray-900 dark:text-white leading-relaxed"
-          dangerouslySetInnerHTML={{__html: `“${renderText(item.text)}”`}}
+          dangerouslySetInnerHTML={{__html: `“${renderInline(item.text)}”`}}
         />
       </blockquote>
 
@@ -73,7 +67,7 @@ function TestimonialCard({item, avatarUrl}) {
   return (
     <div class="flex flex-col bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-sm ring-1 ring-gray-100 dark:ring-gray-700 hover:shadow-md transition-shadow duration-200">
       <blockquote class="flex-1 mb-6">
-        <p class="text-base text-gray-700 dark:text-gray-300 leading-relaxed" dangerouslySetInnerHTML={{__html: `“${renderText(item.text)}”`}} />
+        <p class="text-base text-gray-700 dark:text-gray-300 leading-relaxed" dangerouslySetInnerHTML={{__html: `“${renderInline(item.text)}”`}} />
       </blockquote>
 
       <div class="flex items-center gap-3">
@@ -107,10 +101,10 @@ export const TestimonialsBlock = ({content, _design, _id, item_images}) => {
           {title && (
             <h2
               class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white"
-              dangerouslySetInnerHTML={{__html: renderText(title)}}
+              dangerouslySetInnerHTML={{__html: renderInline(title)}}
             />
           )}
-          {text && <p class="text-gray-500 sm:text-xl dark:text-gray-400" dangerouslySetInnerHTML={{__html: renderText(text)}} />}
+          {text && <p class="text-gray-500 sm:text-xl dark:text-gray-400" dangerouslySetInnerHTML={{__html: renderInline(text)}} />}
         </div>
       )}
 
