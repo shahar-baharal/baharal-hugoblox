@@ -39,11 +39,14 @@ export const CtaCardBlock = ({content, design, _id, button_icon_svg}) => {
     textColorMode = card.text_color.toLowerCase();
   }
 
+  const defaultBgClass = "bg-gradient-to-br from-primary-500/90 via-primary-600/95 to-primary-700/90";
+  const finalCardClass = cardClass || defaultBgClass;
+
   if (textColorMode === "auto") {
     const looksColored =
-      cardClass.includes("bg-gradient") ||
-      /\bbg-(primary|secondary|violet|indigo|blue|purple|pink|fuchsia|rose|red|orange|amber|emerald|teal|cyan|sky)-[4-9]\d{0,2}\b/.test(cardClass) ||
-      /\bfrom-(primary|secondary|violet|indigo|blue|purple|pink|fuchsia|rose|red|orange|amber|emerald|teal|cyan|sky)-[4-9]/.test(cardClass);
+      finalCardClass.includes("bg-gradient") ||
+      /\bbg-(primary|secondary|violet|indigo|blue|purple|pink|fuchsia|rose|red|orange|amber|emerald|teal|cyan|sky)-[4-9]\d{0,2}\b/.test(finalCardClass) ||
+      /\bfrom-(primary|secondary|violet|indigo|blue|purple|pink|fuchsia|rose|red|orange|amber|emerald|teal|cyan|sky)-[4-9]/.test(finalCardClass);
     // Legacy detection: design.background.gradient.start using saturated Tailwind tokens
     const bg = design?.background || {};
     const gradientStart = bg.gradient?.start || "";
@@ -82,9 +85,6 @@ export const CtaCardBlock = ({content, design, _id, button_icon_svg}) => {
     if (buttonUrl.endsWith(".pdf")) isNewTab = true;
     if (isExternal) isNewTab = true;
   }
-
-  const defaultBgClass = "bg-gradient-to-br from-primary-500/90 via-primary-600/95 to-primary-700/90";
-  const finalCardClass = cardClass || defaultBgClass;
 
   const style = `--glassmorphism-opacity: ${overlayOpacity}; ${cardStyle}`;
 
