@@ -316,25 +316,11 @@
 {{/* Extract background-specific CSS classes */}}
 {{ $bg_css_classes := $bg.css_class | default "" }}
 
-{{/* Route to appropriate handler */}}
+{{/* Render the block's content: a Preact block or a Go template block */}}
+{{ $inner := "" }}
 {{ if $is_preact }}
-  {{/* Render Preact block with styling wrapper */}}
-  {{/* `isolate` forces a stacking context on the section so the home-section-bg
-       (z-index:-1) and gradient mesh (z-index:-10) layers stay contained — without
-       it, negative-z descendants escape the section and paint behind the page root. */}}
-  <section id="{{$hash_id}}" class="relative isolate {{if $has_gradient_mesh}}overflow-hidden{{end}} hbb-section {{$widget_class}} {{if $bg.text_color_light}}dark{{else if (eq $bg.text_color_light false)}}light{{end}} {{with $css_classes}}{{.}}{{end}}" {{with $style}}style="{{. | safeCSS}}"{{end}}>
-    {{/* Gradient Mesh Background */}}
-    {{ if $has_gradient_mesh }}{{ $gradient_mesh_html }}{{ end }}
-    <div class="home-section-bg {{if $bg.image}} bg-image{{if ($bg.image.parallax | default true) }} parallax{{end}}{{end}}{{with $bg_css_classes}} {{.}}{{end}}" {{with $style_bg}}style="{{. | safeCSS}}"{{end}}>
-      {{with $bg_video}}<video class="bg-video {{$bg_video_class}}" playsinline="" preload="auto" loop="" muted autoplay="" tabindex="-1" width="100%" height="100%" src="{{.RelPermalink}}" style="width: 100%; height: 100%; object-fit: cover; object-position: center center; opacity: 1;"></video>{{end}}
-    </div>
-    {{/* Section-break gradient overlays (above bg, below content) */}}
-    {{ with $break_overlay }}{{ . | safeHTML }}{{ end }}
-    {{/* Use generic Preact wrapper for content */}}
-    {{ partial "blox/preact-wrapper" (dict "wcPage" $page "wcBlock" $block "wcBlockType" $block_type "wcIdentifier" $hash_id) }}
-  </section>
+  {{ $inner = partial "blox/preact-wrapper" (dict "wcPage" $page "wcBlock" $block "wcBlockType" $block_type "wcIdentifier" $hash_id) }}
 {{ else }}
-  {{/* Fall back to traditional Go template blocks */}}
   {{ $block_path := printf "hbx/blocks/%s/block.html" $block_type }}
   {{ if not (templates.Exists (printf "_partials/%s" $block_path)) }}
     {{ errorf "%s uses a `%s` block but the `%s` block was not found at `%s`. Check the name of the block and ensure it exists in the blox/%s/ directory." $page.File.Path $block_type $block_type $block_path $block_type }}
@@ -349,20 +335,20 @@
     {{ $page.Page.Store.Set "has_gallery" true }}
   {{ end }}
 
-  {{ $widget_args := dict "wcPage" $page "wcBlock" $block "wcIdentifier" $hash_id }}
-
-  {{/* Render traditional block with wrapper */}}
-  {{/* `isolate` forces a stacking context on the section so the home-section-bg
-       (z-index:-1) and gradient mesh (z-index:-10) layers stay contained — without
-       it, negative-z descendants escape the section and paint behind the page root. */}}
-  <section id="{{$hash_id}}" class="relative isolate {{if $has_gradient_mesh}}overflow-hidden{{end}} hbb-section {{$widget_class}} {{if $bg.text_color_light}}dark{{else if (eq $bg.text_color_light false)}}light{{end}} {{with $css_classes}}{{.}}{{end}}" {{with $style}}style="{{. | safeCSS}}"{{end}}>
-    {{/* Gradient Mesh Background */}}
-    {{ if $has_gradient_mesh }}{{ $gradient_mesh_html }}{{ end }}
-    <div class="home-section-bg {{if $bg.image}} bg-image{{if ($bg.image.parallax | default true) }} parallax{{end}}{{end}}{{with $bg_css_classes}} {{.}}{{end}}" {{with $style_bg}}style="{{. | safeCSS}}"{{end}}>
-      {{with $bg_video}}<video class="bg-video {{$bg_video_class}}" playsinline="" preload="auto" loop="" muted autoplay="" tabindex="-1" width="100%" height="100%" src="{{.RelPermalink}}" style="width: 100%; height: 100%; object-fit: cover; object-position: center center; opacity: 1;"></video>{{end}}
-    </div>
-    {{/* Section-break gradient overlays (above bg, below content) */}}
-    {{ with $break_overlay }}{{ . | safeHTML }}{{ end }}
-    {{ partial $block_path $widget_args }}
-  </section>
+  {{ $inner = partial $block_path (dict "wcPage" $page "wcBlock" $block "wcIdentifier" $hash_id) }}
 {{ end }}
+
+{{/* The section wrapper, the same for every block. `isolate` forces a stacking
+     context on the section so the home-section-bg (z-index:-1) and gradient mesh
+     (z-index:-10) layers stay contained — without it, negative-z descendants
+     escape the section and paint behind the page root. */}}
+<section id="{{$hash_id}}" class="relative isolate {{if $has_gradient_mesh}}overflow-hidden{{end}} hbb-section {{$widget_class}} {{if $bg.text_color_light}}dark{{else if (eq $bg.text_color_light false)}}light{{end}} {{with $css_classes}}{{.}}{{end}}" {{with $style}}style="{{. | safeCSS}}"{{end}}>
+  {{/* Gradient Mesh Background */}}
+  {{ if $has_gradient_mesh }}{{ $gradient_mesh_html }}{{ end }}
+  <div class="home-section-bg {{if $bg.image}} bg-image{{if ($bg.image.parallax | default true) }} parallax{{end}}{{end}}{{with $bg_css_classes}} {{.}}{{end}}" {{with $style_bg}}style="{{. | safeCSS}}"{{end}}>
+    {{with $bg_video}}<video class="bg-video {{$bg_video_class}}" playsinline="" preload="auto" loop="" muted autoplay="" tabindex="-1" width="100%" height="100%" src="{{.RelPermalink}}" style="width: 100%; height: 100%; object-fit: cover; object-position: center center; opacity: 1;"></video>{{end}}
+  </div>
+  {{/* Section-break gradient overlays (above bg, below content) */}}
+  {{ with $break_overlay }}{{ . | safeHTML }}{{ end }}
+  {{ $inner }}
+</section>
