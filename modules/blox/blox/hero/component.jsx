@@ -274,7 +274,10 @@ export const HeroBlock = ({content, design, _id, icon_svg, secondary_icon_svg, m
         <div class={`mx-auto ${layout.container} ${sizeClasses}`}>
           {mobileSmall && (
             <div class="lg:hidden flex justify-center mb-6">
-              <img src={media_image.src} srcset={media_image.srcset} sizes="160px" alt="" aria-hidden="true" loading="eager" class="w-40 h-auto rounded-xl" />
+              <img src={media_image.src} srcset={media_image.srcset} sizes="160px" alt="" aria-hidden="true" loading="eager" class={`w-40 h-auto rounded-xl ${media_image_dark ? "block dark:hidden" : ""}`} />
+              {media_image_dark && (
+                <img src={media_image_dark.src} srcset={media_image_dark.srcset} sizes="160px" alt="" aria-hidden="true" loading="eager" class="w-40 h-auto rounded-xl hidden dark:block" />
+              )}
             </div>
           )}
           <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
