@@ -136,12 +136,13 @@ function AnnouncementPill({announcement, alignKey = "center"}) {
 // Hero size presets — full literal class strings (Tailwind scanner safety).
 // `default` is the modern 2026 baseline (~96-160px vertical padding).
 // `tall` is the legacy size for when the hero needs more visual weight.
-// `viewport` fills the screen — vertically centred content, useful for splash heroes.
+// `viewport` fills the screen: the section wrapper sizes and centres it
+// (.hbb-viewport), so the hero adds no height of its own.
 const SIZE_CLASSES = {
   compact: "py-16 sm:py-20 lg:py-24",
   default: "py-24 sm:py-32 lg:py-40",
   tall: "py-32 sm:py-48 lg:py-56",
-  viewport: "min-h-screen flex flex-col justify-center py-16",
+  viewport: "",
   none: "",
 };
 
@@ -216,7 +217,7 @@ function Media({media, mediaImage, mediaImageDark, frame = true}) {
 // Hero Block Component - Single implementation
 export const HeroBlock = ({content, design, _id, icon_svg, secondary_icon_svg, media_image, media_image_dark}) => {
   // Backward compat: legacy `no_padding: true` maps to size: "none"
-  const sizeKey = SIZE_CLASSES[design?.size] ? design.size : design?.no_padding ? "none" : "default";
+  const sizeKey = Object.hasOwn(SIZE_CLASSES, design?.size ?? "") ? design.size : design?.no_padding ? "none" : "default";
   const sizeClasses = SIZE_CLASSES[sizeKey];
 
   const layoutKey = LAYOUTS[design?.layout] ? design.layout : "centered";

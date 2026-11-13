@@ -27,6 +27,16 @@
     --hb-gutter: 0px;
   }
 
+  /* design.size: viewport. The section, padding included, is exactly the
+     screen below the header (--header-h: hugo-shared's set-header-height;
+     dvh: the visible screen on phones), content centered in it. */
+  .hbb-section.hbb-viewport {
+    min-height: calc(100dvh - var(--header-h, 0px));
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
   /* One strip inside a block (a marquee, a carousel) runs to the screen edges
      on phones and tablets, across the section's gutter. */
   .hbb-bleed {

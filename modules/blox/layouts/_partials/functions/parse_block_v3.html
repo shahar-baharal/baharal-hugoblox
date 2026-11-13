@@ -312,6 +312,8 @@
 {{ $css_classes := $block.design.css_class | default "" }}
 {{ if $.alt }}{{ $css_classes = printf "hbb-section-alt %s" $css_classes }}{{ end }}
 {{ if $block.design.full_bleed }}{{ $css_classes = printf "hbb-full-bleed %s" $css_classes }}{{ end }}
+{{/* design.size: viewport: the whole section, padding included, fills the screen under the header */}}
+{{ if eq $block.design.size "viewport" }}{{ $css_classes = printf "hbb-viewport %s" $css_classes }}{{ end }}
 {{ $widget_class := printf "blox-%s" (strings.ReplacePairs $block_type "." "-" "_" "-") }}
 
 {{/* Extract background-specific CSS classes */}}
