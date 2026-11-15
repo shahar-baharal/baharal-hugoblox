@@ -29,9 +29,11 @@
 
   /* design.size: viewport. The section, padding included, is exactly the
      screen below the header (--header-h: hugo-shared's set-header-height;
-     dvh: the visible screen on phones), content centered in it. */
+     svh: the phone screen with its address bar showing, a height that
+     stays put while scrolling; dvh tracks the bar and moved the page
+     under the reader), content centered in it. */
   .hbb-section.hbb-viewport {
-    min-height: calc(100dvh - var(--header-h, 0px));
+    min-height: calc(100svh - var(--header-h, 0px));
     display: flex;
     flex-direction: column;
     justify-content: center;
