@@ -31,7 +31,7 @@ sections:
         stars: 5
         text: "**4.9/5** from 1,200+ product teams"
       # To switch to a split layout with a product mockup, uncomment the media block
-      # below and set `design.layout: split-left` (or `split-right` / `stacked`):
+      # below and set `design.layout: split-start` (or `split-end` / `stacked`):
       # media:
       #   type: image
       #   src: dashboard.png

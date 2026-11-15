@@ -14,6 +14,13 @@ Capture attention and drive action from the moment visitors land on your site wi
 - **Responsive Typography**: Headlines scale from 4xl to 6xl based on screen size
 - **Center-Aligned**: Professional center-aligned layout for maximum impact
 
+## Layout (`design`)
+
+- `layout`: `centered` (default), `split-start` (text at the start of the line, media beside it), `split-end` (text at the end), or `stacked` (media full width below the text). Start is where reading begins: left in English, right in Hebrew, so one value fits every language.
+- `alignment`: `start` (default for split layouts) or `center`.
+
+Any other value fails the build (`split-left`/`split-right` and `alignment: left` were renamed on 2026-11-15).
+
 ## 🎯 Perfect For
 
 - **Landing Pages**: Convert visitors into leads with compelling headlines and clear CTAs

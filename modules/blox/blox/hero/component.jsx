@@ -85,7 +85,7 @@ function TrustStrip({trust, alignKey = "center"}) {
   if (!trust) return null;
   const {stars, text} = trust;
   if (!stars && !text) return null;
-  const justify = alignKey === "left" ? "justify-start" : "justify-center";
+  const justify = alignKey === "start" ? "justify-start" : "justify-center";
   return (
     <div class={`mt-8 flex items-center ${justify} gap-3 flex-wrap`}>
       {stars != null && <StarStrip stars={stars} />}
@@ -107,7 +107,7 @@ function AnnouncementPill({announcement, alignKey = "center"}) {
   if (!announcement?.text) return null;
   const badge = announcement.badge;
   const badgeCls = badge && BADGE_COLORS[badge.color] ? BADGE_COLORS[badge.color] : BADGE_COLORS.primary;
-  const justify = alignKey === "left" ? "sm:justify-start" : "sm:justify-center";
+  const justify = alignKey === "start" ? "sm:justify-start" : "sm:justify-center";
 
   return (
     <div class={`hidden sm:mb-8 sm:flex ${justify}`}>
@@ -146,17 +146,18 @@ const SIZE_CLASSES = {
   none: "",
 };
 
-const ALIGN_TEXT = {center: "text-center", left: "text-start"};
-const ALIGN_FLEX = {center: "justify-center", left: "justify-start"};
-const ALIGN_MX = {center: "mx-auto", left: ""};
+const ALIGN_TEXT = {center: "text-center", start: "text-start"};
+const ALIGN_FLEX = {center: "justify-center", start: "justify-start"};
+const ALIGN_MX = {center: "mx-auto", start: ""};
 
-// Layout presets. `centered` is the classic stacked hero. `split-*` puts text and media
-// side-by-side (the dominant 2026 SaaS pattern). `stacked` keeps text top-aligned with
+// Layout presets. `centered` is the classic stacked hero. `split-start`/`split-end` put
+// the text at the start/end of the line (start = where reading begins: left in English,
+// right in Hebrew) with media beside it; DOM order does it, so RTL needs nothing extra. `stacked` keeps text top-aligned with
 // media full-width below — useful for product screenshots that need horizontal real estate.
 const LAYOUTS = {
   centered: {container: "max-w-2xl", grid: false, stacked: false, reverse: false},
-  "split-left": {container: "max-w-7xl", grid: true, stacked: false, reverse: false},
-  "split-right": {container: "max-w-7xl", grid: true, stacked: false, reverse: true},
+  "split-start": {container: "max-w-7xl", grid: true, stacked: false, reverse: false},
+  "split-end": {container: "max-w-7xl", grid: true, stacked: false, reverse: true},
   stacked: {container: "max-w-6xl", grid: false, stacked: true, reverse: false},
 };
 
@@ -223,8 +224,8 @@ export const HeroBlock = ({content, design, _id, icon_svg, secondary_icon_svg, m
   const layoutKey = LAYOUTS[design?.layout] ? design.layout : "centered";
   const layout = LAYOUTS[layoutKey];
 
-  // Auto-align: split layouts read better left-aligned unless explicitly centred
-  const alignKey = design?.alignment === "left" || design?.alignment === "center" ? design.alignment : layout.grid ? "left" : "center";
+  // Auto-align: split layouts read better start-aligned unless explicitly centred
+  const alignKey = design?.alignment === "start" || design?.alignment === "center" ? design.alignment : layout.grid ? "start" : "center";
   const textAlign = ALIGN_TEXT[alignKey];
   const flexAlign = ALIGN_FLEX[alignKey];
   const mxAuto = ALIGN_MX[alignKey];
@@ -281,8 +282,8 @@ export const HeroBlock = ({content, design, _id, icon_svg, secondary_icon_svg, m
             </div>
           )}
           <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            <div class={layout.reverse ? "lg:ltr:order-2 lg:rtl:order-1" : "lg:rtl:order-2"}>{contentStack}</div>
-            {mediaEl && <div class={`${mobileSmall ? "hidden lg:block" : ""} ${layout.reverse ? "lg:ltr:order-1 lg:rtl:order-2" : "lg:rtl:order-1"}`}>{mediaEl}</div>}
+            <div class={layout.reverse ? "lg:order-2" : ""}>{contentStack}</div>
+            {mediaEl && <div class={`${mobileSmall ? "hidden lg:block" : ""} ${layout.reverse ? "lg:order-1" : ""}`}>{mediaEl}</div>}
           </div>
         </div>
       </div>

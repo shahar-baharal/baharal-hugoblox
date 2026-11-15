@@ -17,6 +17,21 @@
   "type" $block_type
 }}
 
+{{/* Hero: fail on an unknown layout or alignment rather than fall back silently
+     (split-left/split-right and alignment: left became start/end, blox/hero/README.md). */}}
+{{ if eq $block_type "hero" }}
+  {{ with $block.design.layout }}
+    {{ if not (in (slice "centered" "split-start" "split-end" "stacked") .) }}
+      {{ errorf "%s: hero design.layout %q is not one of centered, split-start, split-end, stacked (blox/hero/README.md)" $page.File.Path . }}
+    {{ end }}
+  {{ end }}
+  {{ with $block.design.alignment }}
+    {{ if not (in (slice "start" "center") .) }}
+      {{ errorf "%s: hero design.alignment %q is not start or center (blox/hero/README.md)" $page.File.Path . }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
 {{/* Resolve icon for primary_action (hero, cta blocks) */}}
 {{ with $block.content.primary_action.icon }}
   {{ $icon_data := partial "functions/get_icon_data" (dict "name" .) }}
