@@ -14,7 +14,7 @@
 {{ if not (reflect.IsMap $c) }}{{ $c = dict }}{{ end }}
 {{/* Interface text: the content's value, else the translation. */}}
 {{ $t := dict }}
-{{ range $k, $en := dict "submit" "Send" "sending" "Sending…" "success" "Thank you! We'll be in touch soon." "error" "Something went wrong. Please try again in a moment." "required_note" "Fields marked * are required." "preview_note" "This form is coming soon." "review_button" "Continue to review" "review_title" "Check your request" "review_note" "Your request has not been sent yet." "edit" "Edit" "sent_title" "Request sent" "ref_label" "Reference number" "error_required" "This field is required." "error_min" "The minimum is {min}." "error_max" "The maximum is {max}." "error_min_date" "Not before {min}." "error_max_date" "Not after {max}." "error_minlength" "At least {minlength} characters." "error_email" "Enter a valid email address." "error_format" "Check this value." }}
+{{ range $k, $en := dict "submit" "Send" "sending" "Sending…" "success" "Thank you! We'll be in touch soon." "error" "Something went wrong. Please try again in a moment." "required_note" "Fields marked * are required." "preview_note" "This form is coming soon." "review_button" "Continue to review" "review_title" "Check your request" "review_note" "Your request has not been sent yet." "edit" "Edit" "sent_title" "Request sent" "ref_label" "Reference number" "done_text" "Back to the home page" "error_required" "This field is required." "error_min" "The minimum is {min}." "error_max" "The maximum is {max}." "error_min_date" "Not before {min}." "error_max_date" "Not after {max}." "error_minlength" "At least {minlength} characters." "error_email" "Enter a valid email address." "error_format" "Check this value." }}
   {{ $t = merge $t (dict $k (index $c $k | default (i18n (printf "block_inquiry_form_%s" $k)) | default $en)) }}
 {{ end }}
 {{ $preview := $c.preview | default false }}
@@ -101,6 +101,8 @@
     <p class="text-lg">{{ $t.ref_label }}: <strong class="inquiry-ref" dir="ltr"></strong></p>
     <p class="mt-2">{{ $t.success }}</p>
     <dl class="{{ $summary }}"></dl>
+    {{/* The next step after the task (GOV.UK confirmation pages): home by default. */}}
+    <a href="{{ $c.done_url | default site.Home.RelPermalink }}" class="inline-block {{ $btn }} border-2 border-primary-600">{{ $t.done_text }}</a>
   </div>
   {{ end }}
 </div>

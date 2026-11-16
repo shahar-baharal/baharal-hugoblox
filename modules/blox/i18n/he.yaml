@@ -537,6 +537,9 @@
 - id: block_inquiry_form_ref_label
   translation: "מספר פנייה"
 
+- id: block_inquiry_form_done_text
+  translation: "חזרה לדף הבית"
+
 - id: block_inquiry_form_error_required
   translation: "שדה חובה."
 

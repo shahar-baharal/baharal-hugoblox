@@ -38,7 +38,8 @@ Without that Worker, set `preview: true`.
     # submit, sending, success, error, required_note, preview_note,
     # review_button, review_title, review_note, edit, sent_title, ref_label,
     # error_required, error_min, error_max, error_min_date, error_max_date,
-    # error_minlength, error_email, error_format
+    # error_minlength, error_email, error_format, done_text
+    # done_url: "/"              # review mode: the confirmation's closing link (default: the home page)
     # preview: true              # submit disabled, "coming soon" note: before the Worker is set up
     # review: true               # check-answers step before sending, then a confirmation (below)
     # title_level: 1             # the title as the page's h1, for a page of its own (default 2)
@@ -59,7 +60,9 @@ and "confirmation page" patterns). Three views, one at a time, on the same page:
    stays here with the `error` text.
 3. **Sent**: `sent_title`, the Worker's `ref` (also in the email subject, so
    owner and visitor can name the request), `success` as the "what happens
-   next" line, and the answers again.
+   next" line, the answers again, and a closing link (`done_text`, to
+   `done_url`, default the home page). Other pages need no such link: the
+   header (logo, menu) is the way home everywhere.
 
 Focus moves to each view's heading. Nothing is stored: a reload starts over.
 

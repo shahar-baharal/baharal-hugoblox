@@ -780,6 +780,9 @@
 - id: block_inquiry_form_ref_label
   translation: "Reference number"
 
+- id: block_inquiry_form_done_text
+  translation: "Back to the home page"
+
 - id: block_inquiry_form_error_required
   translation: "This field is required."
 
