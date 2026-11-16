@@ -536,3 +536,27 @@
 
 - id: block_inquiry_form_ref_label
   translation: "מספר פנייה"
+
+- id: block_inquiry_form_error_required
+  translation: "שדה חובה."
+
+- id: block_inquiry_form_error_min
+  translation: "המינימום הוא {min}."
+
+- id: block_inquiry_form_error_max
+  translation: "המקסימום הוא {max}."
+
+- id: block_inquiry_form_error_min_date
+  translation: "לא לפני {min}."
+
+- id: block_inquiry_form_error_max_date
+  translation: "לא אחרי {max}."
+
+- id: block_inquiry_form_error_minlength
+  translation: "לפחות {minlength} תווים."
+
+- id: block_inquiry_form_error_email
+  translation: "כתובת האימייל לא תקינה."
+
+- id: block_inquiry_form_error_format
+  translation: "הערך לא תקין, בדקו אותו."

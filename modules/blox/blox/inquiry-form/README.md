@@ -30,12 +30,15 @@ Without that Worker, set `preview: true`.
       - heading: "Passengers"      # a group heading between fields (form only, not in the email)
       - label: "Adults"
         type: number
-        default: 1                 # also: placeholder, min
+        default: 1                 # also: placeholder
         min: 1
+        max: 9
         width: third
     # Optional overrides of the interface text (else i18n block_inquiry_form_*):
     # submit, sending, success, error, required_note, preview_note,
-    # review_button, review_title, review_note, edit, sent_title, ref_label
+    # review_button, review_title, review_note, edit, sent_title, ref_label,
+    # error_required, error_min, error_max, error_min_date, error_max_date,
+    # error_minlength, error_email, error_format
     # preview: true              # submit disabled, "coming soon" note: before the Worker is set up
     # review: true               # check-answers step before sending, then a confirmation (below)
     # title_level: 1             # the title as the page's h1, for a page of its own (default 2)
@@ -59,6 +62,40 @@ and "confirmation page" patterns). Three views, one at a time, on the same page:
    next" line, and the answers again.
 
 Focus moves to each view's heading. Nothing is stored: a reload starts over.
+
+## Checks
+
+The browser's own validation, configured per field with the standard HTML
+attributes, passed through as written: `required`, `min`, `max`, `step`,
+`minlength`, `maxlength`, `pattern` (and the `type`: `email`, `number`, `date`).
+Three additions:
+
+```yaml
+      - label: "Departure date"
+        type: date
+        min: today                 # the visitor's today
+      - label: "Return date"
+        type: date
+        min_field: "Departure date"  # not before that field's value (when it has one)
+      - label: "Infants"
+        type: number
+        max_field: "Adults"        # max_field: not more than that field's value
+      - label: "Phone"
+        type: tel
+        pattern: '\+?[0-9 \-]{9,20}'  # single quotes: no YAML escaping; browsers apply the regex's v flag (escape - ( ) [ ] { } | / in classes)
+        error: "Digits only, e.g. 050-1234567"  # replaces every message but "required"
+```
+
+On submit, each failing field gets a message below it (`aria-invalid`,
+`aria-describedby`) and the first one gets focus; nothing is sent. Marked
+fields are re-checked as the visitor types. Messages: `error_*` in the
+interface text (`{min}`, `{max}`, `{minlength}`: the field's value; dates in
+the page's format). A new rule = an attribute in the YAML; a new message = a
+branch in `message()` plus an `error_*` key.
+
+These checks are for the visitor. The Worker only caps lengths and field
+count: a request that skips the form can still send odd values, which costs
+one odd email.
 
 ## Notes
 

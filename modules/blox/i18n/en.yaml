@@ -779,3 +779,27 @@
 
 - id: block_inquiry_form_ref_label
   translation: "Reference number"
+
+- id: block_inquiry_form_error_required
+  translation: "This field is required."
+
+- id: block_inquiry_form_error_min
+  translation: "The minimum is {min}."
+
+- id: block_inquiry_form_error_max
+  translation: "The maximum is {max}."
+
+- id: block_inquiry_form_error_min_date
+  translation: "Not before {min}."
+
+- id: block_inquiry_form_error_max_date
+  translation: "Not after {max}."
+
+- id: block_inquiry_form_error_minlength
+  translation: "At least {minlength} characters."
+
+- id: block_inquiry_form_error_email
+  translation: "Enter a valid email address."
+
+- id: block_inquiry_form_error_format
+  translation: "Check this value."

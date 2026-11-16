@@ -5,20 +5,26 @@
      `content.review: true` = submit shows a check-answers step first, then a
      confirmation with the Worker's reference number and the answers.
      `content.title_level: 1` = the title is the page's h1 (a page of its own);
-     the headings below it follow. */}}
+     the headings below it follow.
+     Checks: each field's HTML constraint attributes (min, max, step, minlength,
+     maxlength, pattern), plus `min: today` and `min_field`/`max_field` (another
+     field's label); messages beside the field, in the page's language. */}}
 {{ $block := .wcBlock }}
 {{ $c := $block.content }}
 {{ if not (reflect.IsMap $c) }}{{ $c = dict }}{{ end }}
 {{/* Interface text: the content's value, else the translation. */}}
 {{ $t := dict }}
-{{ range $k, $en := dict "submit" "Send" "sending" "Sending…" "success" "Thank you! We'll be in touch soon." "error" "Something went wrong. Please try again in a moment." "required_note" "Fields marked * are required." "preview_note" "This form is coming soon." "review_button" "Continue to review" "review_title" "Check your request" "review_note" "Your request has not been sent yet." "edit" "Edit" "sent_title" "Request sent" "ref_label" "Reference number" }}
+{{ range $k, $en := dict "submit" "Send" "sending" "Sending…" "success" "Thank you! We'll be in touch soon." "error" "Something went wrong. Please try again in a moment." "required_note" "Fields marked * are required." "preview_note" "This form is coming soon." "review_button" "Continue to review" "review_title" "Check your request" "review_note" "Your request has not been sent yet." "edit" "Edit" "sent_title" "Request sent" "ref_label" "Reference number" "error_required" "This field is required." "error_min" "The minimum is {min}." "error_max" "The maximum is {max}." "error_min_date" "Not before {min}." "error_max_date" "Not after {max}." "error_minlength" "At least {minlength} characters." "error_email" "Enter a valid email address." "error_format" "Check this value." }}
   {{ $t = merge $t (dict $k (index $c $k | default (i18n (printf "block_inquiry_form_%s" $k)) | default $en)) }}
 {{ end }}
 {{ $preview := $c.preview | default false }}
 {{ $review := $c.review | default false }}
 {{ $btn := "px-6 py-[0.85rem] rounded-full font-bold text-lg cursor-pointer disabled:opacity-55 disabled:cursor-not-allowed" }}
 {{ $primary := printf "%s bg-primary-600 text-white dark:text-[var(--hb-color-background)]" $btn }}
-{{ $control := "w-full px-[0.8rem] py-[0.6rem] rounded-lg border border-slate-500/45 bg-[var(--hb-color-background)] text-[var(--hb-color-foreground)]" }}
+{{ $control := "w-full px-[0.8rem] py-[0.6rem] rounded-lg border border-slate-500/45 aria-invalid:border-2 aria-invalid:border-red-700 dark:aria-invalid:border-red-300 bg-[var(--hb-color-background)] text-[var(--hb-color-foreground)]" }}
+{{/* Field error messages, for the script: {key} is the field's attribute. */}}
+{{ $errors := dict }}
+{{ range $k, $v := $t }}{{ if hasPrefix $k "error_" }}{{ $errors = merge $errors (dict (strings.TrimPrefix "error_" $k) $v) }}{{ end }}{{ end }}
 {{ $level := int ($c.title_level | default 2) }}
 {{ $h := printf "h%d" $level }}
 {{ $sub := printf "h%d" (add $level 1) }}
@@ -31,7 +37,7 @@
   </div>
   {{ end }}
   <form class="inquiry-form rounded-2xl p-8 bg-[var(--hb-color-background)]" action="/api/inquiry" method="POST"
-        data-subject="{{ $c.subject }}" data-sending="{{ $t.sending }}" data-success="{{ $t.success }}" data-error="{{ $t.error }}"{{ if $review }} data-review{{ end }}>
+        data-subject="{{ $c.subject }}" data-sending="{{ $t.sending }}" data-success="{{ $t.success }}" data-error="{{ $t.error }}" data-errors="{{ jsonify $errors }}"{{ if $review }} data-review{{ end }} novalidate>
     <input type="checkbox" name="botcheck" class="inquiry-honeypot hidden" tabindex="-1" autocomplete="off" aria-hidden="true">
     <p class="mt-3 mb-4 text-center font-semibold opacity-75">{{ $t.required_note }}</p>
     <div class="grid grid-cols-6 gap-x-5 gap-y-4">
@@ -43,7 +49,14 @@
         {{ $id := printf "inquiry-%d" $i }}
         {{ $width := $f.width | default "full" }}
         {{ $label := htmlEscape $f.label }}
-        {{ $attrs := printf `id="%s" name="%s" data-label="%s" data-width="%s"` $id $label $label (htmlEscape $width) | safeHTMLAttr }}
+        {{ $rules := "" }}
+        {{ range slice "min" "max" "step" "minlength" "maxlength" "pattern" }}
+          {{ if isset $f . }}{{ $rules = printf `%s %s="%s"` $rules . (htmlEscape (string (index $f .))) }}{{ end }}
+        {{ end }}
+        {{ range $key, $attr := dict "min_field" "data-min-field" "max_field" "data-max-field" "error" "data-msg" }}
+          {{ with index $f $key }}{{ $rules = printf `%s %s="%s"` $rules $attr (htmlEscape .) }}{{ end }}
+        {{ end }}
+        {{ $attrs := printf `id="%s" name="%s" data-label="%s" data-width="%s" aria-describedby="%s-error"%s` $id $label $label (htmlEscape $width) $id $rules | safeHTMLAttr }}
         <div class="col-span-6 {{ index $span $width }} flex flex-col gap-[0.35rem]">
           <label for="{{ $id }}" class="font-semibold text-[0.95rem]">{{ $f.label }}{{ if $f.required }} <span aria-hidden="true">*</span>{{ end }}</label>
           {{ if eq $f.type "select" }}
@@ -57,11 +70,11 @@
             {{/* tel/email read left-to-right, but align with the form's start edge */}}
             <input {{ $attrs }} type="{{ $f.type | default "text" }}" class="{{ $control }}{{ if $ltr }} rtl:text-right{{ end }}"
               {{- if isset $f "default" }} value="{{ $f.default }}"{{ end }}
-              {{- if isset $f "min" }} min="{{ $f.min }}"{{ end }}
               {{- with $f.placeholder }} placeholder="{{ . }}"{{ end }}
               {{- if $ltr }} dir="ltr" autocomplete="{{ $f.type }}"{{ end }}
               {{- if $f.required }} required{{ end }}>
           {{ end }}
+          <p id="{{ $id }}-error" class="text-sm font-semibold text-red-700 dark:text-red-300" hidden></p>
         </div>
         {{ end }}
       {{ end }}
@@ -96,6 +109,57 @@
   document.querySelectorAll('.inquiry-form').forEach((form) => {
     const root = form.parentElement;
     const inputs = () => [...form.querySelectorAll('[data-label]')];
+    const lang = document.documentElement.lang;
+    const dateText = (v) => new Date(v + 'T00:00').toLocaleDateString(lang);
+
+    // Checks: the browser's constraint validation; our messages, beside each field.
+    const errors = JSON.parse(form.dataset.errors);
+    const byLabel = (label) => inputs().find((el) => el.dataset.label === label);
+    const now = new Date();
+    const today = new Date(now - now.getTimezoneOffset() * 60000).toISOString().slice(0, 10);
+    for (const el of form.querySelectorAll('[min="today"]')) el.min = today;
+    for (const el of inputs()) Object.assign(el.dataset, { min0: el.min || '', max0: el.max || '' });
+    // min_field / max_field: the other field's value, while it has one.
+    const sync = () => {
+      for (const el of inputs()) {
+        if (el.dataset.minField) el.min = byLabel(el.dataset.minField)?.value || el.dataset.min0;
+        if (el.dataset.maxField) el.max = byLabel(el.dataset.maxField)?.value || el.dataset.max0;
+      }
+    };
+    const message = (el) => {
+      const v = el.validity;
+      const date = el.type === 'date' ? '_date' : '';
+      const key = v.valueMissing ? 'required'
+        : v.rangeUnderflow ? 'min' + date
+        : v.rangeOverflow ? 'max' + date
+        : v.tooShort ? 'minlength'
+        : v.typeMismatch && el.type === 'email' ? 'email'
+        : 'format';
+      const text = key === 'required' ? errors.required : el.dataset.msg || errors[key];
+      return text.replace(/\{(\w+)\}/g, (_, k) => (date ? dateText(el.getAttribute(k)) : el.getAttribute(k)));
+    };
+    const check = (el) => {
+      const ok = el.checkValidity();
+      const p = document.getElementById(el.id + '-error');
+      p.textContent = ok ? '' : message(el);
+      p.hidden = ok;
+      ok ? el.removeAttribute('aria-invalid') : el.setAttribute('aria-invalid', 'true');
+      return ok;
+    };
+    // On submit: every field; the first bad one gets focus.
+    const valid = () => {
+      sync();
+      const bad = inputs().filter((el) => !check(el));
+      bad[0]?.focus();
+      return !bad.length;
+    };
+    // After that: fields already marked are re-checked as they change.
+    for (const type of ['input', 'change']) {
+      form.addEventListener(type, () => {
+        sync();
+        inputs().filter((el) => el.hasAttribute('aria-invalid')).forEach(check);
+      });
+    }
     // The request contract: hugo-shared README, "Inquiry form". Resolves to the reference number.
     const send = async () => {
       const res = await fetch(form.action, {
@@ -134,6 +198,7 @@
     if (!('review' in form.dataset)) {
       form.addEventListener('submit', (e) => {
         e.preventDefault();
+        if (!valid()) return;
         const status = form.querySelector('.inquiry-status');
         busy(form.querySelector('.inquiry-submit'), status, async () => {
           await send();
@@ -153,9 +218,7 @@
       root.scrollIntoView({ behavior: 'smooth', block: 'start' });
       focus.focus({ preventScroll: true });
     };
-    const lang = document.documentElement.lang;
-    const shown = (el) =>
-      el.type === 'date' && el.value ? new Date(el.value + 'T00:00').toLocaleDateString(lang) : el.value.trim();
+    const shown = (el) => (el.type === 'date' && el.value ? dateText(el.value) : el.value.trim());
     const fill = (dl) => {
       dl.replaceChildren();
       for (const el of inputs()) {
@@ -177,6 +240,7 @@
 
     form.addEventListener('submit', (e) => {
       e.preventDefault();
+      if (!valid()) return;
       fill(review.querySelector('dl'));
       review.querySelector('.inquiry-status').textContent = '';
       show(review);
