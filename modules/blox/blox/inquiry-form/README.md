@@ -92,8 +92,9 @@ Three additions:
 On submit, each failing field gets a message below it (`aria-invalid`,
 `aria-describedby`) and the first one gets focus; nothing is sent. Marked
 fields are re-checked as the visitor types. Messages: `error_*` in the
-interface text (`{min}`, `{max}`, `{minlength}`: the field's value; dates in
-the page's format). A new rule = an attribute in the YAML; a new message = a
+interface text or the field's `error:`; `{name}` is the field's attribute of
+that name, e.g. `{min}`, `{max}`, `{placeholder}` (dates in the page's
+format), so a message never repeats a value the YAML already holds. A new rule = an attribute in the YAML; a new message = a
 branch in `message()` plus an `error_*` key.
 
 These checks are for the visitor. The Worker only caps lengths and field
