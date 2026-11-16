@@ -1,0 +1,11 @@
+{
+  "id": "inquiry-form",
+  "name": "Inquiry Form",
+  "version": "1.0.0",
+  "license": "MIT",
+  "category": "contact",
+  "tags": ["form", "contact", "inquiry", "quote", "email"],
+  "description": "A request form whose fields come from the block's content; posts JSON to the site's own /api/inquiry Worker (hugo-shared), which emails it.",
+  "author": "Menashe Forge",
+  "keywords": ["hugo", "form", "email", "cloudflare-workers"]
+}

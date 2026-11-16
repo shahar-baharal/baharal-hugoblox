@@ -499,3 +499,22 @@
 
 - id: block_map_toggle_attribution
   translation: "הצגת קרדיטים"
+
+# Inquiry form block
+- id: block_inquiry_form_submit
+  translation: "שליחה"
+
+- id: block_inquiry_form_sending
+  translation: "שולח..."
+
+- id: block_inquiry_form_success
+  translation: "תודה! הפרטים התקבלו - נחזור אליכם בהקדם."
+
+- id: block_inquiry_form_error
+  translation: "משהו השתבש בשליחה. נסו שוב בעוד רגע."
+
+- id: block_inquiry_form_required_note
+  translation: "שדות המסומנים ב-* הם שדות חובה."
+
+- id: block_inquiry_form_preview_note
+  translation: "הטופס יופעל בקרוב - זוהי תצוגה מקדימה."

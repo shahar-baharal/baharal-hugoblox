@@ -38,6 +38,12 @@ What changed since the fork: `git log 68cbf335..main -- modules/blox`.
 | `params.root_absolute: true` on a `footer` menu entry | Links to the site-root path, not the language's (e.g. `/admin/` from `/he/`), in a new tab |
 | `whatsapp` in `contact-info`'s `content` (or `data/contact.yaml`, or the author profile): digits after `wa.me/`, country code first, no `+` | A WhatsApp row after the phone, opening a chat in a new tab |
 
+## Blocks added
+
+| Block | What |
+|---|---|
+| `inquiry-form` | A request form from the block's `content` fields; posts JSON to the site's `/api/inquiry` Worker (hugo-shared), which emails the owner. `blox/inquiry-form/README.md` |
+
 ## Planned: a footer that stands apart from the last block
 
 Shahar's intention (2026-11-05): on every site, the footer's background differs from the last block's, so a visitor sees two parts, not one. Each site used to get this by hand. The plan is to make it the fork's default behavior; it isn't built yet.

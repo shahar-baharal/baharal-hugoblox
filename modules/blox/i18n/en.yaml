@@ -742,3 +742,22 @@
 
 - id: block_map_toggle_attribution
   translation: "Toggle attribution"
+
+# Inquiry form block
+- id: block_inquiry_form_submit
+  translation: "Send"
+
+- id: block_inquiry_form_sending
+  translation: "Sending…"
+
+- id: block_inquiry_form_success
+  translation: "Thank you! We'll be in touch soon."
+
+- id: block_inquiry_form_error
+  translation: "Something went wrong. Please try again in a moment."
+
+- id: block_inquiry_form_required_note
+  translation: "Fields marked * are required."
+
+- id: block_inquiry_form_preview_note
+  translation: "This form is coming soon."
