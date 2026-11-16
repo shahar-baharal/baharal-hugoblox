@@ -761,3 +761,21 @@
 
 - id: block_inquiry_form_preview_note
   translation: "This form is coming soon."
+
+- id: block_inquiry_form_review_button
+  translation: "Continue to review"
+
+- id: block_inquiry_form_review_title
+  translation: "Check your request"
+
+- id: block_inquiry_form_review_note
+  translation: "Your request has not been sent yet."
+
+- id: block_inquiry_form_edit
+  translation: "Edit"
+
+- id: block_inquiry_form_sent_title
+  translation: "Request sent"
+
+- id: block_inquiry_form_ref_label
+  translation: "Reference number"

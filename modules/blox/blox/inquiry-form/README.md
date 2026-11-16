@@ -33,12 +33,30 @@ Without that Worker, set `preview: true`.
         min: 1
         width: third
     # Optional overrides of the interface text (else i18n block_inquiry_form_*):
-    # submit, sending, success, error, required_note, preview_note
+    # submit, sending, success, error, required_note, preview_note,
+    # review_button, review_title, review_note, edit, sent_title, ref_label
     # preview: true              # submit disabled, "coming soon" note: before the Worker is set up
+    # review: true               # check-answers step before sending, then a confirmation (below)
 ```
 
 A field labeled with `type: email` becomes the email's reply-to. Content may
 also come from `data/blocks/<ref>.yaml` with `ref:`.
+
+## Review mode (`review: true`)
+
+For visitors' confidence that the request arrived (the GOV.UK "check answers"
+and "confirmation page" patterns). Three views, one at a time, on the same page:
+
+1. **Form**: the button reads `review_button`; the browser's own validation runs.
+2. **Check answers**: the filled fields as label/value (empty ones left out),
+   `review_note` says nothing was sent yet; `submit` sends, `edit` (or the
+   browser's Back) returns to the form with every answer kept. A failed send
+   stays here with the `error` text.
+3. **Sent**: `sent_title`, the Worker's `ref` (also in the email subject, so
+   owner and visitor can name the request), `success` as the "what happens
+   next" line, and the answers again.
+
+Focus moves to each view's heading. Nothing is stored: a reload starts over.
 
 ## Notes
 

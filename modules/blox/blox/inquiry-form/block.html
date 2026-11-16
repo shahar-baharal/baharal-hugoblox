@@ -1,16 +1,21 @@
 {{/* Menashe Forge: Inquiry Form block (README.md beside this file).
      Fields and copy come from the block's `content`; it posts JSON to
      /api/inquiry, the site's Worker from hugo-shared (assets/inquiry/), which
-     emails the owner. `content.preview: true` = submit disabled. */}}
+     emails the owner. `content.preview: true` = submit disabled.
+     `content.review: true` = submit shows a check-answers step first, then a
+     confirmation with the Worker's reference number and the answers. */}}
 {{ $block := .wcBlock }}
 {{ $c := $block.content }}
 {{ if not (reflect.IsMap $c) }}{{ $c = dict }}{{ end }}
 {{/* Interface text: the content's value, else the translation. */}}
 {{ $t := dict }}
-{{ range $k, $en := dict "submit" "Send" "sending" "Sending…" "success" "Thank you! We'll be in touch soon." "error" "Something went wrong. Please try again in a moment." "required_note" "Fields marked * are required." "preview_note" "This form is coming soon." }}
+{{ range $k, $en := dict "submit" "Send" "sending" "Sending…" "success" "Thank you! We'll be in touch soon." "error" "Something went wrong. Please try again in a moment." "required_note" "Fields marked * are required." "preview_note" "This form is coming soon." "review_button" "Continue to review" "review_title" "Check your request" "review_note" "Your request has not been sent yet." "edit" "Edit" "sent_title" "Request sent" "ref_label" "Reference number" }}
   {{ $t = merge $t (dict $k (index $c $k | default (i18n (printf "block_inquiry_form_%s" $k)) | default $en)) }}
 {{ end }}
 {{ $preview := $c.preview | default false }}
+{{ $review := $c.review | default false }}
+{{ $btn := "px-6 py-[0.85rem] rounded-full font-bold text-lg cursor-pointer disabled:opacity-55 disabled:cursor-not-allowed" }}
+{{ $primary := printf "%s bg-primary-600 text-white dark:text-[var(--hb-color-background)]" $btn }}
 {{ $control := "w-full px-[0.8rem] py-[0.6rem] rounded-lg border border-slate-500/45 bg-[var(--hb-color-background)] text-[var(--hb-color-foreground)]" }}
 {{ $span := dict "full" "" "half" "sm:col-span-3" "third" "sm:col-span-2" }}
 <div class="container mx-auto max-w-3xl py-16">
@@ -21,7 +26,7 @@
   </div>
   {{ end }}
   <form class="inquiry-form rounded-2xl p-8 bg-[var(--hb-color-background)]" action="/api/inquiry" method="POST"
-        data-subject="{{ $c.subject }}" data-sending="{{ $t.sending }}" data-success="{{ $t.success }}" data-error="{{ $t.error }}">
+        data-subject="{{ $c.subject }}" data-sending="{{ $t.sending }}" data-success="{{ $t.success }}" data-error="{{ $t.error }}"{{ if $review }} data-review{{ end }}>
     <input type="checkbox" name="botcheck" class="inquiry-honeypot hidden" tabindex="-1" autocomplete="off" aria-hidden="true">
     <p class="mt-3 mb-4 text-center font-semibold opacity-75">{{ $t.required_note }}</p>
     <div class="grid grid-cols-6 gap-x-5 gap-y-4">
@@ -51,46 +56,135 @@
         </div>
       {{ end }}
     </div>
-    <button type="submit" class="inquiry-submit mt-6 w-full px-6 py-[0.85rem] rounded-full bg-primary-600 text-white dark:text-[var(--hb-color-background)] font-bold text-lg cursor-pointer disabled:opacity-55 disabled:cursor-not-allowed"{{ if $preview }} disabled{{ end }}>{{ $t.submit }}</button>
+    <button type="submit" class="inquiry-submit mt-6 w-full {{ $primary }}"{{ if $preview }} disabled{{ end }}>{{ if $review }}{{ $t.review_button }}{{ else }}{{ $t.submit }}{{ end }}</button>
     {{ if $preview }}<p class="mt-3 text-center font-semibold opacity-75">{{ $t.preview_note }}</p>{{ end }}
     <p class="inquiry-status mt-3 text-center font-semibold" role="status" aria-live="polite"></p>
   </form>
+  {{ if $review }}
+  {{/* Filled by the script below from the form's fields. */}}
+  {{ $summary := "inquiry-summary grid grid-cols-[auto_1fr] gap-x-6 gap-y-2 my-6" }}
+  <div class="inquiry-review rounded-2xl p-8 bg-[var(--hb-color-background)]" hidden>
+    <h3 class="text-2xl font-bold mb-2 outline-none" tabindex="-1">{{ $t.review_title }}</h3>
+    <p class="font-semibold opacity-75">{{ $t.review_note }}</p>
+    <dl class="{{ $summary }}"></dl>
+    <div class="flex flex-col sm:flex-row-reverse gap-3">
+      <button type="button" class="inquiry-send flex-1 {{ $primary }}">{{ $t.submit }}</button>
+      <button type="button" class="inquiry-edit flex-1 {{ $btn }} border-2 border-primary-600">{{ $t.edit }}</button>
+    </div>
+    <p class="inquiry-status mt-3 text-center font-semibold" role="status" aria-live="polite"></p>
+  </div>
+  <div class="inquiry-sent rounded-2xl p-8 bg-[var(--hb-color-background)]" hidden>
+    <h3 class="text-2xl font-bold mb-2 outline-none" tabindex="-1"><span aria-hidden="true">✓</span> {{ $t.sent_title }}</h3>
+    <p class="text-lg">{{ $t.ref_label }}: <strong class="inquiry-ref" dir="ltr"></strong></p>
+    <p class="mt-2">{{ $t.success }}</p>
+    <dl class="{{ $summary }}"></dl>
+  </div>
+  {{ end }}
 </div>
 {{ if not $preview }}
 <script>
   document.querySelectorAll('.inquiry-form').forEach((form) => {
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const status = form.querySelector('.inquiry-status');
-      const button = form.querySelector('.inquiry-submit');
+    const root = form.parentElement;
+    const inputs = () => [...form.querySelectorAll('[data-label]')];
+    // The request contract: hugo-shared README, "Inquiry form". Resolves to the reference number.
+    const send = async () => {
+      const res = await fetch(form.action, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          subject: form.dataset.subject,
+          lang: document.documentElement.lang,
+          dir: getComputedStyle(form).direction,
+          botcheck: form.botcheck.checked,
+          fields: inputs().map((el) => ({
+            label: el.dataset.label, type: el.type, value: el.value, width: el.dataset.width,
+          })),
+        }),
+      });
+      const data = await res.json();
+      if (!data.success) throw new Error(res.status);
+      return data.ref;
+    };
+    // Runs `work` with `button` disabled and showing "sending"; errors go to `status`.
+    const busy = async (button, status, work) => {
       const label = button.textContent;
       button.disabled = true;
       button.textContent = form.dataset.sending;
+      status.textContent = '';
       try {
-        // The request contract: hugo-shared README, "Inquiry form".
-        const res = await fetch(form.action, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            subject: form.dataset.subject,
-            lang: document.documentElement.lang,
-            dir: getComputedStyle(form).direction,
-            botcheck: form.botcheck.checked,
-            fields: [...form.querySelectorAll('[data-label]')].map((el) => ({
-              label: el.dataset.label, type: el.type, value: el.value, width: el.dataset.width,
-            })),
-          }),
-        });
-        if (!(await res.json()).success) throw new Error(res.status);
-        status.textContent = form.dataset.success;
-        form.reset();
+        await work();
       } catch {
         status.textContent = form.dataset.error;
       } finally {
         button.disabled = false;
         button.textContent = label;
       }
+    };
+
+    if (!('review' in form.dataset)) {
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const status = form.querySelector('.inquiry-status');
+        busy(form.querySelector('.inquiry-submit'), status, async () => {
+          await send();
+          status.textContent = form.dataset.success;
+          form.reset();
+        });
+      });
+      return;
+    }
+
+    // Review mode: form -> check answers -> sent. One view at a time.
+    const review = root.querySelector('.inquiry-review');
+    const sent = root.querySelector('.inquiry-sent');
+    const show = (view) => {
+      for (const v of [form, review, sent]) v.hidden = v !== view;
+      const focus = view === form ? form.querySelector('[data-label]') : view.querySelector('h3');
+      root.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      focus.focus({ preventScroll: true });
+    };
+    const lang = document.documentElement.lang;
+    const shown = (el) =>
+      el.type === 'date' && el.value ? new Date(el.value + 'T00:00').toLocaleDateString(lang) : el.value.trim();
+    const fill = (dl) => {
+      dl.replaceChildren();
+      for (const el of inputs()) {
+        const value = shown(el);
+        if (!value) continue;
+        const dt = document.createElement('dt');
+        dt.className = 'font-semibold opacity-75';
+        dt.textContent = el.dataset.label;
+        const dd = document.createElement('dd');
+        dd.className = 'm-0 whitespace-pre-line break-words';
+        dd.textContent = value;
+        if (el.type === 'tel' || el.type === 'email') {
+          dd.dir = 'ltr';
+          dd.className += ' rtl:text-right';
+        }
+        dl.append(dt, dd);
+      }
+    };
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      fill(review.querySelector('dl'));
+      review.querySelector('.inquiry-status').textContent = '';
+      show(review);
+      history.pushState({ inquiry: 'review' }, ''); // Back = edit
     });
+    review.querySelector('.inquiry-edit').addEventListener('click', () => history.back());
+    window.addEventListener('popstate', () => {
+      if (!review.hidden) show(form);
+    });
+    const button = review.querySelector('.inquiry-send');
+    button.addEventListener('click', () =>
+      busy(button, review.querySelector('.inquiry-status'), async () => {
+        sent.querySelector('.inquiry-ref').textContent = await send();
+        fill(sent.querySelector('dl'));
+        history.replaceState(null, '');
+        show(sent);
+      })
+    );
   });
 </script>
 {{ end }}
