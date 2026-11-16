@@ -221,13 +221,10 @@
   display: none !important;
 }
 
-/* Support for dual light/dark background colors in parse_block_v2.html */
-@media (prefers-color-scheme: dark) {
-  .home-section-bg[style*="--dark-bg-color"] {
-    background-color: var(--dark-bg-color) !important;
-  }
-}
-
+/* Support for dual light/dark background colors in parse_block_v3.html.
+   Keyed on .dark only: hb-head.js sets it for "system" mode too. A
+   prefers-color-scheme rule here kept the dark color when a visitor on a dark
+   OS picked light (Menashe Forge fix). */
 .dark .home-section-bg[style*="--dark-bg-color"] {
   background-color: var(--dark-bg-color) !important;
 }
