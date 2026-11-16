@@ -27,6 +27,7 @@ Without that Worker, set `preview: true`.
       - label: "Trip type"
         type: select
         options: ["Round trip", "One way"]
+      - heading: "Passengers"      # a group heading between fields (form only, not in the email)
       - label: "Adults"
         type: number
         default: 1                 # also: placeholder, min
@@ -37,6 +38,7 @@ Without that Worker, set `preview: true`.
     # review_button, review_title, review_note, edit, sent_title, ref_label
     # preview: true              # submit disabled, "coming soon" note: before the Worker is set up
     # review: true               # check-answers step before sending, then a confirmation (below)
+    # title_level: 1             # the title as the page's h1, for a page of its own (default 2)
 ```
 
 A field labeled with `type: email` becomes the email's reply-to. Content may
