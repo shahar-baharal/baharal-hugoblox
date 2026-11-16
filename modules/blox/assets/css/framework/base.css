@@ -1,5 +1,15 @@
 /* Base styles for better text rendering */
 @layer base {
+  /* Form controls and placeholders take the theme's derived colors (fork;
+     theme_variables.html), so blocks don't set their own grays. */
+  input:where(:not([type="checkbox"], [type="radio"], [type="range"])), textarea, select {
+    border-color: var(--hb-color-border);
+  }
+  ::placeholder {
+    color: var(--hb-color-muted);
+    opacity: 1;
+  }
+
   html {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;

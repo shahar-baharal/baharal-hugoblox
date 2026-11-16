@@ -21,7 +21,7 @@
 {{ $review := $c.review | default false }}
 {{ $btn := "px-6 py-[0.85rem] rounded-full font-bold text-lg cursor-pointer disabled:opacity-55 disabled:cursor-not-allowed" }}
 {{ $primary := printf "%s bg-primary-600 text-white dark:text-[var(--hb-color-background)]" $btn }}
-{{ $control := "w-full px-[0.8rem] py-[0.6rem] rounded-lg border border-slate-500/45 aria-invalid:border-2 aria-invalid:border-red-700 dark:aria-invalid:border-red-300 bg-[var(--hb-color-background)] text-[var(--hb-color-foreground)]" }}
+{{ $control := "w-full px-[0.8rem] py-[0.6rem] rounded-lg border aria-invalid:border-2 aria-invalid:border-red-700 dark:aria-invalid:border-red-300 bg-[var(--hb-color-background)] text-[var(--hb-color-foreground)]" }}
 {{/* Field error messages, for the script: {key} is the field's attribute. */}}
 {{ $errors := dict }}
 {{ range $k, $v := $t }}{{ if hasPrefix $k "error_" }}{{ $errors = merge $errors (dict (strings.TrimPrefix "error_" $k) $v) }}{{ end }}{{ end }}

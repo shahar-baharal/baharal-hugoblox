@@ -20,8 +20,18 @@
 --hb-color-background: {{ $data.surfaces.background | default "#ffffff" }};
 --hb-color-foreground: {{ $data.surfaces.foreground | default "#000000" }};
 
-{{/* Header */}}
---hb-color-header-bg: {{ $data.surfaces.header.background | default $data.surfaces.background | default "#ffffff" }};
+{{/* Derived colors (fork): a pack sets the page background and text color;
+     these follow from them, mixed to meet WCAG contrast on every pack (checked
+     against all Menashe Forge packs, page and alternate sections).
+     border: form-control outlines, >= 3:1 (WCAG 1.4.11). muted: placeholder
+     and secondary text, >= 4.5:1 (WCAG 1.4.3). */}}
+--hb-color-border: color-mix(in oklab, var(--hb-color-foreground) 55%, var(--hb-color-background));
+--hb-color-muted: color-mix(in oklab, var(--hb-color-foreground) 70%, var(--hb-color-background));
+
+{{/* Header (fork default): an elevated surface, never the page color, so the
+     first block can't merge into it. Light: white. Dark: the page with 8% of
+     its text color. A pack's surfaces.header.background overrides it. */}}
+--hb-color-header-bg: {{ $data.surfaces.header.background | default (cond $.is_dark "color-mix(in oklab, var(--hb-color-foreground) 8%, var(--hb-color-background))" "#ffffff") }};
 --hb-color-header-fg: {{ $data.surfaces.header.foreground | default $data.surfaces.foreground | default "#000000" }};
 
 {{/* Alternate section (fork): every second landing-page block (landing_page.html).
