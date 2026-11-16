@@ -44,6 +44,10 @@ input#nav-toggle:checked ~ #nav-menu {
 #site-header.header {
   background-color: var(--hb-color-header-bg);
   color: var(--hb-color-header-fg);
+  /* Menashe Forge: a hairline tinted from the header's own text color. The
+     black shadow alone vanishes on dark backgrounds, so a header the same
+     color as the section below it merged into it. */
+  border-bottom: 1px solid color-mix(in oklab, var(--hb-color-header-fg) 25%, transparent);
   @apply py-3 shadow;
 }
 
