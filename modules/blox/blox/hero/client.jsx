@@ -17,6 +17,8 @@ function renderHeroBlocks() {
       try {
         const props = JSON.parse(propsData);
 
+        // Drop the server-rendered crawler copy (preact-wrapper.html) so the page has one <h1>
+        block.replaceChildren();
         // Render the Preact component into the container
         render(<HeroBlock {...props} />, block);
         console.debug(`✓ Hero block "${block.id}" rendered with Preact`);

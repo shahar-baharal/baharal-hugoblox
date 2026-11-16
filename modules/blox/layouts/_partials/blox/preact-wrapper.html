@@ -254,8 +254,15 @@
   data-props='{{ $propsJSON | safeHTML }}'
   data-preact-render="true"
 >
-  {{/* Empty - Preact renders everything */}}
-  {{/* Could add a loading skeleton here if desired */}}
+  {{/* Hero: a hidden server-rendered copy of the heading and text, so crawlers
+       and link-preview bots that don't run JavaScript still see the page's <h1>.
+       blox/hero/client.jsx clears it before Preact draws the visible hero. */}}
+  {{ if and (eq $block_type "hero") $block.content.title }}
+    <div class="sr-only" data-hero-ssr>
+      <h1>{{ $block.content.title | markdownify | plainify }}</h1>
+      {{ with $block.content.text }}<p>{{ . | markdownify | plainify }}</p>{{ end }}
+    </div>
+  {{ end }}
 </div>
 
 {{/* Preact script loading is handled by libraries.html */}}
