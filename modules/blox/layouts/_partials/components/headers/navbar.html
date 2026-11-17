@@ -118,7 +118,7 @@
             {{- if not $.IsHome -}}
               {{- $url = site.Home.RelPermalink -}}
             {{- end }}
-            {{- $url = .URL -}}
+            {{- $url = printf "%s%s" $url .URL -}}
           {{- else -}}
             {{- $url = .URL | relLangURL -}}
           {{- end -}}
@@ -141,7 +141,7 @@
         {{- if not $.IsHome -}}
           {{- $url = site.Home.RelPermalink -}}
         {{- end }}
-        {{- $url = .URL -}}
+        {{- $url = printf "%s%s" $url .URL -}}
         {{- else -}}
         {{- $url = .URL | relLangURL -}}
       {{- end -}}
