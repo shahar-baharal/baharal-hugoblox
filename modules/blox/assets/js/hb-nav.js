@@ -45,8 +45,16 @@ window.addEventListener("DOMContentLoaded", () => {
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape" && navToggle?.checked) {
       navToggle.click();
-      navToggle.focus();
+      navToggle.focus({ preventScroll: true });
     }
+  });
+
+  // Tapping the hamburger label would focus the checkbox, and Chrome scrolls a
+  // focused element in the sticky header back toward its place at the top of
+  // the page. Toggle the checkbox directly instead, which doesn't focus it.
+  document.querySelector("label[for='nav-toggle']")?.addEventListener("click", (e) => {
+    e.preventDefault();
+    navToggle?.click();
   });
 
   // Tapping a link in the open mobile menu closes it. Only an in-page link
