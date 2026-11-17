@@ -49,5 +49,12 @@ window.addEventListener("DOMContentLoaded", () => {
     }
   });
 
+  // Tapping a link in the open mobile menu closes it. Only an in-page link
+  // (#section) needs this, since others load a new page, but closing on any
+  // link keeps it simple. Dropdown parents are spans, so they stay unaffected.
+  document.querySelector("#nav-menu")?.addEventListener("click", (e) => {
+    if (navToggle?.checked && e.target.closest("a[href]")) navToggle.click();
+  });
+
   applyScrollPadding();
 });
