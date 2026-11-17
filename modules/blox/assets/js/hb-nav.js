@@ -38,5 +38,16 @@ window.addEventListener("DOMContentLoaded", () => {
     });
   });
 
+  // Mobile menu (navbar.html's #nav-toggle checkbox): Escape closes it and
+  // puts focus back on the toggle. click() rather than setting .checked, so
+  // any other listener on the toggle (hb-sidebar.js) stays in step.
+  const navToggle = document.querySelector("#nav-toggle");
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && navToggle?.checked) {
+      navToggle.click();
+      navToggle.focus();
+    }
+  });
+
   applyScrollPadding();
 });
