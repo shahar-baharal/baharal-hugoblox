@@ -7,7 +7,10 @@
 .navbar-brand {
   /* @apply text-black dark:text-white text-xl font-semibold; */
   color: var(--hb-color-header-fg);
-  @apply text-xl font-semibold;
+  /* Flex row, not inline: inline, the logo sat on the text baseline and the
+     name rode up to 3px above the logo and nav links. The gap stands in for
+     the whitespace between them, which flex drops. */
+  @apply flex items-center gap-1.5 text-xl font-semibold;
 }
 
 .navbar-brand svg {
