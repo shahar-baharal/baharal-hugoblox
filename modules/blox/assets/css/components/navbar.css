@@ -1,7 +1,27 @@
 /* Navigation Styles */
 
 .navbar {
-  @apply relative flex flex-wrap items-center justify-between;
+  /* The one space between header controls (theme toggle, language, CTA,
+     search, hamburger). Controls carry no outer padding or margin of their
+     own: the row spaces them, so a hidden or disabled control leaves no gap. */
+  --navbar-gap: 0.5rem;
+  @apply relative flex flex-wrap items-center justify-between max-lg:gap-x-[var(--navbar-gap)];
+}
+
+/* In the components layer, unlike the rest of this file, so utilities such
+   as lg:hidden on a control still win. */
+@layer components {
+  /* The controls group at the end of the header. */
+  .navbar-actions {
+    @apply flex items-center gap-[var(--navbar-gap)];
+  }
+
+  /* An icon-only control: a 28px tap area (WCAG 2.5.8 asks for 24px), the
+     icon centered in it. Block-level flex: inline-flex would sit in a text
+     line box inside its wrapper and add height. */
+  .navbar-icon {
+    @apply flex items-center justify-center min-w-7 min-h-7;
+  }
 }
 
 .navbar-brand {
