@@ -9,7 +9,7 @@
 {{- $cta_href := cond (or (hasPrefix $cta_url "tel:") (hasPrefix $cta_url "mailto:")) ($cta_url | safeURL) ($cta_url | relLangURL) -}}
 <header id="site-header" class="header">
   <nav class="navbar px-3 flex justify-start" aria-label="{{ i18n "navigation" | default "Navigation" }}">
-    <div class="order-0 h-full">
+    <div class="navbar-brand-slot order-0 h-full">
       <!-- Brand -->
       <a class="navbar-brand" href="{{ site.Home.RelPermalink }}" title="{{ $branding.site_title }}">
         {{/* Auto-detect logo from assets/media/logo.{svg,png} */}}
@@ -54,7 +54,7 @@
         {{ end }}
         {{ end }}
         {{/* Display brand name */}}
-        {{ if $show_title }}{{ $navbar_title }}{{ end }}
+        {{ if $show_title }}<span class="navbar-title">{{ $navbar_title }}</span>{{ end }}
       </a>
     </div>
     <!-- Mobile menu -->

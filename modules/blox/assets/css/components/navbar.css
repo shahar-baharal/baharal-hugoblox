@@ -11,6 +11,24 @@
 /* In the components layer, unlike the rest of this file, so utilities such
    as lg:hidden on a control still win. */
 @layer components {
+  /* Below lg the header is one row: brand, controls, hamburger. The brand
+     yields the space (flex-basis 0, so the row never wraps to fit it) and a
+     name too long for the screen ends in an ellipsis; the controls keep
+     their size. Desktop keeps the brand at its natural width. */
+  .navbar-brand-slot {
+    @apply flex min-w-0 max-lg:flex-[1_1_0%];
+  }
+  .navbar-brand {
+    @apply min-w-0;
+  }
+  .navbar-title {
+    @apply truncate;
+  }
+  .navbar-actions,
+  .navbar-icon {
+    @apply shrink-0;
+  }
+
   /* The controls group at the end of the header. */
   .navbar-actions {
     @apply flex items-center gap-[var(--navbar-gap)];
