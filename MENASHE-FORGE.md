@@ -40,6 +40,10 @@ What changed since the fork: `git log 68cbf335..main -- modules/blox`.
 | `params.root_absolute: true` on a `footer` menu entry | Links to the site-root path, not the language's (e.g. `/admin/` from `/he/`), in a new tab |
 | `whatsapp` in `contact-info`'s `content` (or `data/contact.yaml`, or the author profile): digits after `wa.me/`, country code first, no `+` | A WhatsApp row after the phone, opening a chat in a new tab |
 
+## Link previews
+
+A site's `assets/media/sharing.*` (or a page's featured image) can be any size: `og:image` and the JSON-LD `image` send a light copy, an 800px-wide JPG (`layouts/_partials/functions/get_share_image.html`), because chat apps build previews on the sender's phone. A JPG already 800px or less is sent as is.
+
 ## Blocks added
 
 | Block | What |

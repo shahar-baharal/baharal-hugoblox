@@ -133,9 +133,9 @@
   {{ $og_image = ($avatar_image.Fill "540x540 Center").Permalink }}
   {{ $twitter_card = "summary" }}
 {{ else if $featured_image }}
-    {{ $og_image = $featured_image.Permalink }}
+    {{ $og_image = (partial "functions/get_share_image" $featured_image).Permalink }}
   {{ else if $sharing_image }}
-    {{ $og_image = $sharing_image.Permalink }}
+    {{ $og_image = (partial "functions/get_share_image" $sharing_image).Permalink }}
   {{ else if $has_logo }}
     {{/* !CACHED! Can safely cache this site logo variant */}}
     {{ $logo_data := partialCached "functions/get_logo" (dict "constraint" "fit" "size" 300) "logo_og" }}

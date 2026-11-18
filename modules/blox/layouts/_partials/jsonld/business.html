@@ -7,7 +7,7 @@
   "@id": {{site.BaseURL}},
   "name": {{$branding.organization}},
   "logo": {{ partial "functions/get_logo_url" . }},
-  {{with $sharing_image}}"image": {{.Permalink}},{{end}}
+  {{with $sharing_image}}"image": {{(partial "functions/get_share_image" .).Permalink}},{{end}}
   {{/* Fork: any business type with coordinates gets geo (upstream required type "local_business", which no schema.org type matches). */}}
   {{ with site.Params.hugoblox.seo.location.coordinates }}
   "geo": {

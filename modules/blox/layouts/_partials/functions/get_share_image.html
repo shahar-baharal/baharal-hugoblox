@@ -1,0 +1,20 @@
+{{/*
+  Fork: the light copy of a link-preview image (og:image, JSON-LD image).
+  Chat apps build previews on the sender's phone, so the image should stay
+  small on a weak connection: an 800px-wide JPG, about 25 KB, which is still
+  above Facebook's 600px minimum for a large preview. Sites commit any image
+  at full quality; only this copy is sent. Non-raster images (SVG) pass
+  through unchanged, and so does a JPG already 800px wide or less
+  (re-encoding a hand-tuned card only makes it bigger).
+
+  Input: an image resource. Returns: a resource.
+*/}}
+{{- $img := . -}}
+{{- if in (slice "jpeg" "png" "webp" "gif" "tiff" "bmp") $img.MediaType.SubType -}}
+  {{- if gt $img.Width 800 -}}
+    {{- $img = $img.Resize "800x jpg q75" -}}
+  {{- else if ne $img.MediaType.SubType "jpeg" -}}
+    {{- $img = $img.Process "jpg q75" -}}
+  {{- end -}}
+{{- end -}}
+{{- return $img -}}
