@@ -50,6 +50,27 @@ A site's `assets/media/sharing.*` (or a page's featured image) can be any size: 
 |---|---|
 | `inquiry-form` | A request form from the block's `content` fields; posts JSON to the site's `/api/inquiry` Worker (hugo-shared), which emails the owner. `blox/inquiry-form/README.md` |
 
+## Analytics
+
+`layouts/_partials/blox-analytics/` (from upstream's `modules/analytics`, no longer imported): search-engine verification tags (`hugoblox.verification.*`), Google Analytics (`hugoblox.analytics.google.measurement_id`, IP anonymized unless `hugoblox.privacy.anonymize_analytics = false`) and Google Tag Manager (`hugoblox.analytics.google_tag_manager.container_id`), production builds only. Cloudflare Web Analytics is hugo-shared's.
+
+## Removed, restorable
+
+Removed on 2026-11-19 because no site used them and they don't fit a local-business site. Each is restorable from upstream's base commit, e.g. `git checkout 68cbf335 -- modules/blox/blox/portfolio`. It then needs the rules above applied (start/end layout, i18n keys, derived colors), and a check in Hebrew.
+
+| What | For | Path(s) at `68cbf335` |
+|---|---|---|
+| `resume-awards`, `resume-biography`, `resume-biography-3`, `resume-experience`, `resume-languages`, `resume-skills` | A personal CV | `modules/blox/blox/resume-*`, `blox/shared/css/biography-shared.css` |
+| `dev-hero`, `tech-stack` | A developer portfolio | `modules/blox/blox/{dev-hero,tech-stack}` |
+| Math (KaTeX) | Equations: `math` shortcode, `$…$` in Markdown (goldmark `passthrough` in `hugo.yaml`) | `layouts/_shortcodes/math.html`, `assets/js/katex-config.js`, `assets/dist/lib/katex` |
+| Diagrams (Mermaid), mind maps (Markmap) | ` ```mermaid ` / ` ```markmap ` code blocks | `layouts/_markup/render-codeblock-{mermaid,markmap}.html`, `assets/js/hb-mermaid-config.js`, `assets/dist/lib/{mermaid,markmap}` |
+| Charts (Plotly) | `chart` shortcode | `layouts/_shortcodes/chart.html`, `assets/dist/lib/plotly` |
+| Icon packs `devicon/`, `academicons/` | Programming-language and academic logos | `modules/blox/data/icons/{devicon,academicons}.json` |
+| Analytics: Fathom, Plausible, Pirsch, Microsoft Clarity, Baidu | Other analytics services | upstream `HugoBlox/kit` `modules/analytics` v0.3.1 |
+| Upstream starters, test site, slides and Netlify modules, tooling, CI | Upstream's own development | `templates/`, `test/`, `scripts/`, `modules/{slides,integrations}`, `.github/` |
+
+The library loaders for math, diagrams and charts lived in `layouts/_partials/libraries.html`; the libraries' entries in the root `package.json` and `vite.config.js`.
+
 ## Planned: a footer that stands apart from the last block
 
 Shahar's intention (2026-11-05): on every site, the footer's background differs from the last block's, so a visitor sees two parts, not one. Each site used to get this by hand. The plan is to make it the fork's default behavior; it isn't built yet.

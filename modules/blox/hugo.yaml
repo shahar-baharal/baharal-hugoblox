@@ -117,8 +117,6 @@ module:
     # so spawns under tailwindcss (e.g. @parcel/watcher's detect-libc →
     # getconf on Linux) are blocked with ERR_ACCESS_DENIED.
     min: "0.161.1"
-  imports:
-    - path: github.com/HugoBlox/kit/modules/analytics
   mounts:
     - source: content
       target: content
