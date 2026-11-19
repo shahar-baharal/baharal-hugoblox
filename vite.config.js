@@ -26,7 +26,7 @@ export default defineConfig({
     },
     rollupOptions: {
       // Don't bundle these libraries, just copy them
-      external: ["mermaid", "plotly.js", "katex", "markmap-autoloader", "alpinejs", "maplibre-gl"],
+      external: ["alpinejs", "maplibre-gl"],
     },
   },
 
@@ -34,41 +34,9 @@ export default defineConfig({
     // Copy vendor libraries to module assets
     viteStaticCopy({
       targets: [
-        // Mermaid - Diagram rendering
-        {
-          src: "node_modules/mermaid/dist/mermaid.min.js",
-          dest: "mermaid/",
-        },
 
-        // Plotly - Interactive charts
-        {
-          src: "node_modules/plotly.js/dist/plotly.min.js",
-          dest: "plotly/",
-        },
 
-        // KaTeX - Math rendering
-        {
-          src: "node_modules/katex/dist/katex.min.js",
-          dest: "katex/",
-        },
-        {
-          src: "node_modules/katex/dist/katex.min.css",
-          dest: "katex/",
-        },
-        {
-          src: "node_modules/katex/dist/contrib/auto-render.min.js",
-          dest: "katex/",
-        },
-        {
-          src: "node_modules/katex/dist/fonts/",
-          dest: "katex/",
-        },
 
-        // Markmap - Mind map rendering
-        {
-          src: "node_modules/markmap-autoloader/dist/index.js",
-          dest: "markmap/",
-        },
         // Alpine.js
         {
           src: "node_modules/alpinejs/dist/cdn.min.js",

@@ -18,25 +18,10 @@ markup:
       # Render HTML in Markdown
       unsafe: true
     parser:
-      # Support Latex math(?)
       attribute:
         block: true # For callouts as quote blocks
         title: true
     extensions:
-      # Support Latex math
-      passthrough:
-        enable: true
-        delimiters:
-          block:
-            - - \[
-              - \]
-            - - $$
-              - $$
-          inline:
-            - - \(
-              - \)
-            - - $
-              - $
       extras:
         # Enable subscript, superscript, and highlighting with ~,^, and == wrappers
         insert:

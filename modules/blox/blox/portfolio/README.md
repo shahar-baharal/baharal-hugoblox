@@ -95,7 +95,7 @@ featured: true
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
 | `columns` | integer | 3 | Grid columns (2, 3, or 4) |
-| `fallback_icon` | string | `code-bracket` | Icon shown when item has no image. Supports all Hugo Blox icon packs (hero, brands, devicon, emoji, custom). Format: `icon-name` or `pack/icon-name` |
+| `fallback_icon` | string | `code-bracket` | Icon shown when item has no image. Supports all Hugo Blox icon packs (hero, brands, emoji, custom). Format: `icon-name` or `pack/icon-name` |
 | `status_badge.enable` | boolean | true | Show or hide the status badge |
 
 ## Link Types
@@ -133,7 +133,7 @@ links:
   - type: custom
     url: "..."
     label: "Python Code"
-    icon: devicon/python  # Devicon
+    icon: brands/python  # Brand icon
 ```
 
 ## Status Badges
@@ -188,7 +188,7 @@ status: "Live"
       - {name: Machine Learning, tag: ML}
       - {name: Computational Biology, tag: CompBio}
   design:
-    fallback_icon: academic-cap  # Or: beaker, emoji/microscope, devicon/python
+    fallback_icon: academic-cap  # Or: beaker, emoji/microscope
     columns: 2
 ```
 
@@ -294,10 +294,6 @@ status: "Spring 2024"
      - `brands/github` - GitHub projects
      - `brands/linkedin` - Professional work
      - `brands/dribbble` - Design work
-   - **Devicon** (use `devicon/` prefix):
-     - `devicon/python` - Python projects
-     - `devicon/react` - React projects
-     - `devicon/docker` - DevOps work
    - **Emoji** (use `emoji/` prefix or direct unicode):
      - `emoji/rocket` or 🚀
      - `emoji/art` or 🎨
